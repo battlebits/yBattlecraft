@@ -1,0 +1,51 @@
+package br.com.battlebits.battlecraft.warps;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.inventory.ItemStack;
+
+import br.com.battlebits.battlecraft.Main;
+import br.com.battlebits.battlecraft.constructors.BaseWarp;
+import br.com.battlebits.battlecraft.constructors.Warp;
+import br.com.battlebits.battlecraft.events.PlayerDamagePlayerEvent;
+import br.com.battlebits.battlecraft.events.PlayerWarpJoinEvent;
+
+public class WarpLavaChallenge extends BaseWarp {
+
+	public WarpLavaChallenge(Main main) {
+		super(main);
+	}
+
+	@EventHandler
+	public void onDamage(PlayerDamagePlayerEvent event) {
+		Player p1 = event.getDamager();
+		Player p2 = event.getDamaged();
+		if (isOnWarp(p1) || isOnWarp(p2)) {
+			event.setCancelled(true);
+		}
+	}
+
+	@EventHandler
+	public void onTeleport(PlayerWarpJoinEvent event) {
+		if (!event.getWarp().getWarpName().toLowerCase().contains("lava"))
+			return;
+		Player p = event.getPlayer();
+		getMain().getProtectionManager().removeProtection(p.getUniqueId());
+		p.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
+		for (ItemStack i : p.getInventory().getContents()) {
+			if (i == null)
+				p.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
+		}
+		getMain().getKitManager().setForcedKit(p, "Lava Challenge");
+	}
+
+	@Override
+	protected Warp getWarp() {
+		Warp lavachallenge = new Warp("Lava Challenge", "Treine seus refils e seus recrafts para ser o melhor no pvp", new ItemStack(Material.LAVA_BUCKET), new Location(Bukkit.getWorld("lavachallengeWarp"), 0.5, 66.5, 0.5, 90 * 2f, 0f));
+		return lavachallenge;
+	}
+
+}

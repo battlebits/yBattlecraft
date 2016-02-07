@@ -1,0 +1,5 @@
+name: yFlamePvP
+author: GustavoInacio
+main: br.com.battlebits.battlecraft.Main
+version: 0.0.1
+depend: [yUtils]
