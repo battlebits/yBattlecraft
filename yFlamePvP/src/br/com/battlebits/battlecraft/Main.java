@@ -80,7 +80,6 @@ public class Main extends JavaPlugin {
 	public Connect connect;
 	public Connection mainConnection;
 
-	@SuppressWarnings("unused")
 	@Override
 	public void onEnable() {
 		connect = new Connect(this);

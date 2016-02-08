@@ -307,7 +307,6 @@ public class Warp1v1 extends BaseWarp {
 		p.openInventory(inventoty);
 	}
 
-	@SuppressWarnings("unused")
 	public void setIn1v1(Desafio desafio) {
 		if (desafio == null) {
 			return;
