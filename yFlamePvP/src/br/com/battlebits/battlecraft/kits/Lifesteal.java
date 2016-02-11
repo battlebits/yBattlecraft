@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -32,8 +33,8 @@ public class Lifesteal extends KitInterface {
 			Random r = new Random();
 			int chance = r.nextInt(100) + 1;
 			if (chance <= 20) {
-				if (p.getHealth() < p.getMaxHealth())
-					p.setHealth(p.getHealth() + 1);
+				if (((Damageable)p).getHealth() < ((Damageable)p).getMaxHealth())
+					p.setHealth(((Damageable)p).getHealth() + 1);
 			}
 		}
 	}

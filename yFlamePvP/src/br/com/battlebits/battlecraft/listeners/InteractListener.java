@@ -1,6 +1,7 @@
 package br.com.battlebits.battlecraft.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,6 +61,7 @@ public class InteractListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onSoup(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
@@ -71,11 +73,11 @@ public class InteractListener implements Listener {
 			return;
 		if (!a.toString().contains("RIGHT_CLICK"))
 			return;
-		if (p.getHealth() < 20 || p.getFoodLevel() < 19) {
+		if (((Damageable) p).getHealth() < 20 || p.getFoodLevel() < 19) {
 			event.setCancelled(true);
-			if (p.getHealth() < 20)
-				if (p.getHealth() + 7 <= 20)
-					p.setHealth(p.getHealth() + 7);
+			if (((Damageable) p).getHealth() < 20)
+				if (((Damageable) p).getHealth() + 7 <= 20)
+					p.setHealth(((Damageable) p).getHealth() + 7);
 				else
 					p.setHealth(20);
 			else if (p.getFoodLevel() < 20)

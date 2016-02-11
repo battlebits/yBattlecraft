@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -711,8 +712,8 @@ public class Warp1v1 extends BaseWarp {
 						}
 					}
 					DecimalFormat dm = new DecimalFormat("##.#");
-					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(killer.getHealth() / 2) + " coracoes e " + i + " sopas restantes");
-					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com " + dm.format(killer.getHealth() / 2) + " coracoes e " + i + " sopas restantes");
+					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable)killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
+					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com " + dm.format(((Damageable)killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
 					l.teleport1v1(killer);
 					l.teleport1v1(p);
 					killer.setHealth(20D);
