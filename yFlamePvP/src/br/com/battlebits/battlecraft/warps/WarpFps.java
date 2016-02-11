@@ -24,6 +24,7 @@ public class WarpFps extends BaseWarp {
 		if (!isOnWarp(p))
 			return;
 		getMain().getKitManager().giveKit(p, "pvp");
+		getMain().getProtectionManager().addProtection(p.getUniqueId());
 	}
 
 	@Override

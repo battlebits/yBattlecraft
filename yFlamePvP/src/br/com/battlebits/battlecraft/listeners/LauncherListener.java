@@ -25,11 +25,9 @@ public class LauncherListener implements Listener {
 	}
 
 	@EventHandler
-	public void onMovea(RealMoveEvent event) {
-		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ())
-			return;
+	public void onMove(RealMoveEvent event) {
 		Player p = event.getPlayer();
-		Location standBlock = p.getWorld().getBlockAt(p.getLocation().add(0.0D, -0.01D, 0.0D)).getLocation();
+		Location standBlock = p.getLocation().clone().add(0, -0.00001, 0);
 		if (standBlock.getBlock().getType() == Material.ENDER_PORTAL_FRAME) {
 			double xvel = 0.0D;
 			double yvel = 3.0D;
@@ -49,7 +47,7 @@ public class LauncherListener implements Listener {
 		if (!(event.getEntity() instanceof Player))
 			return;
 		Player p = (Player) event.getEntity();
-		if(noFallDamage.contains(p.getUniqueId())) {
+		if (noFallDamage.contains(p.getUniqueId())) {
 			event.setCancelled(true);
 			noFallDamage.remove(p.getUniqueId());
 		}
