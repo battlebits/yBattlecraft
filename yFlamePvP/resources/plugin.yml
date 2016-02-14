@@ -1,5 +1,5 @@
-name: yFlamePvP
-author: GustavoInacio
-main: br.com.battlebits.battlecraft.Main
+name: yBattleCraft
+authors: [GustavoInacio, vitorrdgs]
+main: br.com.battlebits.ybattlecraft.yBattleCraft
 version: 0.0.1
 depend: [yUtils]
