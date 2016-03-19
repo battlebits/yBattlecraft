@@ -33,6 +33,6 @@ public class ListenerLoader {
 				i++;
 			}
 		}
-		battleCraft.getLogger().info("[AbilityManager] " + i + " habilidades foram carregadas!");
+		battleCraft.getLogger().info("[ListenerManager] " + i + " listeners foram carregados!");
 	}
 }

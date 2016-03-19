@@ -63,7 +63,7 @@ public class WarpSpawn extends BaseWarp {
 				}
 			}.runTaskLaterAsynchronously(yBattleCraft, 20L);
 		} else {
-			if(e.getPlayer().getUniqueId() == topKsUUID){
+			if (e.getPlayer().getUniqueId() == topKsUUID) {
 				updateTopKS();
 			}
 		}
@@ -186,8 +186,10 @@ public class WarpSpawn extends BaseWarp {
 		};
 		warp = new Warp("Spawn", "Spawn do Servidor", new ItemStack(Material.NETHER_STAR),
 				new Location(Bukkit.getWorld("spawnWarp"), 0.5, 87.5, 0.5, 180f, 0), 25.5, scoreboard, true, true);
-		warp.addKit(new Kit(battleCraft, "Deshzin", "Aperte espaço para dar um double jump.", new ArrayList<ItemStack>(),
-				new ItemStack(Material.FIREWORK), 1000, KitType.MOBILIDADE, Arrays.asList("deshzin")));
+		// warp.addKit(new Kit(battleCraft, "Deshzin", "Aperte espaço para dar
+		// um double jump.", new ArrayList<ItemStack>(),
+		// new ItemStack(Material.FIREWORK), 1000, KitType.MOBILIDADE,
+		// Arrays.asList("deshzin")));
 		warp.addKit(new Kit(battleCraft, "Grappler", "Movimente mais rapido sua corda!", new ArrayList<>(), new ItemStack(Material.LEASH), 1000,
 				KitType.MOBILIDADE, Arrays.asList("grappler")));
 		warp.addKit(new Kit(battleCraft, "Ninja", "Aperte SHIFT para teleportar-se para o utltimo jogador hitado.", new ArrayList<ItemStack>(),
@@ -210,6 +212,14 @@ public class WarpSpawn extends BaseWarp {
 				new ItemStack(Material.TORCH), 1000, KitType.FORCA, Arrays.asList("lifesteal")));
 		warp.addKit(new Kit(battleCraft, "Magneto", "Sugue seus inimigos por 5 segundos", new ArrayList<ItemStack>(),
 				new ItemStack(Material.IRON_INGOT), 1000, KitType.ESTRATEGIA, Arrays.asList("magneto")));
+		warp.addKit(new Kit(battleCraft, "Anchor", "Nao leve e nao de knockback.", new ArrayList<ItemStack>(), new ItemStack(Material.ANVIL), 1000,
+				KitType.MOBILIDADE, Arrays.asList("anchor")));
+		warp.addKit(new Kit(battleCraft, "Gladiator", "Puxe um jogador clicando com o direito nele para uma luta nos ceus.",
+				new ArrayList<ItemStack>(), new ItemStack(Material.IRON_FENCE), 1000, KitType.ESTRATEGIA, Arrays.asList("gladiator")));
+		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
+		// todos serao quebrados.", new ArrayList<ItemStack>(),
+		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,
+		// Arrays.asList("jackhammer")));
 		return warp;
 	}
 

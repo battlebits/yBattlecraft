@@ -12,13 +12,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
-import org.inventivetalent.bossbar.BossBarListener;
 
 import br.com.battlebits.ybattlecraft.admin.Mode;
 import br.com.battlebits.ybattlecraft.admin.Vanish;
 import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.evento.Evento;
+import br.com.battlebits.ybattlecraft.fight.gladiator.GladiatorFightController;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.listener.MoveListener;
 import br.com.battlebits.ybattlecraft.listeners.BlockListener;
@@ -31,7 +31,6 @@ import br.com.battlebits.ybattlecraft.listeners.InventoryListener;
 import br.com.battlebits.ybattlecraft.listeners.ItemFrameListener;
 import br.com.battlebits.ybattlecraft.listeners.JoinListener;
 import br.com.battlebits.ybattlecraft.listeners.LauncherListener;
-import br.com.battlebits.ybattlecraft.listeners.PlayerDamageByPlayerListener;
 import br.com.battlebits.ybattlecraft.listeners.PlayerListener;
 import br.com.battlebits.ybattlecraft.listeners.QuitListener;
 import br.com.battlebits.ybattlecraft.listeners.StartgameListener;
@@ -41,6 +40,7 @@ import br.com.battlebits.ybattlecraft.loader.AbilityLoader;
 import br.com.battlebits.ybattlecraft.loader.CommandLoader;
 import br.com.battlebits.ybattlecraft.loader.ListenerLoader;
 import br.com.battlebits.ybattlecraft.manager.AbilityManager;
+import br.com.battlebits.ybattlecraft.manager.BlockResetManager;
 import br.com.battlebits.ybattlecraft.manager.CooldownManager;
 import br.com.battlebits.ybattlecraft.manager.KitManager;
 import br.com.battlebits.ybattlecraft.manager.TeleportManager;
@@ -75,6 +75,9 @@ public class yBattleCraft extends JavaPlugin {
 	public static Evento currentEvento;
 	public static boolean IS_FULLIRON_MODE = false;
 
+	//Controller
+	private GladiatorFightController gladiatorFightController;
+	
 	// Loader
 	private AbilityLoader abilityLoader;
 
@@ -83,6 +86,7 @@ public class yBattleCraft extends JavaPlugin {
 	private CooldownManager cooldownManager;
 	private ItemManager itemManager;
 	private TeleportManager teleportManager;
+	private BlockResetManager blockResetManager;
 	
 	//Updater
 	private WarpScoreboardUpdater warpScoreboardUpdater;
@@ -117,8 +121,13 @@ public class yBattleCraft extends JavaPlugin {
 		loadUpdaters();
 		loadListeners();
 		startUpdaters();
+		gladiatorFightController = new GladiatorFightController();
 		new CommandLoader(this).loadCommandsAndRegister();
-		new BossBarListener(this);
+	}
+	
+	@Override
+	public void onDisable() {
+		blockResetManager.stopAndResetAll();
 	}
 
 	public Permissions getPermissions() {
@@ -221,7 +230,6 @@ public class yBattleCraft extends JavaPlugin {
 		pm.registerEvents(new DamageListener(this), this);
 		pm.registerEvents(new InteractListener(this), this);
 		pm.registerEvents(new MoveListener(this), this);
-		pm.registerEvents(new PlayerDamageByPlayerListener(), this);
 		pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new StartgameListener(), this);
 		pm.registerEvents(new TabListListener(this), this);
@@ -236,6 +244,7 @@ public class yBattleCraft extends JavaPlugin {
 		warpManager = new WarpManager(this);
 		kitManager = new KitManager(this);
 		protection = new ProtectionManager();
+		blockResetManager = new BlockResetManager(this);
 		teleportManager = new TeleportManager(this);
 		permissions = new Permissions(this);
 		combatLog = new CombatLogManager();
@@ -285,6 +294,14 @@ public class yBattleCraft extends JavaPlugin {
 	
 	public TeleportManager getTeleportManager() {
 		return teleportManager;
+	}
+	
+	public BlockResetManager getBlockResetManager() {
+		return blockResetManager;
+	}
+	
+	public GladiatorFightController getGladiatorFightController() {
+		return gladiatorFightController;
 	}
 
 }
