@@ -41,13 +41,13 @@ public class GladiatorAbility extends BaseAbility {
 								if(!battlecraft.getGladiatorFightController().isInFight(t)){
 									new GladiatorFight(e.getPlayer(), t, battlecraft);
 								} else {
-									e.getPlayer().sendMessage("§5§lGladiator §8§l>> Este jogador ja esta em batalha!");
+									e.getPlayer().sendMessage("§5§lGLADIATOR §fEste jogador já está em §9§lBATALHA.");
 								}
 							} else {
-								e.getPlayer().sendMessage("§5§lGladiator §8§l>> Voce ja esta em batalha!");
+								e.getPlayer().sendMessage("§5§lGLADIATOR §fVocê já esta em §9§lBATALHA.");
 							}
 						} else {
-							e.getPlayer().sendMessage("§5§lGladiator §8§l>> §7Este jogador esta em area protegida!");
+							e.getPlayer().sendMessage("§5§lGLADIATOR §fEste jogador está com proteção de §9§lSPAWN§f.");
 						}
 					}
 				}
