@@ -3,7 +3,7 @@ package br.com.battlebits.ybattlecraft.fight.gladiator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -21,6 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
+import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public class GladiatorFight {
 
@@ -33,6 +34,7 @@ public class GladiatorFight {
 	private BukkitRunnable teleportBack;
 	private List<Block> blocksToRemove;
 	private Listener listener;
+	private boolean ended;
 
 	public GladiatorFight(final Player gladiator, final Player target, yBattleCraft bc) {
 		battleCraft = bc;
@@ -40,37 +42,57 @@ public class GladiatorFight {
 		this.target = target;
 		this.blocksToRemove = new ArrayList<Block>();
 		send1v1();
+		ended = false;
 		listener = new Listener() {
 
 			@EventHandler
 			public void onEntityDamage(PlayerDamagePlayerEvent e) {
-					if((isIn1v1(e.getDamaged()) || isIn1v1(e.getDamager())) && (!(isIn1v1(e.getDamaged()) && isIn1v1(e.getDamager())))){
-						e.setCancelled(true);
+				if ((isIn1v1(e.getDamaged()) || isIn1v1(e.getDamager())) && (!(isIn1v1(e.getDamaged()) && isIn1v1(e.getDamager())))) {
+					e.setCancelled(true);
+				}
+			}
+
+			@EventHandler(priority = EventPriority.MONITOR)
+			public void onEntityDamage(PlayerWarpJoinEvent e) {
+				if (isIn1v1(e.getPlayer())) {
+					if (!ended) {
+						ended = true;
+						Bukkit.broadcastMessage("Warpjoin");
+						if (e.getPlayer() == gladiator) {
+							// target winner
+							target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+							battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocGladiator);
+							battleCraft.getStatusManager().updateStatus(target, gladiator);
+							teleportBack(target, gladiator);
+							return;
+						}
+						// gladiator winner
+						gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+						battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocTarget);
+						battleCraft.getStatusManager().updateStatus(gladiator, target);
+						teleportBack(gladiator, target);
 					}
+				}
 			}
 
 			@EventHandler(priority = EventPriority.LOWEST)
 			public void onDeath(PlayerDeathInWarpEvent e) {
+				Bukkit.broadcastMessage("Death");
 				if (isIn1v1(e.getPlayer())) {
-					if (e.getPlayer() == gladiator) {
-						// target winner
-						target.sendMessage(ChatColor.GRAY + "Voce venceu o 1v1 contra " + ChatColor.RED + ChatColor.BOLD + gladiator.getName()
-								+ ChatColor.GRAY + "!");
-						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-						gladiator.sendMessage(ChatColor.RED + "Voce perdeu o 1v1 contra " + ChatColor.RED + ChatColor.BOLD + target.getName()
-								+ ChatColor.GRAY + "!");
-						battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocGladiator);
-						teleportBack(target, gladiator);
-						return;
+					if (!ended) {
+						ended = true;
+						if (e.getPlayer() == gladiator) {
+							// target winner
+							target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+							battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocGladiator);
+							teleportBack(target, gladiator);
+							return;
+						}
+						// gladiator winner
+						gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+						battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocTarget);
+						teleportBack(gladiator, target);
 					}
-					// gladiator winner
-					gladiator.sendMessage(
-							ChatColor.GRAY + "Voce venceu o 1v1 contra " + ChatColor.RED + ChatColor.BOLD + target.getName() + ChatColor.GRAY + "!");
-					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-					target.sendMessage(ChatColor.RED + "Voce perdeu o 1v1 contra " + ChatColor.RED + ChatColor.BOLD + gladiator.getName()
-							+ ChatColor.GRAY + "!");
-					battleCraft.getItemManager().dropItems(e.getPlayer(), tpLocTarget);
-					teleportBack(gladiator, target);
 				}
 			}
 
@@ -81,21 +103,24 @@ public class GladiatorFight {
 					return;
 				if (e.getPlayer().isDead())
 					return;
-				if (p == gladiator) {
-					// target winner
-					target.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + gladiator.getName() + ChatColor.GRAY + " deslogou!"
-							+ ChatColor.GRAY + "Voce venceu!");
-					target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-					battleCraft.getItemManager().dropItems(p, tpLocGladiator);
-					teleportBack(target, gladiator);
-					return;
+				if (!ended) {
+					ended = true;
+					if (p == gladiator) {
+						// target winner
+						target.sendMessage("§5§LGLADIATOR §f" + gladiator.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+						battleCraft.getItemManager().dropItems(p, tpLocGladiator);
+						battleCraft.getStatusManager().updateStatus(target, gladiator);
+						teleportBack(target, gladiator);
+						return;
+					}
+					// gladiator winner
+					battleCraft.getStatusManager().updateStatus(gladiator, target);
+					gladiator.sendMessage("§5§LGLADIATOR §f" + target.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+					battleCraft.getItemManager().dropItems(p, tpLocTarget);
+					teleportBack(gladiator, target);
 				}
-				// gladiator winner
-				gladiator.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + target.getName() + ChatColor.GRAY + " deslogou!" + ChatColor.GRAY
-						+ "Voce venceu!");
-				gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-				battleCraft.getItemManager().dropItems(p, tpLocTarget);
-				teleportBack(gladiator, target);
 			}
 
 			@EventHandler
@@ -105,21 +130,24 @@ public class GladiatorFight {
 					return;
 				if (event.getPlayer().isDead())
 					return;
-				if (p == gladiator) {
-					// target winner
-					target.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + gladiator.getName() + ChatColor.GRAY + " deslogou!"
-							+ ChatColor.GRAY + "Voce venceu!");
-					target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-					battleCraft.getItemManager().dropItems(p, tpLocGladiator);
-					teleportBack(target, gladiator);
-					return;
+				if (!ended) {
+					ended = true;
+					if (p == gladiator) {
+						// target winner
+						target.sendMessage("§5§LGLADIATOR §f" + gladiator.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+						battleCraft.getItemManager().dropItems(p, tpLocGladiator);
+						teleportBack(target, gladiator);
+						battleCraft.getStatusManager().updateStatus(target, gladiator);
+						return;
+					}
+					// gladiator winner
+					battleCraft.getStatusManager().updateStatus(gladiator, target);
+					gladiator.sendMessage("§5§LGLADIATOR §f" + target.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
+					battleCraft.getItemManager().dropItems(p, tpLocTarget);
+					teleportBack(gladiator, target);
 				}
-				// gladiator winner
-				gladiator.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + target.getName() + ChatColor.GRAY + " deslogou!" + ChatColor.GRAY
-						+ "Voce venceu!");
-				gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
-				battleCraft.getItemManager().dropItems(p, tpLocTarget);
-				teleportBack(gladiator, target);
 			}
 		};
 		battleCraft.getServer().getPluginManager().registerEvents(listener, battleCraft);
@@ -162,12 +190,10 @@ public class GladiatorFight {
 		generateBlocks(mainBlock);
 		tpLocGladiator = gladiator.getLocation().clone();
 		tpLocTarget = target.getLocation().clone();
-		String messagegla = ChatColor.GRAY + "Voce puxou " + ChatColor.RED.toString() + ChatColor.BOLD + target.getName() + ChatColor.GRAY
-				+ " para 1v1." + ChatColor.GRAY + "\nVoce tem 5 segundos de invencibilidade.";
-		String messagetar = ChatColor.RED.toString() + ChatColor.BOLD + gladiator.getName() + ChatColor.GRAY + " Puxou voce para 1v1."
-				+ ChatColor.GRAY + "\nVoce tem 5 segundos de invencibilidade.";
-		gladiator.sendMessage(messagegla);
-		target.sendMessage(messagetar);
+		gladiator.sendMessage("§5§lGLADIATOR §fVocê desafiou §9§l" + target.getName() + " §fpara para uma batalha!");
+		gladiator.sendMessage("§5§lGLADIATOR §fVocê tem  §9§l5 SEGUNDOS §fde invencibilidade.");
+		target.sendMessage("§5§lGLADIATOR §fVocê foi desafiado por §9§l" + gladiator.getName() + " §fpara uma batalha!");
+		target.sendMessage("§5§lGLADIATOR §fVocê tem  §9§l5 SEGUNDOS §fde invencibilidade.");
 		Location l1 = new Location(mainBlock.getWorld(), mainBlock.getX() + 6.5, 121, mainBlock.getZ() + 6.5);
 		l1.setYaw((float) (90.0 * 1.5));
 		Location l2 = new Location(mainBlock.getWorld(), mainBlock.getX() - 5.5, 121, mainBlock.getZ() - 5.5);
@@ -213,7 +239,6 @@ public class GladiatorFight {
 		battleCraft.getGladiatorFightController().removePlayerFromFight(winner.getUniqueId());
 		battleCraft.getGladiatorFightController().removePlayerFromFight(loser.getUniqueId());
 		winner.teleport(tpLocGladiator);
-		loser.teleport(tpLocTarget);
 		removeBlocks();
 		winner.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
 		winner.removePotionEffect(PotionEffectType.WITHER);
