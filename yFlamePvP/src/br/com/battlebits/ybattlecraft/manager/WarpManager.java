@@ -61,11 +61,11 @@ public class WarpManager {
 		for (PotionEffect potion : p.getActivePotionEffects()) {
 			p.removePotionEffect(potion.getType());
 		}
-		String tag = ChatColor.BLUE + "" + ChatColor.BOLD + "Teleporte" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.RESET;
-		String name = ChatColor.GRAY + "Teleportado para " + warp.getWarpName();
-		p.teleport(warp.getWarpLocation());
-		p.sendMessage(tag + name);
 		if (event.hasAviso()) {
+			String tag = ChatColor.BLUE + "" + ChatColor.BOLD + "Teleporte" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+					+ ChatColor.RESET;
+			String name = ChatColor.GRAY + "Teleportado para " + warp.getWarpName();
+			p.sendMessage(tag + name);
 			BarAPI.setMessage(p, name, 5);
 			Title title = new Title(ChatColor.YELLOW + "Warp " + Formatter.getFormattedName(warp.getWarpName()));
 			title.setSubtitle("Você foi teleportado");
@@ -76,6 +76,7 @@ public class WarpManager {
 			title.send(p);
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 		}
+		p.teleport(warp.getWarpLocation());
 		PlayerWarpJoinEvent joinWarp = new PlayerWarpJoinEvent(p, warp);
 		Bukkit.getPluginManager().callEvent(joinWarp);
 		playerWarp.put(p.getUniqueId(), warpName);

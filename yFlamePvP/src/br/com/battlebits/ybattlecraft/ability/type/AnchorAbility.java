@@ -27,6 +27,7 @@ public class AnchorAbility extends BaseAbility {
 					p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 0.15F, 1.0F);
 					if (e.getFinalDamage() < ((Damageable) p).getHealth()) {
 						p.damage(e.getFinalDamage());
+						p.setLastDamageCause(e);
 						e.setCancelled(true);
 					}
 				}

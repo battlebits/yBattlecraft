@@ -1,6 +1,10 @@
 package br.com.battlebits.ybattlecraft.constructors;
 
+import java.time.temporal.IsoFields;
+
 import org.bukkit.entity.Player;
+
+import br.com.battlebits.ybattlecraft.yBattleCraft;
 
 public class Desafio {
 	private Player desafiante;
@@ -17,8 +21,13 @@ public class Desafio {
 	public Desafio(Player desafiante, Player desafiado) {
 		this.desafiante = desafiante;
 		this.desafiado = desafiado;
-		this.espada = "DIAMOND_SWORD";
-		this.armadura = "IRON_CHESTPLATE";
+		if (yBattleCraft.IS_FULLIRON_MODE) {
+			this.espada = "DIAMOND_SWORD";
+			this.armadura = "IRON_CHESTPLATE";
+		} else {
+			this.espada = "STONE_SWORD";
+			this.armadura = "GLASS";
+		}
 		this.refil = false;
 		this.speed = false;
 		this.strenght = false;
@@ -27,7 +36,8 @@ public class Desafio {
 		this.expire = System.currentTimeMillis() + 10000;
 	}
 
-	public Desafio(Player desafiante, Player desafiado, String espada, String armadura, boolean refil, boolean speed, boolean strenght, boolean sharp) {
+	public Desafio(Player desafiante, Player desafiado, String espada, String armadura, boolean refil, boolean speed, boolean strenght,
+			boolean sharp) {
 		this.desafiante = desafiante;
 		this.desafiado = desafiado;
 		this.espada = espada;

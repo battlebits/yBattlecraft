@@ -30,7 +30,7 @@ public class TeleportManager {
 			public void run() {
 				for (Entry<UUID, String> entry : playerWarpDelay.entrySet()) {
 					if (System.currentTimeMillis() >= Long.valueOf(entry.getValue().split("-")[1])) {
-						Warp w = battleCraft.getWarpManager().getWarpByName(entry.getValue().split("-")[1]);
+						Warp w = battleCraft.getWarpManager().getWarpByName(entry.getValue().split("-")[0]);
 						if (w != null) {
 							Player p = Bukkit.getPlayer(entry.getKey());
 							if (p != null) {
