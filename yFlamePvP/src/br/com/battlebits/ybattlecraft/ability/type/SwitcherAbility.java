@@ -33,13 +33,15 @@ public class SwitcherAbility extends BaseAbility {
 					Player shooter = (Player) ball.getShooter();
 					if (isUsing(shooter)) {
 						Player hit = (Player) e.getEntity();
-						if (battlecraft.getProtectionManager().removeProtection(shooter.getUniqueId())) {
-							shooter.sendMessage("§7§lProteção §8§l>> §7Você perdeu proteção de spawn");
+						if (!battlecraft.getGladiatorFightController().isInFight(shooter)) {
+							if (battlecraft.getProtectionManager().removeProtection(shooter.getUniqueId())) {
+								shooter.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
+							}
+							Location loc = shooter.getLocation();
+							shooter.teleport(hit.getLocation());
+							hit.teleport(loc);
+							shooter.sendMessage("§5§LSWITCHER §fVoce trocou de lugar com §9§l" + hit.getName());
 						}
-						Location loc = shooter.getLocation();
-						shooter.teleport(hit.getLocation());
-						hit.teleport(loc);
-						shooter.sendMessage("§5§lSwitcher §8§l>> §7Voce trocou de lugar com " + hit.getName());
 					}
 				}
 			}
