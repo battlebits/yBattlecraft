@@ -24,7 +24,7 @@ public class DeshzinAbility extends BaseAbility {
 	public void onPlayerDamagePlayerListener(PlayerDamagePlayerEvent e) {
 		if (isUsing(e.getDamager())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamager().getUniqueId(), getAbilityName() + "ability")) {
-				e.getDamager().sendMessage("§5§lDeshzin §8§l>> §7Agora voce esta em cooldown de 10 segundos por hitar um player!");
+				e.getDamager().sendMessage("§5§lDESHZIN §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamager().getUniqueId(), getAbilityName() + "ability", 10);
 			if (e.getDamager().isFlying()) {
@@ -36,7 +36,7 @@ public class DeshzinAbility extends BaseAbility {
 		}
 		if (isUsing(e.getDamaged())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamaged().getUniqueId(), getAbilityName() + "ability")) {
-				e.getDamaged().sendMessage("§5§lDeshzin §8§l>> §7Agora voce esta em cooldown de 10 segundos por hitar um player!");
+				e.getDamaged().sendMessage("§5§lDESHZIN §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamaged().getUniqueId(), getAbilityName() + "ability", 10);
 			if (e.getDamaged().isFlying()) {

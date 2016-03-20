@@ -102,7 +102,7 @@ public class HotPotatoAbility extends BaseAbility {
 								if (!battlecraft.getProtectionManager().isProtected(target.getUniqueId())) {
 									if (target.getInventory().getHelmet() == null || !target.getInventory().getHelmet().equals(tntItem)) {
 										if (battlecraft.getProtectionManager().removeProtection(e.getPlayer().getUniqueId())) {
-											e.getPlayer().sendMessage("§7§lProteção §8§l>> §7Você perdeu proteção de spawn");
+											e.getPlayer().sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
 										}
 										if (target.getInventory().getHelmet() != null) {
 											if (target.getInventory().getHelmet().getType() != Material.AIR) {
@@ -120,17 +120,17 @@ public class HotPotatoAbility extends BaseAbility {
 											HologramAPI.createRunningHologram(target, "§c§lRemova a batata quente da sua cabeca!", 0).spawn(40);
 										}
 									} else {
-										e.getPlayer().sendMessage("§5§lHotPotato §8§l>> §7Esse jogador ja esta com uma batata quente!");
+										e.getPlayer().sendMessage("§5§lHOTPOTATO §fEste jogador nao pode receber a batata quente!");
 									}
 								} else {
-									e.getPlayer().sendMessage("§5§lHotPotato §8§l>> §7Esse jogador nao pode receber a batata quente!");
+									e.getPlayer().sendMessage("§5§lHOTPOTATO §fEste jogador nao pode receber a batata quente!");
 								}
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lHotPotato §8§l>> §7Aguarde mais "
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability")
-									+ " para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l"
+									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase()
+									+ "§f para utilizar sua habilidade!");
 						}
 					}
 				}
@@ -146,9 +146,9 @@ public class HotPotatoAbility extends BaseAbility {
 					if (e.getPlayer().getItemInHand().equals(abilityItem)) {
 						if (battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "hotpotatoability")) {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lHotPotato §8§l>> §7Aguarde mais "
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability")
-									+ " para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l"
+									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase()
+									+ "§f para utilizar sua habilidade!");
 						}
 						e.setCancelled(true);
 					}

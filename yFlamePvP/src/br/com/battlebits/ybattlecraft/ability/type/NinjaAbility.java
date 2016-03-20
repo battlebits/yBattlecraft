@@ -51,7 +51,7 @@ public class NinjaAbility extends BaseAbility {
 										if (!battlecraft.getProtectionManager().isProtected(hit.getTargetUUID())) {
 											if (e.getPlayer().getLocation().distance(hit.getTarget().getLocation()) <= 50) {
 												if (e.getPlayer().getLocation().getY() - hit.getTarget().getLocation().getY() <= 20) {
-													if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "ninja")) {
+													if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "ninjaability")) {
 														e.getPlayer().teleport(hit.getTarget().getLocation());
 														e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Teleportado!");
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
@@ -59,29 +59,27 @@ public class NinjaAbility extends BaseAbility {
 																getAbilityName() + "ability", 7);
 													} else {
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-														e.getPlayer()
-																.sendMessage("§5§lNinja §8§l>> §7Aguarde mais "
-																		+ battlecraft.getCooldownManager().getCooldownTimeFormated(
-																				e.getPlayer().getUniqueId(), getAbilityName() + "ability")
-																+ " para utilizar sua habilidade!");
+														e.getPlayer().sendMessage("§5§lNINJA §fAguarde §9§l"
+																+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "ninjaability").toUpperCase()
+																+ "§f para utilizar sua habilidade!");
 													}
 												} else {
-													e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Voce esta distante do jogador!");
+													e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
 												}
 											} else {
-												e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Voce esta distante do jogador!");
+												e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
 											}
 										} else {
-											e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Jogador invalido!");
+											e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
 										}
 									} else {
-										e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Jogador invalido!");
+										e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
 									}
 								} else {
-									e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Jogador invalido!");
+									e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
 								}
 							} else {
-								e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Jogador invalido!");
+								e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
 							}
 						}
 					}

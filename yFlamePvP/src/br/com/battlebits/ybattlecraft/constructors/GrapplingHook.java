@@ -32,9 +32,9 @@ public class GrapplingHook extends EntityFishingHook {
 	@Override
 	public void h() {
 		if (!this.lastControllerDead && this.controller.dead) {
-			((Player) this.owner.getBukkitEntity()).sendMessage("§5§lGrappler §8§l>> §7Grappler fisgado!");
+			((Player) this.owner.getBukkitEntity()).sendMessage("§5§lGRAPPLER §fGrappler §9§lFISGADO§f!");
 			if (hooked instanceof Player) {
-				((Player) hooked).sendMessage("§5§lGrappler §8§l>> §7Um grappler fisgou em voce!");
+				((Player) hooked).sendMessage("§5§LGRAPPLER §fUm grappler §9§lFISGOU§f em voce!");
 			}
 		}
 		this.lastControllerDead = this.controller.dead;

@@ -65,9 +65,9 @@ public class GrapplerAbility extends BaseAbility {
 								e.getPlayer().getWorld().playSound(playerLoc, Sound.STEP_GRAVEL, 1.0F, 1.0F);
 							} else {
 								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-								e.getPlayer().sendMessage("§5§lGrappler §8§l>> §7Aguarde mais "
-										+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "grapplerability")
-										+ " para utilizar sua habilidade!");
+								e.getPlayer().sendMessage("§5§LGRAPPLER §fAguarde §9§l"
+										+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "grapplerability").toUpperCase()
+										+ "§f para utilizar sua habilidade!");
 							}
 						}
 					}
@@ -130,14 +130,14 @@ public class GrapplerAbility extends BaseAbility {
 									}
 									e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.STEP_GRAVEL, 1.0F, 1.0F);
 								} else {
-									e.getPlayer().sendMessage("§5§lGrappler §8§l>> §7Seu grappler ainda nao foi fisgado!");
+									e.getPlayer().sendMessage("§5§lGRAPPLER §fSeu grappler ainda não foi §9§lFISGADO§f!");
 								}
 							} else {
 								if (grapplerHooks.get(e.getPlayer().getUniqueId()).hooked == null) {
 									e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-									e.getPlayer().sendMessage("§5§lGrappler §8§l>> §7Aguarde mais "
-											+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "grapplerability")
-											+ " para utilizar sua habilidade!");
+									e.getPlayer().sendMessage("§5§LGRAPPLER §fAguarde §9§l"
+											+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "grapplerability").toUpperCase()
+											+ "§f para utilizar sua habilidade!");
 								}
 							}
 						}
@@ -164,13 +164,13 @@ public class GrapplerAbility extends BaseAbility {
 	public void onPlayerDamagePlayerListener(PlayerDamagePlayerEvent e) {
 		if (isUsing(e.getDamager())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamager().getUniqueId(), "grapplerability")) {
-				e.getDamager().sendMessage("§5§lGrappler §8§l>> §7Voce entrou em cooldown por atacar outro jogador!");
+				e.getDamager().sendMessage("§5§lGRAPPLER §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamager().getUniqueId(), "grapplerability", 5);
 		}
 		if (isUsing(e.getDamaged())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamaged().getUniqueId(), "grapplerability")) {
-				e.getDamaged().sendMessage("§5§lGrappler §8§l>> §7Voce entrou em cooldown por ser atacado por um jogador!");
+				e.getDamaged().sendMessage("§5§lGRAPPLER §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamaged().getUniqueId(), "grapplerability", 5);
 		}

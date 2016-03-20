@@ -90,10 +90,9 @@ public class KangarooAbility extends BaseAbility {
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer()
-									.sendMessage("§5§lGrappler §8§l>> §7Aguarde mais "
-											+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "grapplerability")
-											+ " para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§lKANGAROO §fAguarde §9§l"
+									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "kangarooability").toUpperCase()
+									+ "§f para utilizar sua habilidade!");
 						}
 						e.setCancelled(true);
 					}
@@ -127,13 +126,13 @@ public class KangarooAbility extends BaseAbility {
 	public void onPlayerDamagePlayerListener(PlayerDamagePlayerEvent e) {
 		if (isUsing(e.getDamager())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamager().getUniqueId(), "kangarooability")) {
-				e.getDamager().sendMessage("§5§lKangaroo §8§l>> §7Voce entrou em cooldown por atacar outro jogador!");
+				e.getDamager().sendMessage("§5§LKANGAROO §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamager().getUniqueId(), "kangarooability", 5);
 		}
 		if (isUsing(e.getDamaged())) {
 			if (!battlecraft.getCooldownManager().isOnCooldown(e.getDamaged().getUniqueId(), "kangarooability")) {
-				e.getDamaged().sendMessage("§5§lKangaroo §8§l>> §7Voce entrou em cooldown por ser atacado por um jogador!");
+				e.getDamaged().sendMessage("§5§LKANGAROO §fVoce entrou em cooldown por entrar em §9§LCOMBATE§F!");
 			}
 			battlecraft.getCooldownManager().setCooldown(e.getDamaged().getUniqueId(), "kangarooability", 5);
 		}

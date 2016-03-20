@@ -87,9 +87,9 @@ public class MagnetoAbility extends BaseAbility {
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lMagneto §8§l>> §7Aguarde mais "
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability")
-									+ " para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§LMAGNETO §fAguarde §9§l"
+									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability").toUpperCase()
+									+ "§f para utilizar sua habilidade!");
 						}
 					}
 				}
