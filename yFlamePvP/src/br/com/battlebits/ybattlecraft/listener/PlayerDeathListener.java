@@ -91,7 +91,7 @@ public class PlayerDeathListener extends BaseListener {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.SUCCESSFUL_HIT, 1.0F, 1.0F);
 		e.getPlayer().setHealth(20);
@@ -114,11 +114,9 @@ public class PlayerDeathListener extends BaseListener {
 		if (w != null && w.isAffectMainStatus()) {
 			battleCraft.getStatusManager().updateStatus(e.getKiller(), e.getPlayer());
 		}
-		if (w == null || w.getWarpName().equalsIgnoreCase("spawn")) {
-			battleCraft.teleportSpawn(e.getPlayer());
-			return;
-		}
-		if (w != null) {
+		if (w == null) {
+			battleCraft.getWarpManager().teleportWarp(e.getPlayer(), "spawn", false);
+		} else if (w != null) {
 			battleCraft.getWarpManager().teleportWarp(e.getPlayer(), w.getWarpName().toLowerCase().trim(), false);
 			String tag = ChatColor.GREEN + "" + ChatColor.BOLD + "Respawn" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
 					+ ChatColor.RESET;
