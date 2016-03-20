@@ -74,6 +74,10 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onItemPickUp(PlayerPickupItemEvent event) {
 		ItemStack item = event.getItem().getItemStack();
+		if(m.getProtectionManager().isProtected(event.getPlayer().getUniqueId())){
+			event.setCancelled(true);
+			return;
+		}
 		if (item.getItemMeta().hasDisplayName()) {
 			event.setCancelled(true);
 			return;

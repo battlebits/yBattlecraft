@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Team;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
@@ -50,6 +51,10 @@ public class WarpScoreboardListener implements Listener {
 		for (Objective obj : e.getPlayer().getScoreboard().getObjectives()) {
 			obj.unregister();
 		}
+		for(Team t : e.getPlayer().getScoreboard().getTeams()){
+			t.unregister();
+		}
+		e.getPlayer().setScoreboard(null);
 	}
 
 }
