@@ -21,11 +21,14 @@ public class AnchorAbility extends BaseAbility {
 		if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			Player d = (Player) e.getDamager();
-			if (isUsing(p) || isUsing(d)) {
-				p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 0.15F, 1.0F);
-				if (e.getFinalDamage() < ((Damageable) p).getHealth()) {
-					p.damage(e.getFinalDamage());
-					e.setCancelled(true);
+			if ((!battlecraft.getProtectionManager().isProtected(p.getUniqueId()))
+					&& (!battlecraft.getProtectionManager().isProtected(d.getUniqueId()))) {
+				if (isUsing(p) || isUsing(d)) {
+					p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 0.15F, 1.0F);
+					if (e.getFinalDamage() < ((Damageable) p).getHealth()) {
+						p.damage(e.getFinalDamage());
+						e.setCancelled(true);
+					}
 				}
 			}
 		}
