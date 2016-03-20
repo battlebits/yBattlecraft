@@ -3,7 +3,6 @@ package br.com.battlebits.ybattlecraft.fight.gladiator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -57,7 +56,6 @@ public class GladiatorFight {
 				if (isIn1v1(e.getPlayer())) {
 					if (!ended) {
 						ended = true;
-						Bukkit.broadcastMessage("Warpjoin");
 						if (e.getPlayer() == gladiator) {
 							// target winner
 							target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
@@ -77,7 +75,6 @@ public class GladiatorFight {
 
 			@EventHandler(priority = EventPriority.LOWEST)
 			public void onDeath(PlayerDeathInWarpEvent e) {
-				Bukkit.broadcastMessage("Death");
 				if (isIn1v1(e.getPlayer())) {
 					if (!ended) {
 						ended = true;

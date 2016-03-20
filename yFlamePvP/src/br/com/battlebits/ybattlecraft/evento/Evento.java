@@ -294,7 +294,7 @@ public class Evento {
 			}
 		}
 		if (!p.isDead())
-			m.teleportSpawn(p);
+			m.getWarpManager().teleportWarp(p, "spawn", false);
 	}
 
 	public void win(Player p) {
@@ -308,10 +308,10 @@ public class Evento {
 
 	public void stopEvento() {
 		for (Player p : participantes) {
-			m.teleportSpawn(p);
+			m.getWarpManager().teleportWarp(p, "spawn", false);
 		}
 		for (Player p : organizadores) {
-			m.teleportSpawn(p);
+			m.getWarpManager().teleportWarp(p, "spawn", false);
 		}
 		if (runnable != null) {
 			m.getServer().getScheduler().cancelTask(runnable);

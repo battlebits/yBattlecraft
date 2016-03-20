@@ -22,6 +22,8 @@ import br.com.battlebits.ybattlecraft.enums.KitType;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.kit.Kit;
+import me.flame.utils.Main;
+import me.flame.utils.ranking.constructors.Account;
 
 public class WarpFps extends BaseWarp {
 
@@ -115,16 +117,16 @@ public class WarpFps extends BaseWarp {
 							name2 = t.getName().substring(14, t.getName().length());
 						}
 						if (p != null && p.isOnline()) {
-							scoreboard.updateScoreName(p, "topksplayer", "§b" + name1);
+							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
 							scoreboard.updateScoreValue(p, "topksplayer",
-									"§b" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+									"§3" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
 				}
 				if (p != null && p.isOnline()) {
-					scoreboard.updateScoreName(p, "topksplayer", "§bNinguem");
-					scoreboard.updateScoreValue(p, "topksplayer", "§b - 0");
+					scoreboard.updateScoreName(p, "topksplayer", "§3Ninguem");
+					scoreboard.updateScoreValue(p, "topksplayer", "§3 - 0");
 				}
 			}
 		}.runTaskAsynchronously(yBattleCraft);
@@ -135,13 +137,17 @@ public class WarpFps extends BaseWarp {
 		scoreboard = new WarpScoreboard("fps") {
 			@Override
 			public void createScores(Player p) {
-				createScore(p, "b3", "", "", 9);
-				createScore(p, "kills", "§7Kills: ", "§b" + getMain().getStatusManager().getStatusByUuid(p.getUniqueId()).getKills(), 8);
-				createScore(p, "deaths", "§7Deaths: ", "§b" + getMain().getStatusManager().getStatusByUuid(p.getUniqueId()).getDeaths(), 7);
-				createScore(p, "ks", "§7KillStreak: ", "§b0", 6);
+				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
+				Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+				createScore(p, "b3", "", "", 11);
+				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 10);
+				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
+				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
+				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
+				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 4);
-				createScore(p, "topksplayer", "§bNinguem", "§b - 0", 3);
+				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 3);
 				createScore(p, "b1", "", "", 2);
 				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 			}

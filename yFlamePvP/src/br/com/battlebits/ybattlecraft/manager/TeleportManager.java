@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
+import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 
 public class TeleportManager {
 
@@ -52,30 +53,34 @@ public class TeleportManager {
 	public void tryToTeleport(Player p, Warp warp) {
 		if (!playerWarpDelay.containsKey(p.getUniqueId())) {
 			if (p.isOnGround()) {
-				boolean wait = false;
-				if (!battleCraft.getGladiatorFightController().isInFight(p)) {
-					for (Player t : p.getWorld().getEntitiesByClass(Player.class)) {
-						if (t.getUniqueId() != p.getUniqueId()) {
-							if (!battleCraft.getProtectionManager().isProtected(t.getUniqueId())) {
-								if (!battleCraft.getAdminMode().isAdmin(t)) {
-									if (t.getLocation().distance(p.getLocation()) <= 10) {
-										wait = true;
-										break;
+				if (!Warp1v1.isIn1v1(p)) {
+					boolean wait = false;
+					if (!battleCraft.getGladiatorFightController().isInFight(p)) {
+						for (Player t : p.getWorld().getEntitiesByClass(Player.class)) {
+							if (t.getUniqueId() != p.getUniqueId()) {
+								if (!battleCraft.getProtectionManager().isProtected(t.getUniqueId())) {
+									if (!battleCraft.getAdminMode().isAdmin(t)) {
+										if (t.getLocation().distance(p.getLocation()) <= 10) {
+											wait = true;
+											break;
+										}
 									}
 								}
 							}
 						}
+					} else {
+						wait = true;
+					}
+					if (!wait) {
+						p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+						battleCraft.getWarpManager().teleportWarp(p, warp.getWarpName().toLowerCase().trim(), true);
+					} else {
+						playerWarpDelay.put(p.getUniqueId(), warp.getWarpName().toLowerCase().trim() + "-" + (System.currentTimeMillis() + 5000));
+						p.playSound(p.getLocation(), Sound.IRONGOLEM_WALK, 1.0F, 1.0F);
+						p.sendMessage("§9§lTEPORTE §fVoce sera teleportado em §3§l5 SEGUNDOS§f. Não se mexa!");
 					}
 				} else {
-					wait = true;
-				}
-				if (!wait) {
-					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-					battleCraft.getWarpManager().teleportWarp(p, warp.getWarpName().toLowerCase().trim(), true);
-				} else {
-					playerWarpDelay.put(p.getUniqueId(), warp.getWarpName().toLowerCase().trim() + "-" + (System.currentTimeMillis() + 5000));
-					p.playSound(p.getLocation(), Sound.IRONGOLEM_WALK, 1.0F, 1.0F);
-					p.sendMessage("§9§lTEPORTE §fVoce sera teleportado em §3§l5 SEGUNDOS§f. Não se mexa!");
+					p.sendMessage("§9§lTELEPORTE §fAcabe sua batalha antes de teleportar!");
 				}
 			} else {
 				p.sendMessage("§9§lTEPORTE §fVoce precisa estar no chao para teleportar.");

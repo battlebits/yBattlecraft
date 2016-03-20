@@ -19,6 +19,7 @@ public abstract class WarpScoreboard {
 		if (p.getScoreboard().getObjective("warp" + objId) == null) {
 			createObjective(p);
 		}
+		createScores(p);
 		return p.getScoreboard().getObjective("warp" + objId);
 	}
 
@@ -32,7 +33,9 @@ public abstract class WarpScoreboard {
 	}
 
 	public void setTitle(Player p, String title) {
-		getObjective(p).setDisplayName(title);
+		if (p.getScoreboard().getObjective("warp" + objId) != null) {
+			p.getScoreboard().getObjective("warp" + objId).setDisplayName(title);
+		}
 	}
 
 	public void createScore(Player p, String id, String name, String value, int score) {

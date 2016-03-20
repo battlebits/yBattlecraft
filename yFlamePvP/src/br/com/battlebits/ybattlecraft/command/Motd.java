@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.commands;
+package br.com.battlebits.ybattlecraft.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

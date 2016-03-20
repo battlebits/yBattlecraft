@@ -3,15 +3,12 @@ package br.com.battlebits.ybattlecraft;
 import java.sql.Connection;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
 
 import br.com.battlebits.ybattlecraft.admin.Mode;
 import br.com.battlebits.ybattlecraft.admin.Vanish;
@@ -19,7 +16,6 @@ import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.evento.Evento;
 import br.com.battlebits.ybattlecraft.fight.gladiator.GladiatorFightController;
-import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.listener.MoveListener;
 import br.com.battlebits.ybattlecraft.listeners.BlockListener;
 import br.com.battlebits.ybattlecraft.listeners.CombatLogListener;
@@ -164,20 +160,6 @@ public class yBattleCraft extends JavaPlugin {
 
 	public ReflectionManager getReflectionManager() {
 		return reflectionManager;
-	}
-
-	public void teleportSpawn(Player p) {
-		getWarpManager().removeWarp(p);
-		 getKitManager().removeKit(p);
-		getWarpManager().teleportWarp(p, "spawn", false);
-		Hotbar.setItems(p);
-		for (PotionEffect potion : p.getActivePotionEffects()) {
-			p.removePotionEffect(potion.getType());
-		}
-		if (getProtectionManager().addProtection(p.getUniqueId())) {
-			p.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-					+ ChatColor.GRAY + "Você recebeu proteção de spawn");
-		}
 	}
 
 	private void loadUpdaters(){

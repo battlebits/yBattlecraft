@@ -1,5 +1,6 @@
 package br.com.battlebits.ybattlecraft.warps;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,13 +14,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -35,10 +38,15 @@ import org.bukkit.potion.PotionEffectType;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Desafio;
+import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
+import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
+import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.utils.Name;
+import me.flame.utils.Main;
+import me.flame.utils.ranking.constructors.Account;
 
 public class Warp1v1 extends BaseWarp {
 
@@ -47,6 +55,7 @@ public class Warp1v1 extends BaseWarp {
 	private List<Player> playersInQueue;
 	private Location firstLoction;
 	private Location secondLoction;
+	private WarpScoreboard scoreboard;
 
 	public Warp1v1(yBattleCraft yBattleCraft) {
 		super(yBattleCraft);
@@ -181,7 +190,7 @@ public class Warp1v1 extends BaseWarp {
 			openChallange(p, clicado);
 		}
 	}
-
+	
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
 		if (playerDesafios.containsKey(event.getPlayer().getName()))
@@ -363,6 +372,24 @@ public class Warp1v1 extends BaseWarp {
 		if (secondLoction == null)
 			secondLoction = new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, 12.5, 180f, 0f);
 		desafiado.teleport(secondLoction);
+		String dname1 = "";
+		String dname2 = "";
+		dname1 = desafiado.getName();
+		if (desafiado.getName().length() > 14) {
+			dname1 = desafiado.getName().substring(0, 14);
+			dname2 = desafiado.getName().substring(14, desafiado.getName().length());
+		}
+		String pname1 = "";
+		String pname2 = "";
+		pname1 = p.getName();
+		if (desafiado.getName().length() > 14) {
+			pname1 = p.getName().substring(0, 14);
+			pname2 = p.getName().substring(14, p.getName().length());
+		}
+		scoreboard.updateScoreName(p, "battleplayer", "§3" + dname1);
+		scoreboard.updateScoreValue(p, "battleplayer", "§3" + dname2);
+		scoreboard.updateScoreName(desafiado, "battleplayer", "§3" + pname1);
+		scoreboard.updateScoreValue(desafiado, "battleplayer", "§3" + pname2);
 		new Fight(this, p, desafiado);
 	}
 
@@ -706,50 +733,55 @@ public class Warp1v1 extends BaseWarp {
 		Hotbar.set1v1(p);
 	}
 
-	private static class Fight {
+	private class Fight {
 		private Listener listener;
 
 		public Fight(Warp1v1 l, Player player1, Player player2) {
 			listener = new Listener() {
 				@SuppressWarnings("deprecation")
 				@EventHandler
-				public void onDeathStatus(PlayerDeathEvent event) {
-					// Player p = event.getEntity();
-					// if (!isInPvP(p))
-					// return;
-					// Player killer = null;
-					// if (p == player1)
-					// killer = player2;
-					// if (p == player2)
-					// killer = player1;
-					// int i = 0;
-					// for (ItemStack sopa :
-					// killer.getInventory().getContents()) {
-					// if (sopa != null && sopa.getType() != Material.AIR &&
-					// sopa.getType() == Material.MUSHROOM_SOUP) {
-					// i = i + sopa.getAmount();
-					// }
-					// }
-					// DecimalFormat dm = new DecimalFormat("##.#");
-					// p.sendMessage(ChatColor.RED + killer.getName() + " venceu
-					// o 1v1 com " + dm.format(((Damageable)killer).getHealth()
-					// / 2) + " coracoes e " + i + " sopas restantes");
-					// killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1
-					// contra " + p.getName() + " com " +
-					// dm.format(((Damageable)killer).getHealth() / 2) + "
-					// coracoes e " + i + " sopas restantes");
-					// l.teleport1v1(killer);
-					// l.teleport1v1(p);
-					// killer.setHealth(20D);
-					// killer.updateInventory();
-					// p.setHealth(20D);
-					// killer.updateInventory();
-					// playersIn1v1.remove(p);
-					// playersIn1v1.remove(killer);
-					// l.getMain().getVanish().updateVanished(p);
-					// l.getMain().getVanish().updateVanished(killer);
-					// event.getDrops().clear();
-					// destroy();
+				public void onDeathStatus(PlayerDeathInWarpEvent e) {
+					Player p = e.getPlayer();
+					if (!isInPvP(p))
+						return;
+//					scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+//					scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
+//					if (e.hasKiller()) {
+//						scoreboard.updateScoreValue(e.getKiller(), "kills",
+//								"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+//						scoreboard.updateScoreValue(e.getKiller(), "ks",
+//								"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+//					}
+					Player killer = null;
+					if (p == player1)
+						killer = player2;
+					if (p == player2)
+						killer = player1;
+					int i = 0;
+					for (ItemStack sopa : killer.getInventory().getContents()) {
+						if (sopa != null && sopa.getType() != Material.AIR && sopa.getType() == Material.MUSHROOM_SOUP) {
+							i = i + sopa.getAmount();
+						}
+					}
+					DecimalFormat dm = new DecimalFormat("##.#");
+					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2)
+							+ " coracoes e " + i + " sopas restantes");
+					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
+							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
+					l.teleport1v1(killer);
+					killer.setHealth(20D);
+					killer.updateInventory();
+					p.setHealth(20D);
+					killer.updateInventory();
+					playersIn1v1.remove(p);
+					playersIn1v1.remove(killer);
+					l.getMain().getVanish().updateVanished(p);
+					l.getMain().getVanish().updateVanished(killer);
+//					scoreboard.updateScoreName(p, "battleplayer", "§3Ninguem");
+//					scoreboard.updateScoreValue(p, "battleplayer", "");
+//					scoreboard.updateScoreName(killer, "battleplayer", "§3Ninguem");
+//					scoreboard.updateScoreValue(killer, "battleplayer", "");
+					destroy();
 				}
 
 				@EventHandler
@@ -810,7 +842,27 @@ public class Warp1v1 extends BaseWarp {
 
 	@Override
 	protected Warp getWarp(yBattleCraft battleCraft) {
-		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD), null, false);
+		scoreboard = new WarpScoreboard("1v1") {
+			
+			@Override
+			public void createScores(Player p) {
+				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
+				Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+				createScore(p, "b3", "", "", 11);
+				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 10);
+				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
+				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
+				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
+				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "b2", "", "", 5);
+				createScore(p, "battlewith", "§7Batalhando", "§7 contra:", 4);
+				createScore(p, "battleplayer", "§3Ninguem", "", 3);
+				createScore(p, "b1", "", "", 2);
+				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
+			}
+		};
+		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD),
+				new Location(Bukkit.getWorld("1v1spawn"), 0, 67.5, 0), false, scoreboard);
 		return onevsone;
 	}
 

@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
@@ -29,7 +30,10 @@ import br.com.battlebits.ybattlecraft.event.PlayerRemoveKitEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
+import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.kit.Kit;
+import me.flame.utils.Main;
+import me.flame.utils.ranking.constructors.Account;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpSpawn extends BaseWarp {
@@ -44,13 +48,16 @@ public class WarpSpawn extends BaseWarp {
 
 	@EventHandler
 	public void onReal(RealMoveEvent event) {
-		Player p = event.getPlayer();
-		Block above = p.getLocation().subtract(0, 0.1, 0).getBlock();
-		if (above.getType() == Material.GRASS)
-			if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
-				p.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-						+ ChatColor.GRAY + "Você perdeu proteção de spawn");
+		if (isOnWarp(event.getPlayer())) {
+			Player p = event.getPlayer();
+			Block above = p.getLocation().subtract(0, 0.1, 0).getBlock();
+			if (above.getType() == Material.GRASS) {
+				if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
+					p.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+							+ ChatColor.GRAY + "Você perdeu proteção de spawn");
+				}
 			}
+		}
 	}
 
 	@EventHandler
@@ -62,6 +69,16 @@ public class WarpSpawn extends BaseWarp {
 					setTopKS(e.getPlayer());
 				}
 			}.runTaskLaterAsynchronously(yBattleCraft, 20L);
+			yBattleCraft.getWarpManager().removeWarp(e.getPlayer());
+			yBattleCraft.getKitManager().removeKit(e.getPlayer());
+			Hotbar.setItems(e.getPlayer());
+			for (PotionEffect potion : e.getPlayer().getActivePotionEffects()) {
+				e.getPlayer().removePotionEffect(potion.getType());
+			}
+			if (yBattleCraft.getProtectionManager().addProtection(e.getPlayer().getUniqueId())) {
+				e.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu proteção de spawn");
+			}
 		} else {
 			if (e.getPlayer().getUniqueId() == topKsUUID) {
 				updateTopKS();
@@ -151,16 +168,16 @@ public class WarpSpawn extends BaseWarp {
 							name2 = t.getName().substring(14, t.getName().length());
 						}
 						if (p != null && p.isOnline()) {
-							scoreboard.updateScoreName(p, "topksplayer", "§b" + name1);
+							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
 							scoreboard.updateScoreValue(p, "topksplayer",
-									"§b" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+									"§3" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
 				}
 				if (p != null && p.isOnline()) {
-					scoreboard.updateScoreName(p, "topksplayer", "§bNinguem");
-					scoreboard.updateScoreValue(p, "topksplayer", "§b - 0");
+					scoreboard.updateScoreName(p, "topksplayer", "§3Ninguem");
+					scoreboard.updateScoreValue(p, "topksplayer", "§3 - 0");
 				}
 			}
 		}.runTaskAsynchronously(yBattleCraft);
@@ -171,13 +188,17 @@ public class WarpSpawn extends BaseWarp {
 		scoreboard = new WarpScoreboard("spawn") {
 			@Override
 			public void createScores(Player p) {
-				createScore(p, "b4", "", "", 11);
-				createScore(p, "kills", "§7Kills: ", "§b" + getMain().getStatusManager().getStatusByUuid(p.getUniqueId()).getKills(), 10);
-				createScore(p, "deaths", "§7Deaths: ", "§b" + getMain().getStatusManager().getStatusByUuid(p.getUniqueId()).getDeaths(), 9);
-				createScore(p, "ks", "§7KillStreak: ", "§b0", 8);
+				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
+				Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+				createScore(p, "b4", "", "", 13);
+				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 12);
+				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 11);
+				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 10);
+				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 9);
+				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 8);
 				createScore(p, "b3", "", "", 7);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 6);
-				createScore(p, "topksplayer", "§bNinguem", "§b - 0", 5);
+				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 5);
 				createScore(p, "b2", "", "", 4);
 				createScore(p, "kit", "§7Kit: ", "§e" + getMain().getKitManager().getCurrentKit(p.getUniqueId()), 3);
 				createScore(p, "b1", "", "", 2);

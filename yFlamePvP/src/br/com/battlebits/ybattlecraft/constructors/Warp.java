@@ -25,6 +25,7 @@ public class Warp {
 	private boolean canUseKits;
 	private ArrayList<Kit> kits;
 	private StringScroller scroller;
+	private boolean pvpEnabled;
 
 	public Warp(String name, String description, ItemStack icon, Location loc) {
 		this(name, description, icon, loc, 0, true);
@@ -153,5 +154,9 @@ public class Warp {
 
 	public StringScroller getScroller() {
 		return scroller;
+	}
+	
+	public boolean isPvpEnabled() {
+		return pvpEnabled;
 	}
 }
