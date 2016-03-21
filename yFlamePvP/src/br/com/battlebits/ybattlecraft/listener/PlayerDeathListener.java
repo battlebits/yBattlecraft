@@ -93,7 +93,9 @@ public class PlayerDeathListener extends BaseListener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
-		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.SUCCESSFUL_HIT, 1.0F, 1.0F);
+		if(e.hasKiller()){
+			e.getKiller().playSound(e.getPlayer().getLocation(), Sound.SUCCESSFUL_HIT, 1.0F, 1.0F);
+		}
 		e.getPlayer().setHealth(20);
 		e.getPlayer().setLevel(0);
 		e.getPlayer().closeInventory();

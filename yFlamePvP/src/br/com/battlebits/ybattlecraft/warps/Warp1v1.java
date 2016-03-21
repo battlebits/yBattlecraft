@@ -751,6 +751,8 @@ public class Warp1v1 extends BaseWarp {
 							+ " coracoes e " + i + " sopas restantes");
 					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
 							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
+					l.getMain().getVanish().updateVanished(p);
+					l.getMain().getVanish().updateVanished(killer);
 					l.teleport1v1(killer);
 					killer.setHealth(20D);
 					killer.updateInventory();
@@ -758,8 +760,6 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
-					l.getMain().getVanish().updateVanished(p);
-					l.getMain().getVanish().updateVanished(killer);
 //					scoreboard.updateScoreName(p, "battleplayer", "§3Ninguem");
 //					scoreboard.updateScoreValue(p, "battleplayer", "");
 //					scoreboard.updateScoreName(killer, "battleplayer", "§3Ninguem");
@@ -845,7 +845,7 @@ public class Warp1v1 extends BaseWarp {
 			}
 		};
 		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD),
-				new Location(Bukkit.getWorld("1v1spawn"), 0, 67.5, 0), false, scoreboard);
+				new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, 0.5), false, scoreboard);
 		return onevsone;
 	}
 
