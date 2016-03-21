@@ -39,6 +39,7 @@ import br.com.battlebits.ybattlecraft.manager.AbilityManager;
 import br.com.battlebits.ybattlecraft.manager.BlockResetManager;
 import br.com.battlebits.ybattlecraft.manager.CooldownManager;
 import br.com.battlebits.ybattlecraft.manager.KitManager;
+import br.com.battlebits.ybattlecraft.manager.PlayerHideManager;
 import br.com.battlebits.ybattlecraft.manager.TeleportManager;
 import br.com.battlebits.ybattlecraft.manager.WarpManager;
 import br.com.battlebits.ybattlecraft.managers.CombatLogManager;
@@ -83,6 +84,7 @@ public class yBattleCraft extends JavaPlugin {
 	private ItemManager itemManager;
 	private TeleportManager teleportManager;
 	private BlockResetManager blockResetManager;
+	private PlayerHideManager playerHideManager;
 	
 	//Updater
 	private WarpScoreboardUpdater warpScoreboardUpdater;
@@ -223,6 +225,7 @@ public class yBattleCraft extends JavaPlugin {
 	}
 
 	private void loadManagers() {
+		playerHideManager = new PlayerHideManager(this);
 		warpManager = new WarpManager(this);
 		kitManager = new KitManager(this);
 		protection = new ProtectionManager();
@@ -286,4 +289,8 @@ public class yBattleCraft extends JavaPlugin {
 		return gladiatorFightController;
 	}
 
+	public PlayerHideManager getPlayerHideManager() {
+		return playerHideManager;
+	}
+	
 }

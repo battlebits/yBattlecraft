@@ -87,11 +87,18 @@ public class WarpManager {
 	}
 
 	public String getPlayerWarp(UUID id) {
+		if (!playerWarp.containsKey(id)) {
+			return "spawn";
+		}
 		return playerWarp.get(id);
 	}
 
 	public Warp getWarpByName(String warpName) {
-		return nameWarp.get(warpName.toLowerCase().trim());
+		try {
+			return nameWarp.get(warpName.toLowerCase().trim());
+		} catch (Exception e) {
+			return nameWarp.get("spawn");
+		}
 	}
 
 	public boolean hasWarp(Player p) {

@@ -16,21 +16,23 @@ public class StomperAbility extends BaseAbility {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDamageListener(EntityDamageEvent e) {
 		if (e.getCause() == DamageCause.FALL) {
 			if (e.getEntity() instanceof Player) {
 				Player p = (Player) e.getEntity();
 				if (isUsing(p)) {
 					for (Player ps : p.getWorld().getEntitiesByClass(p.getClass())) {
-						if (!battlecraft.getProtectionManager().isProtected(ps.getUniqueId())) {
-							if (!battlecraft.getAdminMode().isAdmin(ps)) {
-								if (p.getLocation().distance(p.getLocation()) <= 5) {
-									double dmg = e.getDamage();
-									if (ps.isSneaking() && dmg > 8) {
-										dmg = 8;
+						if (ps.getUniqueId() != p.getUniqueId()) {
+							if (!battlecraft.getProtectionManager().isProtected(ps.getUniqueId())) {
+								if (!battlecraft.getAdminMode().isAdmin(ps)) {
+									if (p.getLocation().distance(ps.getLocation()) <= 5) {
+										double dmg = e.getDamage();
+										if (ps.isSneaking() && dmg > 8) {
+											dmg = 8;
+										}
+										ps.damage(dmg, p);
 									}
-									ps.damage(dmg, p);
 								}
 							}
 						}

@@ -186,7 +186,7 @@ public class Warp1v1 extends BaseWarp {
 			openChallange(p, clicado);
 		}
 	}
-	
+
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
 		if (playerDesafios.containsKey(event.getPlayer().getName()))
@@ -355,14 +355,10 @@ public class Warp1v1 extends BaseWarp {
 		playersIn1v1.add(desafiado);
 		getMain().getProtectionManager().removeProtection(p.getUniqueId());
 		getMain().getProtectionManager().removeProtection(desafiado.getUniqueId());
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player != desafiado)
-				p.hidePlayer(player);
-		}
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player != p)
-				desafiado.hidePlayer(player);
-		}
+		yBattleCraft.getPlayerHideManager().hideAllPlayers(p);
+		yBattleCraft.getPlayerHideManager().hideAllPlayers(desafiado);
+		p.showPlayer(desafiado);
+		desafiado.showPlayer(p);
 		if (firstLoction == null)
 			firstLoction = new Location(Bukkit.getWorld("1v1spawn"), 150.5, 67.5, 138.5);
 		p.teleport(firstLoction);
@@ -727,14 +723,18 @@ public class Warp1v1 extends BaseWarp {
 					Player p = e.getPlayer();
 					if (!isInPvP(p))
 						return;
-//					scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
-//					scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
-//					if (e.hasKiller()) {
-//						scoreboard.updateScoreValue(e.getKiller(), "kills",
-//								"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
-//						scoreboard.updateScoreValue(e.getKiller(), "ks",
-//								"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
-//					}
+					// scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b"
+					// +
+					// getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+					// scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
+					// if (e.hasKiller()) {
+					// scoreboard.updateScoreValue(e.getKiller(), "kills",
+					// "§b" +
+					// getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+					// scoreboard.updateScoreValue(e.getKiller(), "ks",
+					// "§b" +
+					// getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+					// }
 					Player killer = null;
 					if (p == player1)
 						killer = player2;
@@ -751,8 +751,8 @@ public class Warp1v1 extends BaseWarp {
 							+ " coracoes e " + i + " sopas restantes");
 					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
 							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
-					l.getMain().getVanish().updateVanished(p);
-					l.getMain().getVanish().updateVanished(killer);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(killer);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(p);
 					l.teleport1v1(killer);
 					killer.setHealth(20D);
 					killer.updateInventory();
@@ -760,10 +760,12 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
-//					scoreboard.updateScoreName(p, "battleplayer", "§3Ninguem");
-//					scoreboard.updateScoreValue(p, "battleplayer", "");
-//					scoreboard.updateScoreName(killer, "battleplayer", "§3Ninguem");
-//					scoreboard.updateScoreValue(killer, "battleplayer", "");
+					// scoreboard.updateScoreName(p, "battleplayer",
+					// "§3Ninguem");
+					// scoreboard.updateScoreValue(p, "battleplayer", "");
+					// scoreboard.updateScoreName(killer, "battleplayer",
+					// "§3Ninguem");
+					// scoreboard.updateScoreValue(killer, "battleplayer", "");
 					destroy();
 				}
 
@@ -806,7 +808,7 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
-					l.getMain().getVanish().updateVanished(killer);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(p);
 					p.damage(2000, killer);
 					destroy();
 				}
@@ -826,7 +828,7 @@ public class Warp1v1 extends BaseWarp {
 	@Override
 	protected Warp getWarp(yBattleCraft battleCraft) {
 		scoreboard = new WarpScoreboard("1v1") {
-			
+
 			@Override
 			public void createScores(Player p) {
 				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());

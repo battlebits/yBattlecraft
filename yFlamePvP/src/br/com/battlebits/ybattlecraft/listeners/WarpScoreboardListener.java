@@ -23,16 +23,11 @@ public class WarpScoreboardListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerWarpJoinListenr(PlayerWarpJoinEvent e) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (e.getWarp().hasScoreboard()) {
-					e.getWarp().getScoreboard().setSidebar(e.getPlayer());
-				} else {
-					e.getPlayer().getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
-				}
-			}
-		}.runTaskAsynchronously(yBattleCraft);
+		if (e.getWarp().hasScoreboard()) {
+			e.getWarp().getScoreboard().setSidebar(e.getPlayer());
+		} else {
+			e.getPlayer().getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
@@ -51,10 +46,9 @@ public class WarpScoreboardListener implements Listener {
 		for (Objective obj : e.getPlayer().getScoreboard().getObjectives()) {
 			obj.unregister();
 		}
-		for(Team t : e.getPlayer().getScoreboard().getTeams()){
+		for (Team t : e.getPlayer().getScoreboard().getTeams()) {
 			t.unregister();
 		}
-		e.getPlayer().setScoreboard(null);
 	}
 
 }

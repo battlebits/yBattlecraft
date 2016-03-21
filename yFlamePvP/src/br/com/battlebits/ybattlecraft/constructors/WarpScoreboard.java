@@ -54,7 +54,11 @@ public abstract class WarpScoreboard {
 		t.setPrefix(name);
 		t.setSuffix(value);
 		t.addEntry(prefix);
-		p.getScoreboard().getObjective("warp" + objId).getScore(prefix).setScore(score);
+		try {
+			p.getScoreboard().getObjective("warp" + objId).getScore(prefix).setScore(score);
+		} catch (Exception e) {
+			getObjective(p).getScore(prefix).setScore(score);
+		}
 	}
 
 	public void updateScoreValue(Player p, String id, String value) {
