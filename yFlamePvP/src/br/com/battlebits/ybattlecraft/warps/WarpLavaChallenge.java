@@ -35,6 +35,9 @@ public class WarpLavaChallenge extends BaseWarp {
 		Player p = event.getPlayer();
 		getMain().getProtectionManager().removeProtection(p.getUniqueId());
 		p.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
+		p.getInventory().setItem(14, new ItemStack(Material.RED_MUSHROOM, 64));
+		p.getInventory().setItem(15, new ItemStack(Material.BOWL, 64));
+		p.getInventory().setItem(16, new ItemStack(Material.BROWN_MUSHROOM, 64));
 		for (ItemStack i : p.getInventory().getContents()) {
 			if (i == null)
 				p.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));

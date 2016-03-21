@@ -5,24 +5,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -324,6 +320,7 @@ public class Warp1v1 extends BaseWarp {
 		p.openInventory(inventoty);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setIn1v1(Desafio desafio) {
 		if (desafio == null) {
 			return;
@@ -367,10 +364,10 @@ public class Warp1v1 extends BaseWarp {
 				desafiado.hidePlayer(player);
 		}
 		if (firstLoction == null)
-			firstLoction = new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, -11.5);
+			firstLoction = new Location(Bukkit.getWorld("1v1spawn"), 150.5, 67.5, 138.5);
 		p.teleport(firstLoction);
 		if (secondLoction == null)
-			secondLoction = new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, 12.5, 180f, 0f);
+			secondLoction = new Location(Bukkit.getWorld("1v1spawn"), 150.5, 67.5, 162.5, 180f, 0f);
 		desafiado.teleport(secondLoction);
 		String dname1 = "";
 		String dname2 = "";
@@ -708,18 +705,6 @@ public class Warp1v1 extends BaseWarp {
 	}
 
 	public void teleport1v1(Player p) {
-		Location l;
-		World w = Bukkit.getWorld("1v1spawn");
-		Random random = new Random();
-		int i = random.nextInt(3);
-		if (i == 0)
-			l = new Location(w, 23.5, 67.5, -22.5, 45f, 0f);
-		else if (i == 1)
-			l = new Location(w, -22.5, 67.5, -22.5, 315f, 0f);
-		else if (i == 2)
-			l = new Location(w, 23.5, 67.5, 23.5, 135f, 0f);
-		else
-			l = new Location(w, -22.5, 67.5, 23.5, 230f, 0f);
 		getMain().getWarpManager().removeWarp(p);
 		getMain().getKitManager().removeKit(p);
 		getMain().getWarpManager().teleportWarp(p, "1v1", false);
@@ -729,7 +714,6 @@ public class Warp1v1 extends BaseWarp {
 		for (PotionEffect potion : p.getActivePotionEffects()) {
 			p.removePotionEffect(potion.getType());
 		}
-		p.teleport(l);
 		Hotbar.set1v1(p);
 	}
 
@@ -738,7 +722,6 @@ public class Warp1v1 extends BaseWarp {
 
 		public Fight(Warp1v1 l, Player player1, Player player2) {
 			listener = new Listener() {
-				@SuppressWarnings("deprecation")
 				@EventHandler
 				public void onDeathStatus(PlayerDeathInWarpEvent e) {
 					Player p = e.getPlayer();

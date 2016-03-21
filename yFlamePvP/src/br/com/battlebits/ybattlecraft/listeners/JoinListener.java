@@ -48,7 +48,7 @@ public class JoinListener implements Listener {
 		if (!me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.LIGHT) && Bukkit.getOnlinePlayers().length >= 150) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Lotado! Compre VIP em " + yBattleCraft.site + " e tenha sempre um Slot reservado");
 		} else {
-			event.allow();
+//			event.allow();
 		}
 	}
 
