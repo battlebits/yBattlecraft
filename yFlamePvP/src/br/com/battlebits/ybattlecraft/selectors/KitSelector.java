@@ -437,10 +437,12 @@ public class KitSelector {
 					setCategory(KitCategory.FAVORITE);
 				}
 				if (event.getRawSlot() >= 18) {
-					manager.giveKit(player, m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId()))
-							.getKit(ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase()), true);
-					player.closeInventory();
-					destroy();
+					if (manager.canUseKit(player, ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase())) {
+						manager.giveKit(player, m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId()))
+								.getKit(ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase()), true);
+						player.closeInventory();
+						destroy();
+					}
 				}
 			}
 		};
