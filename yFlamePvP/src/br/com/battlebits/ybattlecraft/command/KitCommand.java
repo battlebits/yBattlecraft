@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.base.BaseCommandWithTab;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.kit.Kit;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class KitCommand implements CommandExecutor, TabExecutor {
+public class KitCommand extends BaseCommandWithTab {
 
 	private yBattleCraft battleCraft;
 	private TextComponent spaceText;
@@ -24,6 +23,8 @@ public class KitCommand implements CommandExecutor, TabExecutor {
 	private TextComponent youHaveAllKitsText;
 
 	public KitCommand(yBattleCraft plugin) {
+		super(plugin);
+		this.description = "Utilize este comando para escolher um Kit";
 		this.battleCraft = plugin;
 		this.spaceText = new TextComponent("§7, ");
 		this.ownedKitsText = new TextComponent("§b§lSeus Kits §8§l>> ");
@@ -70,9 +71,11 @@ public class KitCommand implements CommandExecutor, TabExecutor {
 								p.sendMessage("§6§lMais kits §8§l>> §7Compre em §ehttp://www.battlebits.com.br");
 							} else {
 								if (w.getKit(args[0].toLowerCase()) != null) {
-									battleCraft.getKitManager().giveKit(p, w.getKit(args[0].toLowerCase()), true);
+									if (battleCraft.getKitManager().canUseKit(p, args[0].toLowerCase())) {
+										battleCraft.getKitManager().giveKit(p, w.getKit(args[0].toLowerCase()), true);
+									}
 								} else {
-									p.sendMessage("§b§lKits §8§l>> §7O kit " + args[0] + " não existe!");
+									p.sendMessage("§b§lKITS §8§l>> §7O kit " + args[0] + " não existe!");
 								}
 							}
 						} else {

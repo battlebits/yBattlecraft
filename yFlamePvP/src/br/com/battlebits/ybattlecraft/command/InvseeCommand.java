@@ -2,23 +2,23 @@ package br.com.battlebits.ybattlecraft.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.base.BaseCommand;
 
-public class InvseeCommand implements CommandExecutor {
-	private yBattleCraft m;
+public class InvseeCommand extends BaseCommand {
 
-	public InvseeCommand(yBattleCraft m) {
-		this.m = m;
+	public InvseeCommand(yBattleCraft bc) {
+		super(bc);
+		description = "Utilize este comando para abrir inventarios de outros jogadores";
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
-			if (m.getPermissions().isTrial(p)) {
+			if (battleCraft.getPermissions().isTrial(p)) {
 				if (args.length == 0) {
 					p.sendMessage("§cUse: /invsee <jogador>");
 				} else {
