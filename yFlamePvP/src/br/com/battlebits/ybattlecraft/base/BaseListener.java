@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listener;
+package br.com.battlebits.ybattlecraft.base;
 
 import org.bukkit.event.Listener;
 
