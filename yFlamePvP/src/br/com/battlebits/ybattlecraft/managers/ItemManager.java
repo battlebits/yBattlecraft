@@ -58,7 +58,6 @@ public class ItemManager {
 		p.getPlayer().setItemOnCursor(new ItemStack(0));
 		for (PotionEffect pot : p.getActivePotionEffects()) {
 			p.removePotionEffect(pot.getType());
-			break;
 		}
 		itens.clear();
 	}
