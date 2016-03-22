@@ -14,12 +14,14 @@ public class Status {
 	private int killstreak;
 	private List<String> kits;
 	private List<String> kitsFavoritos;
+	private boolean scoreboardEnabled;
 
 	public Status(StatusManager manager, UUID uuid) {
-		this(manager, uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>());
+		this(manager, uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
 	}
 
-	public Status(StatusManager manager, UUID uuid, int kills, int deaths, int killstreak, List<String> kits, List<String> kitsFavoritos) {
+	public Status(StatusManager manager, UUID uuid, int kills, int deaths, int killstreak, List<String> kits, List<String> kitsFavoritos,
+			boolean scoreboard) {
 		this.manager = manager;
 		this.uuid = uuid;
 		this.kills = kills;
@@ -27,6 +29,7 @@ public class Status {
 		this.killstreak = killstreak;
 		this.kits = kits;
 		this.kitsFavoritos = kitsFavoritos;
+		this.scoreboardEnabled = scoreboard;
 	}
 
 	public int getKills() {
@@ -90,6 +93,14 @@ public class Status {
 		this.deaths += 1;
 		this.killstreak = 0;
 		manager.saveStatus(uuid);
+	}
+
+	public boolean isScoreboardEnabled() {
+		return scoreboardEnabled;
+	}
+
+	public void setScoreboardEnabled(boolean scoreboardEnabled) {
+		this.scoreboardEnabled = scoreboardEnabled;
 	}
 
 }
