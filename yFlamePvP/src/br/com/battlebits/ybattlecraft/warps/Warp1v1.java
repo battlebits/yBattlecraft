@@ -16,6 +16,7 @@ import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -718,7 +719,7 @@ public class Warp1v1 extends BaseWarp {
 
 		public Fight(Warp1v1 l, Player player1, Player player2) {
 			listener = new Listener() {
-				@EventHandler
+				@EventHandler(priority = EventPriority.LOWEST)
 				public void onDeathStatus(PlayerDeathInWarpEvent e) {
 					Player p = e.getPlayer();
 					if (!isInPvP(p))
@@ -746,6 +747,8 @@ public class Warp1v1 extends BaseWarp {
 							i = i + sopa.getAmount();
 						}
 					}
+					p.getInventory().clear();
+					killer.getInventory().clear();
 					DecimalFormat dm = new DecimalFormat("##.#");
 					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2)
 							+ " coracoes e " + i + " sopas restantes");
