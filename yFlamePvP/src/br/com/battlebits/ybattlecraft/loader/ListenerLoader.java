@@ -3,7 +3,7 @@ package br.com.battlebits.ybattlecraft.loader;
 import org.bukkit.Bukkit;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.listener.BaseListener;
+import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class ListenerLoader {

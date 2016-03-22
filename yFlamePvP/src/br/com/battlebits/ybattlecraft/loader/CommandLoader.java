@@ -7,10 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.Plugin;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.base.BaseCommand;
+import br.com.battlebits.ybattlecraft.base.BaseCommandWithTab;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class CommandLoader {
@@ -31,40 +32,40 @@ public class CommandLoader {
 
 	public void loadCommandsAndRegister() {
 		for (Class<?> commandClass : ClassGetter.getClassesForPackage(battleCraft, "br.com.battlebits.ybattlecraft.command")) {
-			if (CommandExecutor.class.isAssignableFrom(commandClass)) {
+			if (BaseCommandWithTab.class.isAssignableFrom(commandClass)) {
 				try {
-					CommandExecutor executor = null;
+					BaseCommandWithTab command = null;
 					try {
 						Constructor<?> con = commandClass.getConstructor(yBattleCraft.class);
-						executor = (CommandExecutor) con.newInstance(battleCraft);
+						command = (BaseCommandWithTab) con.newInstance(battleCraft);
 					} catch (Exception ex) {
-						executor = (CommandExecutor) commandClass.newInstance();
+						command = (BaseCommandWithTab) commandClass.newInstance();
 					}
-					registerCommand(executor, executor.getClass().getSimpleName().substring(0, executor.getClass().getSimpleName().length() - 7));
+					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7),
+							command.getDescription(), command.getAliases()).setTabCompleter(command);
 				} catch (Exception e) {
-					System.out.print("Erro ao carregar o comando " + commandClass.getSimpleName());
+					battleCraft.getLogger().warning("Erro ao carregar o comando " + commandClass.getSimpleName() + " (With TabCompleter)");
 				}
-			}
-			if (TabCompleter.class.isAssignableFrom(commandClass)) {
+			} else if (BaseCommand.class.isAssignableFrom(commandClass)) {
 				try {
-					TabCompleter completer = null;
+					BaseCommand command = null;
 					try {
 						Constructor<?> con = commandClass.getConstructor(yBattleCraft.class);
-						completer = (TabCompleter) con.newInstance(battleCraft);
+						command = (BaseCommand) con.newInstance(battleCraft);
 					} catch (Exception ex) {
-						completer = (TabCompleter) commandClass.newInstance();
+						command = (BaseCommand) commandClass.newInstance();
 					}
-					battleCraft.getCommand(completer.getClass().getSimpleName().substring(0, completer.getClass().getSimpleName().length() - 7))
-							.setTabCompleter(completer);
+					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7),
+							command.getDescription(), command.getAliases());
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.print("Erro ao carregar o tabcompleter " + commandClass.getSimpleName());
+					battleCraft.getLogger().warning("Erro ao carregar o comando " + commandClass.getSimpleName());
 				}
 			}
 		}
 	}
 
-	private void registerCommand(CommandExecutor executor, String name) {
+	private PluginCommand registerCommand(CommandExecutor executor, String name, String description, String[] aliases) {
 		try {
 			PluginCommand command = battleCraft.getCommand(name.toLowerCase());
 			if (command == null) {
@@ -74,8 +75,11 @@ public class CommandLoader {
 			}
 			command.setExecutor(executor);
 			commandMap.register(name, command);
+			return command;
 		} catch (Exception e) {
+			battleCraft.getLogger().warning("Erro ao registrar o comando " + name);
 		}
+		return null;
 	}
 
 }

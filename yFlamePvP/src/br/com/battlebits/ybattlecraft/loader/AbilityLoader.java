@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class AbilityLoader {
@@ -18,7 +18,7 @@ public class AbilityLoader {
 
 	public void loadAllAbilities() {
 		int i = 0;
-		for (Class<?> abilityClass : ClassGetter.getClassesForPackage(battleCraft, "br.com.battlebits.ybattlecraft.ability.type")) {
+		for (Class<?> abilityClass : ClassGetter.getClassesForPackage(battleCraft, "br.com.battlebits.ybattlecraft.ability")) {
 			if (BaseAbility.class.isAssignableFrom(abilityClass)) {
 				try {
 					BaseAbility abilityListener;
@@ -43,5 +43,7 @@ public class AbilityLoader {
 			battleCraft.getAbilityManager().addAbility(entry.getValue());
 			battleCraft.getServer().getPluginManager().registerEvents(entry.getValue(), battleCraft);
 		}
+		abilities.clear();
+		abilities = null;
 	}
 }
