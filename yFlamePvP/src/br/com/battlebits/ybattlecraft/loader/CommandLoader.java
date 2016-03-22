@@ -2,6 +2,7 @@ package br.com.battlebits.ybattlecraft.loader;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -74,6 +75,8 @@ public class CommandLoader {
 				command = (PluginCommand) constructor.newInstance(name, battleCraft);
 			}
 			command.setExecutor(executor);
+			command.setAliases(Arrays.asList(aliases));
+			command.setDescription(description);
 			commandMap.register(name, command);
 			return command;
 		} catch (Exception e) {
