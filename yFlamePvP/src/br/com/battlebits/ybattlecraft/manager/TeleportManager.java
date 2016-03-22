@@ -37,7 +37,12 @@ public class TeleportManager {
 								if (p.isOnline()) {
 									if (!p.isDead()) {
 										p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-										battleCraft.getWarpManager().teleportWarp(p, w.getWarpName().toLowerCase().trim(), true);
+										new BukkitRunnable() {
+											@Override
+											public void run() {
+												battleCraft.getWarpManager().teleportWarp(p, w.getWarpName().toLowerCase().trim(), true);
+											}
+										}.runTask(battleCraft);
 									}
 								}
 							}
