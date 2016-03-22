@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.nms.Title;

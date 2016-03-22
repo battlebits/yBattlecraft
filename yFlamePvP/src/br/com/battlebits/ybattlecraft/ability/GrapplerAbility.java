@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.constructors.GrapplingHook;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;

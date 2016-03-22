@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 
 public class JackHammerAbility extends BaseAbility {

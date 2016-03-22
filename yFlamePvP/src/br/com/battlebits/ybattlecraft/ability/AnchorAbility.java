@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Damageable;
@@ -8,7 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class AnchorAbility extends BaseAbility {
 

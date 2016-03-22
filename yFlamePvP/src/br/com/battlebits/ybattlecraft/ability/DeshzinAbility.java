@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import me.flame.utils.event.UpdateEvent;
 import me.flame.utils.event.UpdateEvent.UpdateType;

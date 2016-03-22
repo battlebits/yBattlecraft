@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.ability.type;
+package br.com.battlebits.ybattlecraft.ability;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 
@@ -55,13 +55,17 @@ public class NinjaAbility extends BaseAbility {
 														e.getPlayer().teleport(hit.getTarget().getLocation());
 														e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Teleportado!");
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
-														battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(),
-																getAbilityName() + "ability", 7);
+														battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(), "ninjaability", 7);
 													} else {
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-														e.getPlayer().sendMessage("§5§lNINJA §fAguarde §9§l"
-																+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "ninjaability").toUpperCase()
-																+ "§f para utilizar sua habilidade!");
+														e.getPlayer()
+																.sendMessage(
+																		"§5§lNINJA §fAguarde §9§l"
+																				+ battlecraft.getCooldownManager()
+																						.getCooldownTimeFormated(e.getPlayer().getUniqueId(),
+																								"ninjaability")
+																						.toUpperCase()
+																				+ "§f para utilizar sua habilidade!");
 													}
 												} else {
 													e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
