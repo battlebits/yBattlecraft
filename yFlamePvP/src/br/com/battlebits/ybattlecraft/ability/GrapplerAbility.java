@@ -88,7 +88,7 @@ public class GrapplerAbility extends BaseAbility {
 		return loc.distance(playerLoc) < 1.5;
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerInteractListener(PlayerInteractEvent e) {
 		if (isUsing(e.getPlayer())) {
 			if (e.getItem() != null) {
@@ -130,7 +130,7 @@ public class GrapplerAbility extends BaseAbility {
 									}
 									e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.STEP_GRAVEL, 1.0F, 1.0F);
 								} else {
-									e.getPlayer().sendMessage("§5§lGRAPPLER §fSeu grappler ainda não foi §9§lFISGADO§f!");
+									e.getPlayer().sendMessage("§5§lGRAPPLER §fSua corda ainda não foi §9§lFISGADA§f!");
 								}
 							} else {
 								if (grapplerHooks.get(e.getPlayer().getUniqueId()).hooked == null) {
