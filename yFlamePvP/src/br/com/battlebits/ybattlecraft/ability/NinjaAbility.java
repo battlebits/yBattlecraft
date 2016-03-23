@@ -51,21 +51,28 @@ public class NinjaAbility extends BaseAbility {
 										if (!battlecraft.getProtectionManager().isProtected(hit.getTargetUUID())) {
 											if (e.getPlayer().getLocation().distance(hit.getTarget().getLocation()) <= 50) {
 												if (e.getPlayer().getLocation().getY() - hit.getTarget().getLocation().getY() <= 20) {
-													if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "ninjaability")) {
-														e.getPlayer().teleport(hit.getTarget().getLocation());
-														e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Teleportado!");
-														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
-														battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(), "ninjaability", 7);
+													if (!battlecraft.getGladiatorFightController().isInFight(e.getPlayer())) {
+														//TODO: CHECK IF TARGET IS THE SAME IN BATTLE
+														if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(),
+																"ninjaability")) {
+															e.getPlayer().teleport(hit.getTarget().getLocation());
+															e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Teleportado!");
+															e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
+															battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(), "ninjaability",
+																	7);
+														} else {
+															e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
+															e.getPlayer()
+																	.sendMessage("§5§lNINJA §fAguarde §9§l"
+																			+ battlecraft.getCooldownManager()
+																					.getCooldownTimeFormated(e.getPlayer().getUniqueId(),
+																							"ninjaability")
+																					.toUpperCase()
+																			+ "§f para utilizar sua habilidade!");
+														}
 													} else {
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-														e.getPlayer()
-																.sendMessage(
-																		"§5§lNINJA §fAguarde §9§l"
-																				+ battlecraft.getCooldownManager()
-																						.getCooldownTimeFormated(e.getPlayer().getUniqueId(),
-																								"ninjaability")
-																						.toUpperCase()
-																				+ "§f para utilizar sua habilidade!");
+														e.getPlayer().sendMessage("§5§lNINJA §fFinalize sua §9§lBATALHA§f primeiro!");
 													}
 												} else {
 													e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
