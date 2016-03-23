@@ -138,10 +138,14 @@ public class WarpSpawn extends BaseWarp {
 				int ks = 0;
 				UUID topks = null;
 				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
-					Status s = yBattleCraft.getStatusManager().getStatusByUuid(id);
-					if (s.getKillstreak() > ks) {
-						ks = s.getKillstreak();
-						topks = id;
+					if (!yBattleCraft.getAdminMode().isAdmin(Bukkit.getPlayer(id))) {
+						if (!yBattleCraft.getProtectionManager().isProtected(id)) {
+							Status s = yBattleCraft.getStatusManager().getStatusByUuid(id);
+							if (s.getKillstreak() > ks) {
+								ks = s.getKillstreak();
+								topks = id;
+							}
+						}
 					}
 				}
 				topKsUUID = topks;
