@@ -25,12 +25,6 @@ public class PlayerHideManager {
 		}
 	}
 
-	public void hideOnlyNormal(Player p) {
-		if (hideAllPlayers.contains(p.getUniqueId())) {
-			hideAllPlayers.remove(p.getUniqueId());
-		}
-	}
-
 	@SuppressWarnings("deprecation")
 	public void hideAllPlayers(Player p) {
 		hideAllPlayers.add(p.getUniqueId());
@@ -51,6 +45,10 @@ public class PlayerHideManager {
 				p.showPlayer(show);
 			}
 		}
+	}
+	
+	public boolean isHiding(UUID id){
+		return hideAllPlayers.contains(id);
 	}
 
 	@SuppressWarnings("deprecation")
