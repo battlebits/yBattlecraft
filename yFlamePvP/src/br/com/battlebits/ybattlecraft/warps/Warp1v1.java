@@ -33,7 +33,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.constructors.BaseWarp;
+import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Desafio;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -321,7 +321,6 @@ public class Warp1v1 extends BaseWarp {
 		p.openInventory(inventoty);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setIn1v1(Desafio desafio) {
 		if (desafio == null) {
 			return;
@@ -748,7 +747,9 @@ public class Warp1v1 extends BaseWarp {
 						}
 					}
 					p.getInventory().clear();
+					p.getInventory().setArmorContents(null);
 					killer.getInventory().clear();
+					killer.getInventory().setArmorContents(null);
 					DecimalFormat dm = new DecimalFormat("##.#");
 					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2)
 							+ " coracoes e " + i + " sopas restantes");
