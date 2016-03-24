@@ -32,10 +32,13 @@ public class Vanish {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void makeVanished(Player p, VLevel level) {
 		if (level.equals(VLevel.YOUTUBER)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.showPlayer(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					player.showPlayer(p);
+				}
 				if (player.getName().equals(p.getName()))
 					continue;
 				if (!m.getPermissions().isYouTuber(player) || (m.getPermissions().isYouTuber(player) && !m.getPermissions().isTrial(player)))
@@ -43,7 +46,9 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.MOD)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.showPlayer(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					player.showPlayer(p);
+				}
 				if (player.getName().equals(p.getName()))
 					continue;
 				if (!m.getPermissions().isTrial(player))
@@ -51,7 +56,9 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.MODPLUS)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.showPlayer(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					player.showPlayer(p);
+				}
 				if (player.getName().equals(p.getName()))
 					continue;
 				if (!m.getPermissions().isMod(player))
@@ -59,7 +66,9 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.ADMIN)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.showPlayer(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					player.showPlayer(p);
+				}
 				if (player.getName().equals(p.getName()))
 					continue;
 				if (!m.getPermissions().isAdmin(player))
@@ -67,7 +76,9 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.DONO)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.showPlayer(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					player.showPlayer(p);
+				}
 				if (player.getName().equals(p.getName()))
 					continue;
 				if (!m.getPermissions().isOwner(player))
@@ -85,6 +96,7 @@ public class Vanish {
 		return vanished.get(p.getUniqueId());
 	}
 
+	@SuppressWarnings("deprecation")
 	public void updateVanished() {
 		for (Player p : Bukkit.getOnlinePlayers())
 			if (isVanished(p)) {
@@ -94,6 +106,7 @@ public class Vanish {
 			}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void updateVanished(Player player) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (player.getName().equals(p.getName()))
@@ -118,6 +131,7 @@ public class Vanish {
 		vanished.remove(p.getUniqueId());
 	}
 
+	@SuppressWarnings("deprecation")
 	public void makeVisible(Player p) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.showPlayer(p);
