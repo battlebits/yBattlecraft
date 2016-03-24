@@ -241,6 +241,10 @@ public class WarpSpawn extends BaseWarp {
 				KitType.MOBILIDADE, Arrays.asList("anchor")));
 		warp.addKit(new Kit(battleCraft, "Gladiator", "Puxe um jogador clicando com o direito nele para uma luta nos ceus.",
 				new ArrayList<ItemStack>(), new ItemStack(Material.IRON_FENCE), 1000, KitType.ESTRATEGIA, Arrays.asList("gladiator")));
+		warp.addKit(new Kit(battleCraft, "Supernova", "Ao usar sua estrela do nether, cria uma explosao de flechas", new ArrayList<ItemStack>(),
+				new ItemStack(Material.ARROW), 1000, KitType.FORCA, Arrays.asList("supernova")));
+		warp.addKit(new Kit(battleCraft, "Fisherman", "Puxe os jogadores com sua vara de pescar.", new ArrayList<ItemStack>(),
+				new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA, Arrays.asList("fisherman")));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,
