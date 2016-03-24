@@ -11,7 +11,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public class WarpScoreboardListener implements Listener {
@@ -22,7 +21,7 @@ public class WarpScoreboardListener implements Listener {
 		this.yBattleCraft = m;
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerWarpJoinListenr(PlayerWarpJoinEvent e) {
 		new BukkitRunnable() {
 			@Override
@@ -38,13 +37,12 @@ public class WarpScoreboardListener implements Listener {
 		}.runTaskLaterAsynchronously(yBattleCraft, 1L);
 	}
 
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoinListener(PlayerJoinEvent e) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				e.getPlayer().getScoreboard().registerNewObjective("clear", "dummy");
-
 			}
 		}.runTaskAsynchronously(yBattleCraft);
 	}
