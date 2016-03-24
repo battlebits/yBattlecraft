@@ -23,6 +23,7 @@ public abstract class BaseAbility implements Listener {
 		} else {
 			this.name = this.getClass().getSimpleName();
 		}
+		this.name = this.name.toLowerCase();
 	}
 
 	public boolean isUsing(Player p) {
