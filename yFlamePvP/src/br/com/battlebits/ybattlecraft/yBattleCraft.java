@@ -109,6 +109,8 @@ public class yBattleCraft extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		saveDefaultConfig();
+		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
 		connect = new Connect(this);
 		connect.trySQLConnection();
 		connect.prepareSQL(mainConnection);
