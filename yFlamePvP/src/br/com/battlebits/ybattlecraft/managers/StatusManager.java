@@ -33,7 +33,7 @@ public class StatusManager {
 	}
 
 	public void addPlayer(UUID uuid, int kills, int deaths, int killstreak, List<String> kitList, List<String> kitsFavoritos) {
-		statusList.put(uuid, new Status(this, uuid, kills, deaths, killstreak, kitList, kitsFavoritos));
+		statusList.put(uuid, new Status(this, uuid, kills, deaths, killstreak, kitList, kitsFavoritos, true));
 	}
 
 	public void removePlayer(Player p) {
