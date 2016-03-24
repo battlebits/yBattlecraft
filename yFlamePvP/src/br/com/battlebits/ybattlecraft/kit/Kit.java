@@ -6,7 +6,7 @@ import java.util.List;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.enums.KitType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
