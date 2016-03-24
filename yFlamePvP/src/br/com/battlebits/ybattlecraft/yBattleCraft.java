@@ -35,6 +35,7 @@ import br.com.battlebits.ybattlecraft.listeners.WarpScoreboardListener;
 import br.com.battlebits.ybattlecraft.loader.AbilityLoader;
 import br.com.battlebits.ybattlecraft.loader.CommandLoader;
 import br.com.battlebits.ybattlecraft.loader.ListenerLoader;
+import br.com.battlebits.ybattlecraft.loader.WarpLoader;
 import br.com.battlebits.ybattlecraft.manager.AbilityManager;
 import br.com.battlebits.ybattlecraft.manager.BlockResetManager;
 import br.com.battlebits.ybattlecraft.manager.CooldownManager;
@@ -48,14 +49,14 @@ import br.com.battlebits.ybattlecraft.managers.Permissions;
 import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
 import br.com.battlebits.ybattlecraft.managers.ReflectionManager;
 import br.com.battlebits.ybattlecraft.managers.StatusManager;
-import br.com.battlebits.ybattlecraft.managers.WarpLoader;
 import br.com.battlebits.ybattlecraft.mysql.Connect;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
+import me.flame.utils.utils.PluginUpdater;
 
 public class yBattleCraft extends JavaPlugin {
-	
+
 	public static String site = "battlebits.com.br";
 	public static String servername = "Battlecraft";
 	public static String motd = "";
@@ -72,11 +73,12 @@ public class yBattleCraft extends JavaPlugin {
 	public static Evento currentEvento;
 	public static boolean IS_FULLIRON_MODE = false;
 
-	//Controller
+	// Controller
 	private GladiatorFightController gladiatorFightController;
-	
+
 	// Loader
 	private AbilityLoader abilityLoader;
+	private WarpLoader warpLoader;
 
 	// Manager
 	private AbilityManager abilityManager;
@@ -85,8 +87,8 @@ public class yBattleCraft extends JavaPlugin {
 	private TeleportManager teleportManager;
 	private BlockResetManager blockResetManager;
 	private PlayerHideManager playerHideManager;
-	
-	//Updater
+
+	// Updater
 	private WarpScoreboardUpdater warpScoreboardUpdater;
 
 	// Util
@@ -121,10 +123,12 @@ public class yBattleCraft extends JavaPlugin {
 		startUpdaters();
 		gladiatorFightController = new GladiatorFightController();
 		new CommandLoader(this).loadCommandsAndRegister();
+		getServer().getScheduler().runTaskTimerAsynchronously(this, new PluginUpdater(this), 2L, 108000L);
 	}
-	
+
 	@Override
 	public void onDisable() {
+		gladiatorFightController.stop();
 		blockResetManager.stopAndResetAll();
 	}
 
@@ -164,14 +168,14 @@ public class yBattleCraft extends JavaPlugin {
 		return reflectionManager;
 	}
 
-	private void loadUpdaters(){
+	private void loadUpdaters() {
 		warpScoreboardUpdater = new WarpScoreboardUpdater(this);
 	}
-	
-	private void startUpdaters(){
+
+	private void startUpdaters() {
 		warpScoreboardUpdater.start();
 	}
-	
+
 	private void loadWorlds() {
 		getServer().createWorld(new WorldCreator("spawnWarp")).setAutoSave(false);
 		System.out.print("World 'spawn' loaded!");
@@ -243,7 +247,9 @@ public class yBattleCraft extends JavaPlugin {
 	}
 
 	private void loadWarps() {
-		new WarpLoader(this).registerAbilityListeners();
+		warpLoader = new WarpLoader(this);
+		warpLoader.initializeAllWarps();
+		warpLoader.registerWarpsListeners();
 		Warp simulator = new Warp("Simulator", "Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e vá para a luta",
 				new ItemStack(Material.RED_MUSHROOM), null);
 		getWarpManager().addWarp(simulator);
@@ -276,15 +282,15 @@ public class yBattleCraft extends JavaPlugin {
 	public AbilityManager getAbilityManager() {
 		return abilityManager;
 	}
-	
+
 	public TeleportManager getTeleportManager() {
 		return teleportManager;
 	}
-	
+
 	public BlockResetManager getBlockResetManager() {
 		return blockResetManager;
 	}
-	
+
 	public GladiatorFightController getGladiatorFightController() {
 		return gladiatorFightController;
 	}
@@ -292,5 +298,5 @@ public class yBattleCraft extends JavaPlugin {
 	public PlayerHideManager getPlayerHideManager() {
 		return playerHideManager;
 	}
-	
+
 }
