@@ -102,7 +102,9 @@ public class Vanish {
 			if (isVanished(p)) {
 				makeVanished(p, vanished.get(p.getUniqueId()));
 			} else {
-				makeVisible(p);
+				if (!m.getPlayerHideManager().isHiding(p.getUniqueId())) {
+					makeVisible(p);
+				}
 			}
 	}
 
