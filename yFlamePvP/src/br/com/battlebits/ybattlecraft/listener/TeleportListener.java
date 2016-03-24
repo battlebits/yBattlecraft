@@ -3,6 +3,7 @@ package br.com.battlebits.ybattlecraft.listener;
 import org.bukkit.event.EventHandler;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 

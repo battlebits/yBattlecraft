@@ -164,7 +164,6 @@ public class PlayerDeathListener extends BaseListener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
-		e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);
 		if (e.hasKiller()) {
 			e.getKiller().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);
 		}
@@ -198,6 +197,7 @@ public class PlayerDeathListener extends BaseListener {
 			String name = ChatColor.GRAY + "Você morreu e renasceu na Warp " + w.getWarpName() + ".";
 			e.getPlayer().sendMessage(tag + name);
 		}
+		e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);
 	}
 
 }
