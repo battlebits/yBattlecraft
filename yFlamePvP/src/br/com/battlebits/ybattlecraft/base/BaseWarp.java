@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.constructors;
+package br.com.battlebits.ybattlecraft.base;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public abstract class BaseWarp implements Listener {

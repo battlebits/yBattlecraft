@@ -10,26 +10,28 @@ import org.bukkit.scoreboard.Team;
 public abstract class WarpScoreboard {
 
 	private String objId = "";
+	private int objs;
 
 	public WarpScoreboard(String id) {
 		objId = id;
 	}
 
 	public Objective getObjective(Player p) {
-		if (p.getScoreboard().getObjective("warp" + objId) == null) {
-			createObjective(p);
+		Objective obj = p.getScoreboard().getObjective("warp" + objId);
+		if (obj == null) {
+			obj = createObjective(p);
 		}
-		createScores(p);
-		return p.getScoreboard().getObjective("warp" + objId);
+		return obj;
 	}
 
 	public Objective createObjective(Player p) {
-		if (p.getScoreboard().getObjective("warp" + objId) == null) {
-			Objective obj = p.getScoreboard().registerNewObjective("warp" + objId, "dummy");
+		Objective obj = p.getScoreboard().getObjective("warp" + objId);
+		if (obj == null) {
+			obj = p.getScoreboard().registerNewObjective("warp" + objId, "dummy");
 			obj.setDisplayName("");
 		}
 		createScores(p);
-		return p.getScoreboard().getObjective("warp" + objId);
+		return obj;
 	}
 
 	public void setTitle(Player p, String title) {
@@ -47,17 +49,16 @@ public abstract class WarpScoreboard {
 			String part2 = "§" + prefix.substring(1, 2);
 			prefix = part1 + part2;
 		}
-		if (p.getScoreboard().getTeam(objId + id) == null) {
-			p.getScoreboard().registerNewTeam(objId + id);
-		}
 		Team t = p.getScoreboard().getTeam(objId + id);
+		if (t == null) {
+			t = p.getScoreboard().registerNewTeam(objId + id);
+		}
 		t.setPrefix(name);
 		t.setSuffix(value);
 		t.addEntry(prefix);
-		try {
-			p.getScoreboard().getObjective("warp" + objId).getScore(prefix).setScore(score);
-		} catch (Exception e) {
-			getObjective(p).getScore(prefix).setScore(score);
+		getObjective(p).getScore(prefix).setScore(score);
+		if (score >= objs) {
+			objs = score;
 		}
 	}
 
@@ -77,8 +78,20 @@ public abstract class WarpScoreboard {
 		t.setPrefix(name);
 	}
 
+	public void updateScore(Player p, String id, String name, String value) {
+		if (p.getScoreboard().getTeam(objId + id) == null) {
+			createScore(p, id, name, value, new Random().nextInt(1000));
+		}
+		Team t = p.getScoreboard().getTeam(objId + id);
+		t.setPrefix(name);
+		t.setSuffix(value);
+	}
+
 	public void setSidebar(Player p) {
+		createScores(p);
+		getObjective(p).getScore("§1").setScore(1);
 		getObjective(p).setDisplaySlot(DisplaySlot.SIDEBAR);
+		getObjective(p).getScore("§1").setScore(1);
 	}
 
 	public abstract void createScores(Player p);

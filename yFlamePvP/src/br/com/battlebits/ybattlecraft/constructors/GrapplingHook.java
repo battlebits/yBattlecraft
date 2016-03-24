@@ -32,10 +32,7 @@ public class GrapplingHook extends EntityFishingHook {
 	@Override
 	public void h() {
 		if (!this.lastControllerDead && this.controller.dead) {
-			((Player) this.owner.getBukkitEntity()).sendMessage("§5§lGRAPPLER §fGrappler §9§lFISGADO§f!");
-			if (hooked instanceof Player) {
-				((Player) hooked).sendMessage("§5§LGRAPPLER §fUm grappler §9§lFISGOU§f em voce!");
-			}
+			((Player) this.owner.getBukkitEntity()).sendMessage("§5§lGRAPPLER §fSua corda foi §9§lFISGADA§f!");
 		}
 		this.lastControllerDead = this.controller.dead;
 		for (Entity entity : this.controller.world.getWorld().getEntities()) {
@@ -45,7 +42,10 @@ public class GrapplingHook extends EntityFishingHook {
 					&& (entity.getLocation().distance(this.controller.getBukkitEntity().getLocation()) < 2.0D || (entity instanceof Player
 							&& ((Player) entity).getEyeLocation().distance(this.controller.getBukkitEntity().getLocation()) < 2.0D))) {
 				if (entity instanceof Player) {
-					continue;
+					Player p = (Player) entity;
+					if (p.getUniqueId().equals(owner.getProfile().getId())) {
+						return;
+					}
 				}
 				this.controller.die();
 				this.hooked = entity;
