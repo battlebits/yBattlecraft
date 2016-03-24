@@ -25,25 +25,25 @@ public class CooldownManager {
 		cooldowns = HashBasedTable.create();
 		time = plugin.getTimeUtils();
 		battleCraft = plugin;
-		checkCooldowns();
+		 checkCooldowns();
 	}
-	
-	public void checkCooldowns(){
+
+	public void checkCooldowns() {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				for(Map<UUID, Long> map : cooldowns.columnMap().values()){
-					for(Entry<UUID, Long> entry : map.entrySet()){
-						if(System.currentTimeMillis() >= entry.getValue()){
+				for (Map<UUID, Long> map : cooldowns.columnMap().values()) {
+					for (Entry<UUID, Long> entry : map.entrySet()) {
+						if (System.currentTimeMillis() >= entry.getValue()) {
 							map.remove(entry.getKey());
 							Player t = Bukkit.getPlayer(entry.getKey());
-							if(t != null){
+							if (t != null) {
 								t.playSound(t.getLocation(), Sound.LEVEL_UP, 0.5F, 1.0F);
 							}
 						}
 					}
 				}
-				
+
 			}
 		}.runTaskTimerAsynchronously(battleCraft, 20L, 20L);
 	}
@@ -61,12 +61,12 @@ public class CooldownManager {
 
 	public void removeCooldown(UUID id, String key) {
 		if (hasCooldown(id, key)) {
-			cooldowns.row(id).remove(id);
+			cooldowns.remove(id, key);
 		}
 	}
 
 	public void setCooldown(UUID id, String key, int seconds) {
-		removeCooldown(id, key);
+
 		cooldowns.put(id, key, System.currentTimeMillis() + (seconds * 1000));
 	}
 
