@@ -21,7 +21,9 @@ public class PlayerHideManager {
 	public void playerJoin(Player p) {
 		for (UUID id : hideAllPlayers) {
 			Player hide = Bukkit.getPlayer(id);
-			hide.hidePlayer(p);
+			if (hide != null) {
+				hide.hidePlayer(p);
+			}
 		}
 	}
 
@@ -46,8 +48,8 @@ public class PlayerHideManager {
 			}
 		}
 	}
-	
-	public boolean isHiding(UUID id){
+
+	public boolean isHiding(UUID id) {
 		return hideAllPlayers.contains(id);
 	}
 
