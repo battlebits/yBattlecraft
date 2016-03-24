@@ -5,6 +5,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
+import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerRemoveKitEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 
@@ -17,6 +18,11 @@ public class AbilityListener extends BaseListener {
 	@EventHandler
 	public void onPlayerQuitListener(PlayerQuitEvent e) {
 		battleCraft.getAbilityManager().resetPlayerAbilities(e.getPlayer().getUniqueId());
+	}
+
+	@EventHandler
+	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
+		battleCraft.getAbilityManager().resetPlayerAbilities(e.getPlayerUUID());
 	}
 
 	@EventHandler
