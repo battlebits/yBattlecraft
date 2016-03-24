@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -47,12 +48,14 @@ public class JoinListener implements Listener {
 		Player p = event.getPlayer();
 		if (!me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.LIGHT) && Bukkit.getOnlinePlayers().length >= 150) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Lotado! Compre VIP em " + yBattleCraft.site + " e tenha sempre um Slot reservado");
+		} else if (!Bukkit.hasWhitelist() || Bukkit.getWhitelistedPlayers().contains(p)) {
+			event.allow();
 		} else {
-//			event.allow();
+			event.disallow(Result.KICK_WHITELIST, "O servidor esta em manutencao!");
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
 		Player p = event.getPlayer();
@@ -100,7 +103,8 @@ public class JoinListener implements Listener {
 		try {
 			loadStatus(event.getUniqueId());
 		} catch (SQLException e) {
-			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Nao foi possivel carregar seus status, tente novamente em breve");
+			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
+					ChatColor.RED + "Nao foi possivel carregar seus status, tente novamente em breve");
 		}
 	}
 
