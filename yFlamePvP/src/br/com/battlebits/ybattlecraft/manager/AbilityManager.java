@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import br.com.battlebits.ybattlecraft.ability.BaseAbility;
+import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class AbilityManager {
 
