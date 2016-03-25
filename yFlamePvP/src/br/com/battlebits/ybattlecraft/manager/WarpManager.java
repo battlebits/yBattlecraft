@@ -49,7 +49,7 @@ public class WarpManager {
 			return;
 		}
 		if (warp.getWarpLocation() == null) {
-			p.sendMessage(ChatColor.RED + "Esta warp está desabilitada para manutenção");
+			p.sendMessage("§9§lTELEPORTE §fEsta warp esta em §3§lMANUTENÇãO");
 			return;
 		}
 		WarpTeleportEvent event = new WarpTeleportEvent(p, warp, aviso);
@@ -62,11 +62,8 @@ public class WarpManager {
 			p.removePotionEffect(potion.getType());
 		}
 		if (event.hasAviso()) {
-			String tag = ChatColor.BLUE + "" + ChatColor.BOLD + "Teleporte" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-					+ ChatColor.RESET;
-			String name = ChatColor.GRAY + "Teleportado para " + warp.getWarpName();
-			p.sendMessage(tag + name);
-			BarAPI.setMessage(p, name, 5);
+			p.sendMessage("§9§lTELEPORTE §fVocê foi teleportado para §3§l" + warp.getWarpName());
+			BarAPI.setMessage(p, "§fVocê foi teleportado para §3§l" + warp.getWarpName(), 5);
 			Title title = new Title(ChatColor.YELLOW + "Warp " + Formatter.getFormattedName(warp.getWarpName()));
 			title.setSubtitle("Você foi teleportado");
 			title.setTimingsToTicks();

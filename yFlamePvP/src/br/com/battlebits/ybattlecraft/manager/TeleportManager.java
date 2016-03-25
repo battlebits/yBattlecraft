@@ -61,13 +61,15 @@ public class TeleportManager {
 				if (!Warp1v1.isIn1v1(p)) {
 					boolean wait = false;
 					if (!battleCraft.getGladiatorFightController().isInFight(p)) {
-						for (Player t : p.getWorld().getEntitiesByClass(Player.class)) {
-							if (t.getUniqueId() != p.getUniqueId()) {
-								if (!battleCraft.getProtectionManager().isProtected(t.getUniqueId())) {
-									if (!battleCraft.getAdminMode().isAdmin(t)) {
-										if (t.getLocation().distance(p.getLocation()) <= 10) {
-											wait = true;
-											break;
+						if (!battleCraft.getProtectionManager().isProtected(p.getUniqueId())) {
+							for (Player t : p.getWorld().getEntitiesByClass(Player.class)) {
+								if (t.getUniqueId() != p.getUniqueId()) {
+									if (!battleCraft.getProtectionManager().isProtected(t.getUniqueId())) {
+										if (!battleCraft.getAdminMode().isAdmin(t)) {
+											if (t.getLocation().distance(p.getLocation()) <= 10) {
+												wait = true;
+												break;
+											}
 										}
 									}
 								}

@@ -1,7 +1,9 @@
 package br.com.battlebits.ybattlecraft.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -24,19 +26,16 @@ import br.com.battlebits.ybattlecraft.utils.Formatter;
 public class KitManager {
 
 	private HashMap<UUID, ArrayList<String>> playerKits = new HashMap<>();
-	public HashMap<String, ArrayList<String>> freeKits = new HashMap<>();
+	public HashMap<String, List<String>> freeKits = new HashMap<>();
 	private yBattleCraft battlecraft;
 	private HashMap<UUID, String> playerKit;
 
 	public KitManager(yBattleCraft plugin) {
 		this.battlecraft = plugin;
 		this.playerKit = new HashMap<>();
-		ArrayList<String> kitList = new ArrayList<>();
-		kitList.add("pvp");
-		freeKits.put("normal", kitList);
-		freeKits.put("vip", new ArrayList<>());
-		freeKits.put("mvp", new ArrayList<>());
-		freeKits.put("pro", new ArrayList<>());
+		freeKits.put("normal", Arrays.asList("anchor", "fisherman", "pvp"));
+		freeKits.put("vip", Arrays.asList("hotpotato", "lifesteal", "ninja"));
+		freeKits.put("mvp", Arrays.asList("gladiator", "kangaroo", "viper"));
 	}
 
 	public void removeKit(Player p) {
@@ -166,9 +165,7 @@ public class KitManager {
 				inv.addItem(new ItemStack(Material.MUSHROOM_SOUP));
 		}
 		if (sendMessage) {
-			String tag = ChatColor.AQUA + "" + ChatColor.BOLD + "Kits" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.RESET;
-			String name = ChatColor.GRAY + "Você selecionou o kit " + kit.getName();
-			p.sendMessage(tag + name);
+			p.sendMessage("§b§lKITS §fVocê selecionou o kit §3§l" + kit.getName());
 		}
 		playerKit.put(p.getUniqueId(), kit.getName());
 
