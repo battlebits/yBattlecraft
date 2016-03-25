@@ -97,7 +97,7 @@ public class SupernovaAbility extends BaseAbility {
 				if (isUsing(e.getPlayer())) {
 					if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), getAbilityName() + "ability")) {
 						if (battlecraft.getProtectionManager().removeProtection(e.getPlayer().getUniqueId())) {
-							e.getPlayer().sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
+							e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
 						}
 						Location loc = e.getPlayer().getLocation();
 						for (NovaDirection d : directions) {

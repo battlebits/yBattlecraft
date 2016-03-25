@@ -35,7 +35,7 @@ public class SwitcherAbility extends BaseAbility {
 						Player hit = (Player) e.getEntity();
 						if (!battlecraft.getGladiatorFightController().isInFight(shooter)) {
 							if (battlecraft.getProtectionManager().removeProtection(shooter.getUniqueId())) {
-								shooter.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
+								shooter.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
 							}
 							Location loc = shooter.getLocation();
 							shooter.teleport(hit.getLocation());

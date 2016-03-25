@@ -56,7 +56,7 @@ public class NinjaAbility extends BaseAbility {
 														if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(),
 																"ninjaability")) {
 															e.getPlayer().teleport(hit.getTarget().getLocation());
-															e.getPlayer().sendMessage("§5§lNinja §8§l>> §7Teleportado!");
+															e.getPlayer().sendMessage("§5§lNINJA §fTeleportado!");
 															e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
 															battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(), "ninjaability",
 																	7);
