@@ -115,6 +115,8 @@ public class KitSelector {
 					String description = ChatColor.GREEN + "Rotação Vip Light. ";
 					meta.setLore(wrap(description + kit.getInfo()));
 					item.setItemMeta(meta);
+					inventory.setItem(i, item);
+					i++;
 				}
 			}
 			while (i % 9 != 0) {
@@ -131,6 +133,8 @@ public class KitSelector {
 					String description = ChatColor.GOLD + "Rotação Vip Premium. ";
 					meta.setLore(wrap(description + kit.getInfo()));
 					item.setItemMeta(meta);
+					inventory.setItem(i, item);
+					i++;
 				}
 			}
 			return;
@@ -282,9 +286,12 @@ public class KitSelector {
 			list = new ArrayList<Kit>();
 		}
 		List<String> kitsFavoritos = m.getStatusManager().getStatusByUuid(player.getUniqueId()).getKitsFavoritos();
-		for (Kit kit : m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKits()) {
-			if (kitsFavoritos.contains(kit.getName()))
-				list.add(kit);
+		Collections.sort(kitsFavoritos);
+		for (String name : kitsFavoritos) {
+			Kit k = m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(name.toLowerCase());
+			if (k != null) {
+				list.add(k);
+			}
 		}
 		kits.put(KitCategory.FAVORITE, list);
 	}
