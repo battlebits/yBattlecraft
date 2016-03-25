@@ -31,7 +31,7 @@ public class ScoreCommand extends BaseCommand {
 				s.setScoreboardEnabled(true);
 			}
 		} else {
-			sender.sendMessage("Comando apenas para jogadores.");
+			sender.sendMessage("§6§lSCOREBOARD §fComando §e§lAPENAS§f para jogadores.");
 		}
 		return false;
 	}

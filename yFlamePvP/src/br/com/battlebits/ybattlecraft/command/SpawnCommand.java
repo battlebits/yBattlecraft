@@ -18,7 +18,7 @@ public class SpawnCommand extends BaseCommand {
 		if (sender instanceof Player) {
 			battleCraft.getTeleportManager().tryToTeleport((Player) sender, battleCraft.getWarpManager().getWarpByName("spawn"));
 		} else {
-			sender.sendMessage("Comando apenas para jogadores.");
+			sender.sendMessage("§9§lSPAWN §fComando §3§lAPENAS §fpara jogadores.");
 		}
 		return false;
 	}

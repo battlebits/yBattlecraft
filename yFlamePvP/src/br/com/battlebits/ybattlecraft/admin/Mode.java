@@ -23,13 +23,13 @@ public class Mode {
 		p.setGameMode(GameMode.CREATIVE);
 		m.getVanish().makeVanished(p);
 		m.getVanish().updateVanished();
-		p.sendMessage(ChatColor.RED + "Modo Admin ATIVADO");
-		p.sendMessage(ChatColor.GRAY + "Voce esta invisivel para " + getInvisible(p) + " e abaixo!");
+		p.sendMessage("§4§lADMIN §fModo Admin §c§lATIVADO");
+		p.sendMessage("§7Voce esta invisivel para " + getInvisible(p) + " e abaixo!");
 	}
 
 	public void setPlayer(Player p) {
 		if (admin.contains(p)) {
-			p.sendMessage(ChatColor.GREEN + "Modo Admin DESATIVADO");
+			p.sendMessage(ChatColor.GREEN + "§4§lADMIN §fModo Admin §c§lDESATIVADO");
 		}
 		p.sendMessage(ChatColor.GRAY + "Voce esta visivel para todos os players");
 		admin.remove(p);

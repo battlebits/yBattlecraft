@@ -20,21 +20,21 @@ public class InvseeCommand extends BaseCommand {
 			Player p = (Player) sender;
 			if (battleCraft.getPermissions().isTrial(p)) {
 				if (args.length == 0) {
-					p.sendMessage("§cUse: /invsee <jogador>");
+					p.sendMessage("§6§LINVSEE §fUtilize /invsee §e§l<jogador>§f.");
 				} else {
 					Player t = Bukkit.getPlayer(args[0]);
 					if (t != null) {
-						p.sendMessage("§eVisualizando inventario de " + t.getName());
+						p.sendMessage("§6§LINVSEE §fVisualizando inventario de §e§l" + t.getName() + "§f");
 						p.openInventory(t.getInventory());
 					} else {
-						p.sendMessage("§cJogador nao encontrado.");
+						p.sendMessage("§6§LINVSEE §fJogador não §e§lencontrado§f.");
 					}
 				}
 			} else {
-				p.sendMessage("§cVocê não possui permissão para utilizar este comando.");
+				p.sendMessage("§6§LINVSEE §fVocê não tem §e§lacesso§f a este comando.");
 			}
 		} else {
-			sender.sendMessage("Comando apenas para jogadores.");
+			sender.sendMessage("§6§LINVSEE §fComando §e§lapenas§f para jogadores.");
 		}
 		return false;
 	}

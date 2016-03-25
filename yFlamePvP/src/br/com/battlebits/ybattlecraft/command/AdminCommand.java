@@ -8,7 +8,7 @@ import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseCommand;
 
 public class AdminCommand extends BaseCommand {
-	
+
 	public AdminCommand(yBattleCraft bc) {
 		super(bc);
 		description = "Ative ou desative seu modo admin";
@@ -24,12 +24,12 @@ public class AdminCommand extends BaseCommand {
 					battleCraft.getAdminMode().setAdmin(p);
 				}
 			} else {
-				p.sendMessage("§cVocê não possui permissão para utilizar este comando.");
+				p.sendMessage("§4§lADMIN §fVocê não tem §c§lacesso§f ao modo admin.");
 			}
 		} else {
-			sender.sendMessage("Comando apenas para jogadores.");
+			sender.sendMessage("§4§lADMIN §fComando §c§lapenas§f para jogadores.");
 		}
 		return false;
 	}
-	
+
 }

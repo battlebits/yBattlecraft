@@ -26,11 +26,11 @@ public class KitCommand extends BaseCommandWithTab {
 		super(plugin);
 		this.description = "Utilize este comando para escolher um Kit";
 		this.battleCraft = plugin;
-		this.spaceText = new TextComponent("§7, ");
-		this.ownedKitsText = new TextComponent("§b§lSeus Kits §8§l>> ");
-		this.otherKitsText = new TextComponent("§5§lOutros Kits §8§l>> ");
-		this.noOwnedKitsText = new TextComponent("§7Voce nao possui nenhum kit, tente relogar.");
-		this.youHaveAllKitsText = new TextComponent("§7Voce possui todos os kits!");
+		this.spaceText = new TextComponent("§F, ");
+		this.ownedKitsText = new TextComponent("§b§lSEUS KITS ");
+		this.otherKitsText = new TextComponent("§5§lOUTROS KITS ");
+		this.noOwnedKitsText = new TextComponent("§fVoce nao possui nenhum kit, tente relogar.");
+		this.youHaveAllKitsText = new TextComponent("§fVoce possui todos os kits!");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -42,7 +42,7 @@ public class KitCommand extends BaseCommandWithTab {
 					if (w.getKits().size() > 0) {
 						if (!battleCraft.getKitManager().hasCurrentKit(p.getUniqueId())) {
 							if (args.length == 0) {
-								p.sendMessage("§3§lEscolha um kit §8§l>> §7Clique no chat ou use /kit [nome]");
+								p.sendMessage("§3§lESCOLHA UM KIT §fClique no chat ou use /kit [nome]");
 								ArrayList<TextComponent> ownedKits = new ArrayList<>();
 								ArrayList<TextComponent> otherKits = new ArrayList<>();
 								ownedKits.add(ownedKitsText);
@@ -68,30 +68,32 @@ public class KitCommand extends BaseCommandWithTab {
 								}
 								p.spigot().sendMessage(ownedKits.toArray(new TextComponent[ownedKits.size()]));
 								p.spigot().sendMessage(otherKits.toArray(new TextComponent[otherKits.size()]));
-								p.sendMessage("§6§lMais kits §8§l>> §7Compre em §ehttp://www.battlebits.com.br");
+								p.sendMessage("§6§lMAIS KITS §fCompre em §e§lhttp://www.battlebits.com.br");
 							} else {
 								if (w.getKit(args[0].toLowerCase()) != null) {
 									if (battleCraft.getKitManager().canUseKit(p, args[0].toLowerCase())) {
 										battleCraft.getKitManager().giveKit(p, w.getKit(args[0].toLowerCase()), true);
+									} else {
+										p.sendMessage("§b§lKITS §fVocê não §3§lPOSSUI §feste kit!");
 									}
 								} else {
-									p.sendMessage("§b§lKITS §8§l>> §7O kit " + args[0] + " não existe!");
+									p.sendMessage("§B§lKITS §fO kit §3§l" + args[0] + "§F não existe.");
 								}
 							}
 						} else {
-							p.sendMessage("§b§lKits §8§l>> §7Voce ja esta usando um kit!");
+							p.sendMessage("§B§lKITS §fVocê já está §3§lUTILIZANDO§F um kit.");
 						}
 					} else {
-						p.sendMessage("§b§lKits §8§l>> §7Nao ha kits disponiveis nessa warp.");
+						p.sendMessage("§B§lKITS §fNão ha kits §3§lDISPONIVEIS§F nessa warp.");
 					}
 				} else {
-					p.sendMessage("§b§lKits §8§l>> §7Os kits estao desativados nessa warp.");
+					p.sendMessage("§B§lKITS §fOs kits estao §3§lDESATIVADOS§F nessa warp.");
 				}
 			} else {
-				p.sendMessage("§b§lKits §8§l>> §7Voce precisa estar em uma warp para usar os kits.");
+				p.sendMessage("§B§lKITS §fVoce precisa estar em uma warp para usar os kits.");
 			}
 		} else {
-			sender.sendMessage("Comando apenas para jogadores.");
+			sender.sendMessage("§B§lKITS §fComando disponivel apenas para jogadores.");
 		}
 		return false;
 	}
