@@ -16,19 +16,19 @@ public class TeleportListener extends BaseListener {
 	@EventHandler
 	public void onPlayerDamagePlayerListener(PlayerDamagePlayerEvent e) {
 		if (battleCraft.getTeleportManager().isTeleporting(e.getDamager().getUniqueId())) {
-			e.getDamager().sendMessage("§9§lTeleporte §8§l>> §7Seu teleporte foi cancelado pois voce entrou em combate!");
+			e.getDamager().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce entrou em combate!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getDamager().getUniqueId());
 		}
 		if (battleCraft.getTeleportManager().isTeleporting(e.getDamaged().getUniqueId())) {
-			e.getDamaged().sendMessage("§9§lTeleporte §8§l>> §7Seu teleporte foi cancelado pois voce entrou em combate!");
+			e.getDamaged().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce entrou em combate!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getDamaged().getUniqueId());
 		}
 	}
-	
+
 	@EventHandler
 	public void onPlayerRealMoveListener(RealMoveEvent e) {
 		if (battleCraft.getTeleportManager().isTeleporting(e.getPlayerUUID())) {
-			e.getPlayer().sendMessage("§9§lTeleporte §8§l>> §7Seu teleporte foi cancelado pois voce se mexeu!");
+			e.getPlayer().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce se mexeu!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getPlayerUUID());
 		}
 	}

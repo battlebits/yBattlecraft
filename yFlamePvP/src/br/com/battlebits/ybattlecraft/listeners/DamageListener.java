@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import net.md_5.bungee.api.ChatColor;
 
 public class DamageListener implements Listener {
 
@@ -50,7 +49,6 @@ public class DamageListener implements Listener {
 			event.setCancelled(true);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onWarpDamage(EntityDamageByEntityEvent event) {
 		if (!(event.getDamager() instanceof Player))
@@ -77,7 +75,7 @@ public class DamageListener implements Listener {
 			if (!manager.isProtected(((Player) event.getEntity()).getUniqueId())) {
 				if (m.getKitManager().hasCurrentKit(p.getUniqueId())) {
 					manager.removeProtection(p.getUniqueId());
-					p.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você perdeu proteção de spawn");
+					p.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
 				} else
 					event.setCancelled(true);
 			}
