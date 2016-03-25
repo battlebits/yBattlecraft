@@ -1,7 +1,6 @@
 package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
@@ -44,7 +43,7 @@ public class PlayerDeathListener extends BaseListener {
 										.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
 								return;
 							}
-						} else if (byEntity instanceof Projectile) {
+						} else if (byEntity.getDamager() instanceof Projectile) {
 							Projectile pr = (Projectile) byEntity.getDamager();
 							if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
 								Player k = (Player) pr.getShooter();
@@ -58,9 +57,8 @@ public class PlayerDeathListener extends BaseListener {
 					}
 				}
 				Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p, null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-			} else if (!(e.getCause() == DamageCause.BLOCK_EXPLOSION || e.getCause() == DamageCause.ENTITY_EXPLOSION
-					|| e.getCause() == DamageCause.ENTITY_ATTACK)) {
-				if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
+			} else if (e.getCause() != DamageCause.ENTITY_ATTACK) {
+				if (e.getDamage() >= ((Damageable) p).getHealth()) {
 					e.setCancelled(true);
 					EntityDamageEvent last = p.getLastDamageCause();
 					if (last != null && last instanceof EntityDamageByEntityEvent) {
@@ -73,7 +71,7 @@ public class PlayerDeathListener extends BaseListener {
 											.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
 									return;
 								}
-							} else if (byEntity instanceof Projectile) {
+							} else if (byEntity.getDamager() instanceof Projectile) {
 								Projectile pr = (Projectile) byEntity.getDamager();
 								if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
 									Player k = (Player) pr.getShooter();
@@ -98,7 +96,7 @@ public class PlayerDeathListener extends BaseListener {
 	public void onEntityDamageByBlockListener(EntityDamageByBlockEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
+			if (e.getDamage() >= ((Damageable) p).getHealth()) {
 				e.setCancelled(true);
 				EntityDamageEvent last = p.getLastDamageCause();
 				if (last != null && last instanceof EntityDamageByEntityEvent) {
@@ -111,7 +109,7 @@ public class PlayerDeathListener extends BaseListener {
 										.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
 								return;
 							}
-						} else if (byEntity instanceof Projectile) {
+						} else if (byEntity.getDamager() instanceof Projectile) {
 							Projectile pr = (Projectile) byEntity.getDamager();
 							if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
 								Player k = (Player) pr.getShooter();
@@ -134,7 +132,7 @@ public class PlayerDeathListener extends BaseListener {
 	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
+			if (e.getDamage() >= ((Damageable) p).getHealth()) {
 				e.setCancelled(true);
 				if (e.getDamager() != null) {
 					if (e.getDamager() instanceof Player) {
@@ -144,7 +142,7 @@ public class PlayerDeathListener extends BaseListener {
 									.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
 							return;
 						}
-					}else if (e.getDamager() instanceof Projectile) {
+					} else if (e.getDamager() instanceof Projectile) {
 						Projectile pr = (Projectile) e.getDamager();
 						if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
 							Player k = (Player) pr.getShooter();
@@ -164,6 +162,7 @@ public class PlayerDeathListener extends BaseListener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
+		e.getPlayer().setNoDamageTicks(100);
 		if (e.hasKiller()) {
 			e.getKiller().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);
 		}
@@ -192,12 +191,12 @@ public class PlayerDeathListener extends BaseListener {
 			battleCraft.getWarpManager().teleportWarp(e.getPlayer(), "spawn", false);
 		} else if (w != null) {
 			battleCraft.getWarpManager().teleportWarp(e.getPlayer(), w.getWarpName().toLowerCase().trim(), false);
-			String tag = ChatColor.GREEN + "" + ChatColor.BOLD + "Respawn" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-					+ ChatColor.RESET;
-			String name = ChatColor.GRAY + "Você morreu e renasceu na Warp " + w.getWarpName() + ".";
-			e.getPlayer().sendMessage(tag + name);
+			if (!w.getWarpName().equalsIgnoreCase("spawn")) {
+				e.getPlayer().sendMessage("§6§lRESPAWN §fVocê morreu e renasceu na Warp §e" + w.getWarpName() + "§f.");
+			}
 		}
 		e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);
+		e.getPlayer().setNoDamageTicks(1);
 	}
 
 }
