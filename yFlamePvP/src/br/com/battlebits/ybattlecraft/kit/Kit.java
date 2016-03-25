@@ -43,11 +43,11 @@ public class Kit {
 				}
 			}
 		}
-		clickToSelectMessage = new TextComponent("§7" + kitName);
+		clickToSelectMessage = new TextComponent("§F" + kitName);
 		clickToSelectMessage
 				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("§bClique aqui para selecionar esse Kit") }));
 		clickToSelectMessage.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/kit " + kitName.toLowerCase()));
-		clickToBuyMessage = new TextComponent("§7" + kitName);
+		clickToBuyMessage = new TextComponent("§F" + kitName);
 		clickToBuyMessage
 				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("§eClique para obter mais informacoes") }));
 		clickToBuyMessage.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/kit " + kitName.toLowerCase()));
