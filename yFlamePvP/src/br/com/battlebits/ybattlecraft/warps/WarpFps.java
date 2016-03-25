@@ -40,6 +40,9 @@ public class WarpFps extends BaseWarp {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerWarpJoinEvent e) {
+		if (topKsUUID != null && e.getPlayer().getUniqueId() == topKsUUID) {
+			updateTopKS();
+		}
 		if (e.getWarp().getWarpName().equalsIgnoreCase(warp.getWarpName())) {
 			yBattleCraft.getKitManager().giveKit(e.getPlayer(), kit, false);
 			getMain().getProtectionManager().addProtection(e.getPlayer().getUniqueId());
@@ -49,10 +52,6 @@ public class WarpFps extends BaseWarp {
 					setTopKS(e.getPlayer());
 				}
 			}.runTaskLaterAsynchronously(yBattleCraft, 20L);
-		} else {
-			if (e.getPlayer().getUniqueId() == topKsUUID) {
-				updateTopKS();
-			}
 		}
 	}
 

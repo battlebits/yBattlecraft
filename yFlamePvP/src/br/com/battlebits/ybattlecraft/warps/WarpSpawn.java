@@ -34,7 +34,6 @@ import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.kit.Kit;
 import me.flame.utils.Main;
 import me.flame.utils.ranking.constructors.Account;
-import net.md_5.bungee.api.ChatColor;
 
 public class WarpSpawn extends BaseWarp {
 
@@ -53,8 +52,7 @@ public class WarpSpawn extends BaseWarp {
 			Block above = p.getLocation().subtract(0, 0.1, 0).getBlock();
 			if (above.getType() == Material.GRASS) {
 				if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
-					p.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-							+ ChatColor.GRAY + "Você perdeu proteção de spawn");
+					p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
 				}
 			}
 		}
@@ -62,6 +60,9 @@ public class WarpSpawn extends BaseWarp {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerWarpJoinEvent e) {
+		if (topKsUUID != null && e.getPlayer().getUniqueId() == topKsUUID) {
+			updateTopKS();
+		}
 		if (e.getWarp().getWarpName().equalsIgnoreCase(warp.getWarpName())) {
 			new BukkitRunnable() {
 				@Override
@@ -76,12 +77,7 @@ public class WarpSpawn extends BaseWarp {
 				e.getPlayer().removePotionEffect(potion.getType());
 			}
 			if (yBattleCraft.getProtectionManager().addProtection(e.getPlayer().getUniqueId())) {
-				e.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Proteção" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
-						+ ChatColor.GRAY + "Você recebeu proteção de spawn");
-			}
-		} else {
-			if (e.getPlayer().getUniqueId() == topKsUUID) {
-				updateTopKS();
+				e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lRECEBEU§f proteção de spawn");
 			}
 		}
 	}
