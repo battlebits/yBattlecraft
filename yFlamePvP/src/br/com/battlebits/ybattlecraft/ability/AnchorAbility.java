@@ -42,19 +42,22 @@ public class AnchorAbility extends BaseAbility {
 				}
 			} else if (e.getDamager() instanceof Projectile) {
 				Projectile pro = (Projectile) e.getDamager();
-				if(pro.getShooter() != null && pro.getShooter() instanceof Player){
+				if (pro.getShooter() != null && pro.getShooter() instanceof Player) {
 					Player d = (Player) pro.getShooter();
 					if ((!battlecraft.getProtectionManager().isProtected(p.getUniqueId()))
 							&& (!battlecraft.getProtectionManager().isProtected(d.getUniqueId()))) {
-						if (isUsing(p) || isUsing(d)) {
-							p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 0.15F, 1.0F);
-							if (e.getDamage() >= ((Damageable) p).getHealth()) {
-								Bukkit.getPluginManager()
-										.callEvent(new PlayerDeathInWarpEvent(p, d, battlecraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-							} else {
-								p.damage(e.getFinalDamage());
-								p.setLastDamageCause(e);
-								e.setCancelled(true);
+						if (!battlecraft.getAbilityManager().playerHasAbility(d.getUniqueId(), "fisherman")) {
+							if (isUsing(p) || isUsing(d)) {
+								p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 0.15F, 1.0F);
+								pro.remove();
+								if (e.getDamage() >= ((Damageable) p).getHealth()) {
+									Bukkit.getPluginManager()
+											.callEvent(new PlayerDeathInWarpEvent(p, d, battlecraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+								} else {
+									p.damage(e.getFinalDamage());
+									p.setLastDamageCause(e);
+									e.setCancelled(true);
+								}
 							}
 						}
 					}
