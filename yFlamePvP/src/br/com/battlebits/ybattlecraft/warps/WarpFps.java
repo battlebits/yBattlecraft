@@ -147,7 +147,7 @@ public class WarpFps extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 4);
 				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 3);

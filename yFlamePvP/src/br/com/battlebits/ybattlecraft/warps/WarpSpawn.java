@@ -195,7 +195,7 @@ public class WarpSpawn extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 11);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 10);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 9);
-				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 8);
+				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 8);
 				createScore(p, "b3", "", "", 7);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 6);
 				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 5);
@@ -241,6 +241,8 @@ public class WarpSpawn extends BaseWarp {
 				new ItemStack(Material.ARROW), 1000, KitType.FORCA, Arrays.asList("supernova")));
 		warp.addKit(new Kit(battleCraft, "Fisherman", "Puxe os jogadores com sua vara de pescar.", new ArrayList<ItemStack>(),
 				new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA, Arrays.asList("fisherman")));
+		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo", new ArrayList<ItemStack>(),
+				new ItemStack(Material.FIRE), 1000, KitType.FORCA, Arrays.asList("magma")));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,

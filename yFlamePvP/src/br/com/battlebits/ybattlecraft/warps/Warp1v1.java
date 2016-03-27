@@ -375,7 +375,7 @@ public class Warp1v1 extends BaseWarp {
 		String pname1 = "";
 		String pname2 = "";
 		pname1 = p.getName();
-		if (desafiado.getName().length() > 14) {
+		if (p.getName().length() > 14) {
 			pname1 = p.getName().substring(0, 14);
 			pname2 = p.getName().substring(14, p.getName().length());
 		}
@@ -764,12 +764,6 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
-					// scoreboard.updateScoreName(p, "battleplayer",
-					// "§3Ninguem");
-					// scoreboard.updateScoreValue(p, "battleplayer", "");
-					// scoreboard.updateScoreName(killer, "battleplayer",
-					// "§3Ninguem");
-					// scoreboard.updateScoreValue(killer, "battleplayer", "");
 					destroy();
 				}
 
@@ -812,6 +806,7 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(killer);
 					yBattleCraft.getPlayerHideManager().showAllPlayers(p);
 					p.damage(2000, killer);
 					destroy();
@@ -842,7 +837,7 @@ public class Warp1v1 extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", "§b" + a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "battlewith", "§7Batalhando", "§7 contra:", 4);
 				createScore(p, "battleplayer", "§3Ninguem", "", 3);
