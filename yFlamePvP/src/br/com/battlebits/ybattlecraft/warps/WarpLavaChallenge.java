@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
@@ -25,6 +26,13 @@ public class WarpLavaChallenge extends BaseWarp {
 		Player p2 = event.getDamaged();
 		if (isOnWarp(p1) || isOnWarp(p2)) {
 			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onVelocity(PlayerVelocityEvent e){
+		if(isOnWarp(e.getPlayer())){
+			e.setCancelled(true);
 		}
 	}
 
