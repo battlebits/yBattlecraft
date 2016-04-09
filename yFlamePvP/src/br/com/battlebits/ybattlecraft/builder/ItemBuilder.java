@@ -45,12 +45,15 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder amount(int amount) {
+		if(amount > 64){
+			amount = 64;
+		}
 		this.amount = amount;
 		return this;
 	}
 
-	public ItemBuilder durability(short durability) {
-		this.durability = durability;
+	public ItemBuilder durability(int durability) {
+		this.durability = (short) durability;
 		return this;
 	}
 

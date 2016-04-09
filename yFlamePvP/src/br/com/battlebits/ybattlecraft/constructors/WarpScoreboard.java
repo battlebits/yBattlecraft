@@ -40,7 +40,7 @@ public abstract class WarpScoreboard {
 		}
 	}
 
-	public void createScore(Player p, String id, String name, String value, int score) {
+	public Team createScore(Player p, String id, String name, String value, int score) {
 		String prefix = score + "";
 		if (prefix.length() < 2) {
 			prefix = "§" + prefix;
@@ -60,29 +60,30 @@ public abstract class WarpScoreboard {
 		if (score >= objs) {
 			objs = score;
 		}
+		return t;
 	}
 
 	public void updateScoreValue(Player p, String id, String value) {
-		if (p.getScoreboard().getTeam(objId + id) == null) {
-			createScore(p, id, "", value, new Random().nextInt(1000));
-		}
 		Team t = p.getScoreboard().getTeam(objId + id);
+		if (t == null) {
+			t = createScore(p, id, "", value, new Random().nextInt(1000));
+		}
 		t.setSuffix(value);
 	}
 
 	public void updateScoreName(Player p, String id, String name) {
-		if (p.getScoreboard().getTeam(objId + id) == null) {
-			createScore(p, id, name, "", new Random().nextInt(1000));
-		}
 		Team t = p.getScoreboard().getTeam(objId + id);
+		if (t == null) {
+			t = createScore(p, id, name, "", new Random().nextInt(1000));
+		}
 		t.setPrefix(name);
 	}
 
 	public void updateScore(Player p, String id, String name, String value) {
-		if (p.getScoreboard().getTeam(objId + id) == null) {
-			createScore(p, id, name, value, new Random().nextInt(1000));
-		}
 		Team t = p.getScoreboard().getTeam(objId + id);
+		if (t == null) {
+			t = createScore(p, id, name, value, new Random().nextInt(1000));
+		}
 		t.setPrefix(name);
 		t.setSuffix(value);
 	}

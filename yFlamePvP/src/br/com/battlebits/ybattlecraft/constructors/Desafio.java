@@ -23,7 +23,7 @@ public class Desafio {
 			this.espada = "DIAMOND_SWORD";
 			this.armadura = "IRON_CHESTPLATE";
 		} else {
-			this.espada = "STONE_SWORD";
+			this.espada = "WOOD_SWORD";
 			this.armadura = "GLASS";
 		}
 		this.refil = false;

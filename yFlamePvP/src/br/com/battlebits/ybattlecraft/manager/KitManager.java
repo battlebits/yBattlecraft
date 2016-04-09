@@ -33,7 +33,7 @@ public class KitManager {
 	public KitManager(yBattleCraft plugin) {
 		this.battlecraft = plugin;
 		this.playerKit = new HashMap<>();
-		freeKits.put("normal", Arrays.asList("anchor", "fisherman", "pvp"));
+		freeKits.put("normal", Arrays.asList("anchor", "archer", "pvp"));
 		freeKits.put("vip", Arrays.asList("hotpotato", "lifesteal", "ninja"));
 		freeKits.put("mvp", Arrays.asList("gladiator", "kangaroo", "viper"));
 	}

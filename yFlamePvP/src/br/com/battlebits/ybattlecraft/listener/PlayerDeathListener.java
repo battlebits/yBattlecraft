@@ -11,6 +11,8 @@ import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
 
@@ -58,7 +60,7 @@ public class PlayerDeathListener extends BaseListener {
 				}
 				Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p, null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
 			} else if (e.getCause() != DamageCause.ENTITY_ATTACK) {
-				if (e.getDamage() >= ((Damageable) p).getHealth()) {
+				if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
 					e.setCancelled(true);
 					EntityDamageEvent last = p.getLastDamageCause();
 					if (last != null && last instanceof EntityDamageByEntityEvent) {
@@ -94,69 +96,90 @@ public class PlayerDeathListener extends BaseListener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDamageByBlockListener(EntityDamageByBlockEvent e) {
-		if (e.getEntity() instanceof Player) {
-			Player p = (Player) e.getEntity();
-			if (e.getDamage() >= ((Damageable) p).getHealth()) {
-				e.setCancelled(true);
-				EntityDamageEvent last = p.getLastDamageCause();
-				if (last != null && last instanceof EntityDamageByEntityEvent) {
-					EntityDamageByEntityEvent byEntity = (EntityDamageByEntityEvent) last;
-					if (byEntity.getDamager() != null) {
-						if (byEntity.getDamager() instanceof Player) {
-							Player k = (Player) byEntity.getDamager();
-							if (k != null && k.isOnline()) {
-								Bukkit.getPluginManager()
-										.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-								return;
-							}
-						} else if (byEntity.getDamager() instanceof Projectile) {
-							Projectile pr = (Projectile) byEntity.getDamager();
-							if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
-								Player k = (Player) pr.getShooter();
-								if (k != null && k.isOnline()) {
-									Bukkit.getPluginManager()
-											.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-									return;
-								}
-							}
-						}
-					}
-				}
-				Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p, null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-			}
-		}
+		 if (e.getEntity() instanceof Player) {
+		 Player p = (Player) e.getEntity();
+		 if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
+		 e.setCancelled(true);
+		 EntityDamageEvent last = p.getLastDamageCause();
+		 if (last != null && last instanceof EntityDamageByEntityEvent) {
+		 EntityDamageByEntityEvent byEntity = (EntityDamageByEntityEvent)
+		 last;
+		 if (byEntity.getDamager() != null) {
+		 if (byEntity.getDamager() instanceof Player) {
+		 Player k = (Player) byEntity.getDamager();
+		 if (k != null && k.isOnline()) {
+		 Bukkit.getPluginManager()
+		 .callEvent(new PlayerDeathInWarpEvent(p, k,
+		 battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 return;
+		 }
+		 } else if (byEntity.getDamager() instanceof Projectile) {
+		 Projectile pr = (Projectile) byEntity.getDamager();
+		 if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
+		 Player k = (Player) pr.getShooter();
+		 if (k != null && k.isOnline()) {
+		 Bukkit.getPluginManager()
+		 .callEvent(new PlayerDeathInWarpEvent(p, k,
+		 battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 return;
+		 }
+		 }
+		 }
+		 }
+		 }
+		 Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p,
+		 null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 }
+		 }
 	}
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
-		if (e.getEntity() instanceof Player) {
-			Player p = (Player) e.getEntity();
-			if (e.getDamage() >= ((Damageable) p).getHealth()) {
-				e.setCancelled(true);
-				if (e.getDamager() != null) {
-					if (e.getDamager() instanceof Player) {
-						Player k = (Player) e.getDamager();
-						if (k != null && k.isOnline()) {
-							Bukkit.getPluginManager()
-									.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-							return;
-						}
-					} else if (e.getDamager() instanceof Projectile) {
-						Projectile pr = (Projectile) e.getDamager();
-						if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
-							Player k = (Player) pr.getShooter();
-							if (k != null && k.isOnline()) {
-								Bukkit.getPluginManager()
-										.callEvent(new PlayerDeathInWarpEvent(p, k, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-								return;
-							}
-						}
-					}
-				}
-				Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p, null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
-			}
-		}
+		 if (e.getEntity() instanceof Player) {
+		 Player p = (Player) e.getEntity();
+		 if (e.getFinalDamage() >= ((Damageable) p).getHealth()) {
+		 e.setCancelled(true);
+		 if (e.getDamager() != null) {
+		 if (e.getDamager() instanceof Player) {
+		 Player k = (Player) e.getDamager();
+		 if (k != null && k.isOnline()) {
+		 Bukkit.getPluginManager()
+		 .callEvent(new PlayerDeathInWarpEvent(p, k,
+		 battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 return;
+		 }
+		 } else if (e.getDamager() instanceof Projectile) {
+		 Projectile pr = (Projectile) e.getDamager();
+		 if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
+		 Player k = (Player) pr.getShooter();
+		 if (k != null && k.isOnline()) {
+		 Bukkit.getPluginManager()
+		 .callEvent(new PlayerDeathInWarpEvent(p, k,
+		 battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 return;
+		 }
+		 }
+		 }
+		 }
+		 Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(p,
+		 null, battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())));
+		 }
+		 }
+	}
+
+	@EventHandler
+	public void onPlayerDeathListener(PlayerDeathEvent e) {
+		battleCraft.getItemManager().dropItems(e.getEntity(), e.getEntity().getLocation());
+		e.setDeathMessage(null);
+		e.getEntity().spigot().respawn();
+	}
+
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent e) {
+		e.setRespawnLocation(e.getPlayer().getWorld().getSpawnLocation());
+		Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(e.getPlayer(), e.getPlayer().getKiller(),
+				battleCraft.getWarpManager().getPlayerWarp(e.getPlayer().getUniqueId())));
 	}
 
 	@SuppressWarnings("deprecation")

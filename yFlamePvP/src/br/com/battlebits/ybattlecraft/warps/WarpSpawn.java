@@ -9,6 +9,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
+import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
@@ -93,7 +95,11 @@ public class WarpSpawn extends BaseWarp {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
-		if (e.getAction() == Action.PHYSICAL && !(e.getPlayer().getGameMode() == GameMode.CREATIVE)) {
+		if (((e.getAction() == Action.PHYSICAL && e.getClickedBlock().getType() != Material.STONE_PLATE
+				&& e.getClickedBlock().getType() != Material.WOOD_PLATE)
+				|| (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST
+						|| e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE))
+				&& !(e.getPlayer().getGameMode() == GameMode.CREATIVE)) {
 			e.setCancelled(true);
 		}
 	}
@@ -211,6 +217,7 @@ public class WarpSpawn extends BaseWarp {
 		// um double jump.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.FIREWORK), 1000, KitType.MOBILIDADE,
 		// Arrays.asList("deshzin")));
+		ItemBuilder builder = new ItemBuilder();
 		warp.addKit(new Kit(battleCraft, "Grappler", "Movimente mais rapido sua corda!", new ArrayList<>(), new ItemStack(Material.LEASH), 1000,
 				KitType.MOBILIDADE, Arrays.asList("grappler")));
 		warp.addKit(new Kit(battleCraft, "Ninja", "Aperte SHIFT para teleportar-se para o utltimo jogador hitado.", new ArrayList<ItemStack>(),
@@ -243,6 +250,12 @@ public class WarpSpawn extends BaseWarp {
 				new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA, Arrays.asList("fisherman")));
 		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo", new ArrayList<ItemStack>(),
 				new ItemStack(Material.FIRE), 1000, KitType.FORCA, Arrays.asList("magma")));
+		warp.addKit(new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
+				Arrays.asList(
+						builder.type(Material.BOW).amount(1).name("§b§lArcher Bow").enchantment(Enchantment.ARROW_DAMAGE)
+								.enchantment(Enchantment.ARROW_INFINITE).build(),
+						builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()),
+				new ItemStack(Material.BOW), 1, KitType.NEUTRO, new ArrayList<>()));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,

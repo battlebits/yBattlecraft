@@ -41,6 +41,7 @@ import br.com.battlebits.ybattlecraft.manager.BlockResetManager;
 import br.com.battlebits.ybattlecraft.manager.CooldownManager;
 import br.com.battlebits.ybattlecraft.manager.KitManager;
 import br.com.battlebits.ybattlecraft.manager.PlayerHideManager;
+import br.com.battlebits.ybattlecraft.manager.ReportManager;
 import br.com.battlebits.ybattlecraft.manager.TeleportManager;
 import br.com.battlebits.ybattlecraft.manager.WarpManager;
 import br.com.battlebits.ybattlecraft.managers.CombatLogManager;
@@ -87,6 +88,7 @@ public class yBattleCraft extends JavaPlugin {
 	private TeleportManager teleportManager;
 	private BlockResetManager blockResetManager;
 	private PlayerHideManager playerHideManager;
+	private ReportManager reportManager;
 
 	// Updater
 	private WarpScoreboardUpdater warpScoreboardUpdater;
@@ -242,6 +244,7 @@ public class yBattleCraft extends JavaPlugin {
 		statusManager = new StatusManager(this);
 		itemManager = new ItemManager();
 		cooldownManager = new CooldownManager(this);
+		reportManager = new ReportManager(this);
 	}
 
 	private void loadUtils() {
@@ -279,6 +282,10 @@ public class yBattleCraft extends JavaPlugin {
 
 	public CooldownManager getCooldownManager() {
 		return cooldownManager;
+	}
+
+	public ReportManager getReportManager() {
+		return reportManager;
 	}
 
 	public AbilityManager getAbilityManager() {
