@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -96,8 +97,9 @@ public class WarpSpawn extends BaseWarp {
 
 	@EventHandler
 	public void onPlayerInteractListener(PlayerInteractEvent e) {
-		if ((e.getAction() == Action.PHYSICAL && e.getClickedBlock() != null && e.getClickedBlock().getType() != Material.STONE_PLATE
-				&& e.getClickedBlock().getType() != Material.WOOD_PLATE)
+		if ((e.getPlayer().getGameMode() != GameMode.CREATIVE)
+				&& (e.getAction() == Action.PHYSICAL && e.getClickedBlock() != null && e.getClickedBlock().getType() != Material.STONE_PLATE
+						&& e.getClickedBlock().getType() != Material.WOOD_PLATE)
 				|| (e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE
 						|| e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST))) {
 			e.setCancelled(true);
@@ -132,7 +134,7 @@ public class WarpSpawn extends BaseWarp {
 			updateTopKS();
 		}
 	}
-	
+
 	public void updateTopKS() {
 		new BukkitRunnable() {
 			@Override
