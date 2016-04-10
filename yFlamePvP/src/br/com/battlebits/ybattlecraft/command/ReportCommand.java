@@ -37,7 +37,7 @@ public class ReportCommand extends BaseCommand {
 					p.sendMessage("§9§lREPORT §fJogador não §3§lencontrado§f!");
 				}
 			} else {
-				p.sendMessage("§9§LREPORT §FEspecifique o §3§ljogador §fque deseja denunciar.");
+				p.sendMessage("§9§LREPORT §FEspecifique o §3§ljogador e motivo§fque deseja denunciar.");
 			}
 		} else {
 			sender.sendMessage("§4§lREPORT §fComando §c§lapenas§f para jogadores.");

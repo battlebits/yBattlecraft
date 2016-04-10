@@ -93,6 +93,7 @@ public class JoinListener implements Listener {
 		if (me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.TRIAL))
 			m.getAdminMode().setAdmin(p);
 		m.getVanish().updateVanished(p);
+		m.getPlayerHideManager().hideForAll(p);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)

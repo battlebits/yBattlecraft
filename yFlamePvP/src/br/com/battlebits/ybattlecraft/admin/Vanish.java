@@ -36,7 +36,7 @@ public class Vanish {
 	public void makeVanished(Player p, VLevel level) {
 		if (level.equals(VLevel.YOUTUBER)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 				if (player.getName().equals(p.getName()))
@@ -46,7 +46,7 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.MOD)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 				if (player.getName().equals(p.getName()))
@@ -56,7 +56,7 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.MODPLUS)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 				if (player.getName().equals(p.getName()))
@@ -66,7 +66,7 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.ADMIN)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 				if (player.getName().equals(p.getName()))
@@ -76,7 +76,7 @@ public class Vanish {
 			}
 		} else if (level.equals(VLevel.DONO)) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 				if (player.getName().equals(p.getName()))
@@ -122,7 +122,7 @@ public class Vanish {
 					continue;
 				if (player.canSee(p))
 					continue;
-				if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+				if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 					player.showPlayer(p);
 				}
 			}
@@ -136,7 +136,7 @@ public class Vanish {
 	@SuppressWarnings("deprecation")
 	public void makeVisible(Player p) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (!m.getPlayerHideManager().isHiding(player.getUniqueId())) {
+			if (!m.getPlayerHideManager().isHiding(player.getUniqueId()) && !m.getPlayerHideManager().hideForAll(player.getUniqueId())) {
 				player.showPlayer(p);
 			}
 		}

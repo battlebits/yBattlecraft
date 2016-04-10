@@ -12,9 +12,11 @@ public class PlayerHideManager {
 
 	private yBattleCraft battleCraft;
 	private ArrayList<UUID> hideAllPlayers;
+//	private ArrayList<UUID> hideForAll;
 
 	public PlayerHideManager(yBattleCraft bc) {
 		hideAllPlayers = new ArrayList<>();
+//		hideForAll = new ArrayList<>();
 		battleCraft = bc;
 	}
 
@@ -25,6 +27,12 @@ public class PlayerHideManager {
 				hide.hidePlayer(p);
 			}
 		}
+//		for (UUID id : hideForAll) {
+//			Player hide = Bukkit.getPlayer(id);
+//			if (hide != null) {
+//				p.hidePlayer(hide);
+//			}
+//		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -43,14 +51,46 @@ public class PlayerHideManager {
 			hideAllPlayers.remove(p.getUniqueId());
 		}
 		for (Player show : Bukkit.getOnlinePlayers()) {
-			if (!battleCraft.getAdminMode().isAdmin(show)) {
-				p.showPlayer(show);
+			if (!hideAllPlayers.contains(show.getUniqueId()) && !battleCraft.getAdminMode().isAdmin(show)) {
+				if (show.getUniqueId() != p.getUniqueId()) {
+					p.showPlayer(show);
+				}
 			}
 		}
 	}
 
+	@SuppressWarnings("deprecation")
+	public void showForAll(Player p) {
+//		if (hideForAll.contains(p.getUniqueId())) {
+//			hideForAll.remove(p.getUniqueId());
+//			for (Player show : Bukkit.getOnlinePlayers()) {
+//				if (!hideAllPlayers.contains(p.getUniqueId())) {
+//					if (show.getUniqueId() != p.getUniqueId()) {
+//						show.showPlayer(p);
+//					}
+//				}
+//			}
+//		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public void hideForAll(Player p) {
+//		if (!hideForAll.contains(p.getUniqueId())) {
+//			hideForAll.add(p.getUniqueId());
+//			for (Player hide : Bukkit.getOnlinePlayers()) {
+//				if (hide.getUniqueId() != p.getUniqueId()) {
+//					hide.hidePlayer(p);
+//				}
+//			}
+//		}
+	}
+
 	public boolean isHiding(UUID id) {
 		return hideAllPlayers.contains(id);
+	}
+	
+	public boolean hideForAll(UUID id){
+		return false;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -65,6 +105,7 @@ public class PlayerHideManager {
 
 	public void tryToRemoveFromLists(UUID id) {
 		hideAllPlayers.remove(id);
+//		hideForAll.remove(id);
 	}
 
 }

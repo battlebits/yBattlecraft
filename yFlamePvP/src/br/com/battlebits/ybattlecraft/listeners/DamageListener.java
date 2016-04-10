@@ -1,11 +1,12 @@
 package br.com.battlebits.ybattlecraft.listeners;
 
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
@@ -30,7 +31,7 @@ public class DamageListener implements Listener {
 			event.setCancelled(true);
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onProtectionLose(EntityDamageByEntityEvent event) {
 		if (!(event.getEntity() instanceof Player))
 			return;
@@ -49,35 +50,35 @@ public class DamageListener implements Listener {
 			event.setCancelled(true);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void onWarpDamage(EntityDamageByEntityEvent event) {
-		if (!(event.getDamager() instanceof Player))
-			return;
-		Player p = (Player) event.getDamager();
-		ItemStack item = p.getItemInHand();
-		if (item.toString().contains("SWORD") || item.toString().contains("AXE")) {
-			item.setDurability((byte) 0);
-			p.updateInventory();
-		}
-		if (Warp1v1.isIn1v1(p))
-			return;
-		if (m.getWarpManager().isInWarp(p, "lavachallenge")) {
-			event.setCancelled(true);
-			return;
-		}
-		if (m.getWarpManager().isInWarp(p, "1v1")) {
-			event.setCancelled(true);
-			return;
-		}
-		if (!(event.getEntity() instanceof Player))
-			return;
-		if (manager.isProtected(p.getUniqueId())) {
-			if (!manager.isProtected(((Player) event.getEntity()).getUniqueId())) {
-				if (m.getKitManager().hasCurrentKit(p.getUniqueId())) {
-					manager.removeProtection(p.getUniqueId());
-					p.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
-				} else
-					event.setCancelled(true);
+	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
+		if (e.getEntity() instanceof Player) {
+			Player damager = null;
+			if (e.getDamager() instanceof Player) {
+				damager = (Player) e.getDamager();
+			} else if (e.getDamager() instanceof Projectile) {
+				Projectile pr = (Projectile) e.getDamager();
+				if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
+					damager = (Player) pr.getShooter();
+				}
+			}
+			if (damager != null) {
+				if ((m.getWarpManager().isInWarp(damager, "lavachallenge") || m.getWarpManager().isInWarp(damager, "1v1"))) {
+					if (!Warp1v1.isIn1v1(damager)) {
+						e.setCancelled(true);
+					}
+				} else {
+					if (m.getProtectionManager().isProtected(damager.getUniqueId())) {
+						if (m.getKitManager().hasCurrentKit(damager.getUniqueId())) {
+							manager.removeProtection(damager.getUniqueId());
+							m.getPlayerHideManager().showForAll(damager);
+							damager.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
+						} else {
+							e.setCancelled(true);
+						}
+					}
+				}
 			}
 		}
 	}

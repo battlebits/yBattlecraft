@@ -8,23 +8,17 @@ import br.com.battlebits.ybattlecraft.enums.ReportStatus;
 public class Report {
 
 	private UUID reported;
-	private String reportedName;
 	private ArrayList<String> reasons;
 	private ArrayList<String> reporters;
 	private Long expire;
 	private ReportStatus status;
 
-	public Report(UUID reported, String reportedName) {
+	public Report(UUID reported) {
 		this.reported = reported;
-		this.reportedName = reportedName;
 		this.reporters = new ArrayList<>();
 		this.reasons = new ArrayList<>();
 		this.expire = System.currentTimeMillis() + 3600000;
 		this.status = ReportStatus.OPEN;
-	}
-
-	public String getReportedName() {
-		return reportedName;
 	}
 
 	public UUID getReported() {

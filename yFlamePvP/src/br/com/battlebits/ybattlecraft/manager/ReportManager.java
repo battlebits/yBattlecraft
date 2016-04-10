@@ -3,7 +3,6 @@ package br.com.battlebits.ybattlecraft.manager;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,20 +24,19 @@ import br.com.battlebits.ybattlecraft.enums.ReportStatus;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import me.flame.utils.event.UpdateEvent;
 import me.flame.utils.event.UpdateEvent.UpdateType;
-import me.flame.utils.utils.UUIDFetcher;
 
 public class ReportManager {
 
 	private yBattleCraft battleCraft;
 	private HashMap<Integer, Inventory> pages;
-	private HashMap<UUID, Report> reports;
+	private HashMap<String, Report> reports;
 	private boolean ordering;
 	private ItemBuilder builder;
 
 	public ReportManager(yBattleCraft bc) {
 		battleCraft = bc;
 		pages = new HashMap<>();
-		reports = new HashMap<UUID, Report>();
+		reports = new HashMap<String, Report>();
 		ordering = false;
 		builder = new ItemBuilder();
 		Bukkit.getPluginManager().registerEvents(new Listener() {
@@ -64,47 +62,41 @@ public class ReportManager {
 										if (e.getSlot() >= 9 && e.getSlot() <= 44) {
 											if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
 												String name = e.getCurrentItem().getItemMeta().getDisplayName().split("§7")[1];
-												UUID id = null;
-												Player t = Bukkit.getPlayer(name);
-												if (t != null) {
-													id = t.getUniqueId();
-												} else {
-													try {
-														id = UUIDFetcher.getUUIDOf(name);
-													} catch (Exception ex) {
-													}
-												}
-												if (id != null) {
-													if (reports.containsKey(id)) {
-														Report report = reports.get(id);
-														if (report.getStatus() == ReportStatus.OFFLINE) {
-															removeReports(id);
-															e.getInventory().setItem(e.getSlot(), null);
-															p.sendMessage("§9§lREPORT §fReport §3§lremovido§f!");
-														} else if (report.getStatus() == ReportStatus.BANNED) {
-															removeReports(id);
-															e.getInventory().setItem(e.getSlot(), null);
-															p.sendMessage("§9§lREPORT §fReport §3§lremovido§f!");
-														} else if (report.getStatus() == ReportStatus.OPEN) {
-															p.teleport(t.getLocation());
-															report.setStatus(ReportStatus.CHECKING);
-															p.closeInventory();
-															orderPages();
-															p.sendMessage("§9§LREPORT §FTeleportado para §3§L" + t.getName() + "§f!");
-														} else if (report.getStatus() == ReportStatus.CHECKING) {
-															if (e.getAction() == InventoryAction.PICKUP_HALF) {
-																removeReports(id);
-																e.getInventory().setItem(e.getSlot(), null);
-																p.sendMessage("§9§lREPORT §fReport §3§lremovido§f!");
-															} else {
-																p.teleport(t.getLocation());
-																p.closeInventory();
-																orderPages();
-																p.sendMessage("§9§LREPORT §FTeleportado para §3§L" + t.getName() + "§f!");
+												Report report = reports.get(name);
+												if (report != null) {
+													final Player t = (Bukkit.getPlayerExact(name) == null) ? Bukkit.getPlayer(report.getReported())
+															: Bukkit.getPlayerExact(name);
+													if (t == null || report.getStatus() == ReportStatus.OFFLINE
+															|| report.getStatus() == ReportStatus.BANNED) {
+														removeReports(name);
+														e.getInventory().setItem(e.getSlot(), null);
+														p.sendMessage("§9§lREPORT §fReport §3§lremovido§f!");
+													} else if (report.getStatus() == ReportStatus.OPEN) {
+														new BukkitRunnable() {
+															@Override
+															public void run() {
+																p.teleport(t);
 															}
+														}.runTask(battleCraft);
+														report.setStatus(ReportStatus.CHECKING);
+														p.closeInventory();
+														orderPages();
+														p.sendMessage("§9§LREPORT §FTeleportado para §3§L" + t.getName() + "§f!");
+													} else if (report.getStatus() == ReportStatus.CHECKING) {
+														if (e.getAction() == InventoryAction.PICKUP_HALF) {
+															removeReports(name);
+															e.getInventory().setItem(e.getSlot(), null);
+															p.sendMessage("§9§lREPORT §fReport §3§lremovido§f!");
+														} else {
+															new BukkitRunnable() {
+																@Override
+																public void run() {
+																	p.teleport(t);
+																}
+															}.runTask(battleCraft);
+															p.closeInventory();
+															p.sendMessage("§9§LREPORT §FTeleportado para §3§L" + t.getName() + "§f!");
 														}
-													} else {
-														p.sendMessage("§9§lREPORT §fJogador não §3§lencontrado§7!");
 													}
 												} else {
 													p.sendMessage("§9§lREPORT §fJogador não §3§lencontrado§7!");
@@ -138,10 +130,10 @@ public class ReportManager {
 
 	@SuppressWarnings("deprecation")
 	public void report(Player reporter, Player reported, String reason) {
-		if (!reports.containsKey(reported.getUniqueId())) {
-			reports.put(reported.getUniqueId(), new Report(reported.getUniqueId(), reported.getName()));
+		if (!reports.containsKey(reported.getName())) {
+			reports.put(reported.getName(), new Report(reported.getUniqueId()));
 		}
-		Report r = reports.get(reported.getUniqueId());
+		Report r = reports.get(reported.getName());
 		if (!r.getReasons().contains(reason)) {
 			r.getReasons().add(reason);
 		}
@@ -152,7 +144,7 @@ public class ReportManager {
 		orderPages();
 		for (Player staff : Bukkit.getOnlinePlayers()) {
 			if (battleCraft.getPermissions().isTrial(staff)) {
-				BarAPI.setMessage("§fNovo §9§LREPORT §frecebido!", 2);
+				BarAPI.setMessage(staff, "§fNovo §9§LREPORT §frecebido!", 2);
 				staff.playSound(staff.getLocation(), Sound.ITEM_BREAK, 0.25F, 1F);
 			}
 		}
@@ -167,28 +159,16 @@ public class ReportManager {
 					int page = 1;
 					int current = 9;
 					int total = 0;
-					for (Report report : reports.values()) {
+					for (Entry<String, Report> entry : reports.entrySet()) {
+						ItemStack blank = builder.type(Material.STAINED_GLASS_PANE).durability(15).name("§0").build();
 						if (!pages.containsKey(page)) {
 							Inventory inv = Bukkit.createInventory(null, 54, "Reports - Página " + page);
-							ItemStack blank = builder.type(Material.STAINED_GLASS_PANE).durability(15).name("§0").build();
-							if (page > 1) {
-								inv.setItem(0, builder.type(Material.INK_SACK).durability(10).name("§7« §aPágina Anteiror").build());
-							} else {
-								inv.setItem(0, blank);
-							}
 							inv.setItem(1, blank);
 							inv.setItem(2, blank);
 							inv.setItem(3, blank);
-							inv.setItem(4, builder.type(Material.SKULL_ITEM).amount(1).name("§9§lReports")
-									.lore("§3§l" + reports.size() + "§7 reports no total!").build());
 							inv.setItem(5, blank);
 							inv.setItem(6, blank);
 							inv.setItem(7, blank);
-							if (Math.ceil(reports.size() / 36) + 1 > page) {
-								inv.setItem(8, builder.type(Material.INK_SACK).durability(10).name("§aPróxima Página §f»").build());
-							} else {
-								inv.setItem(8, blank);
-							}
 							inv.setItem(45, blank);
 							inv.setItem(46, blank);
 							inv.setItem(47, blank);
@@ -201,22 +181,34 @@ public class ReportManager {
 							pages.put(page, inv);
 						}
 						Inventory inv = pages.get(page);
+						if (page > 1) {
+							inv.setItem(0, builder.type(Material.INK_SACK).durability(10).name("§7« §aPágina Anteiror").build());
+						} else {
+							inv.setItem(0, blank);
+						}
+						inv.setItem(4, builder.type(Material.SKULL_ITEM).amount(1).name("§9§lReports")
+								.lore("§3§l" + reports.size() + "§7 reports no total!").build());
+						if (Math.ceil(reports.size() / 36) + 1 > page) {
+							inv.setItem(8, builder.type(Material.INK_SACK).durability(10).name("§aPróxima Página §f»").build());
+						} else {
+							inv.setItem(8, blank);
+						}
 						String prefix = "";
 						String reason = "";
-						for (String s : report.getReasons()) {
+						for (String s : entry.getValue().getReasons()) {
 							if (!reason.isEmpty()) {
 								reason += ", ";
 							}
 							reason += s;
 						}
 						String reporters = "";
-						for (String s : report.getReporters()) {
+						for (String s : entry.getValue().getReporters()) {
 							if (!reporters.isEmpty()) {
 								reporters += ", ";
 							}
 							reporters += s;
 						}
-						switch (report.getStatus()) {
+						switch (entry.getValue().getStatus()) {
 						case BANNED:
 							prefix = "§c§l»";
 							builder.type(Material.REDSTONE_BLOCK);
@@ -240,8 +232,8 @@ public class ReportManager {
 									+ "\\n§0\\n§7Clique para §a§lverificar§7 este jogador.");
 							break;
 						}
-						builder.amount(report.getReasons().size());
-						builder.name(prefix + " §7" + report.getReportedName());
+						builder.amount(entry.getValue().getReasons().size());
+						builder.name(prefix + " §7" + entry.getKey());
 						inv.setItem(current, builder.build());
 						current++;
 						total++;
@@ -256,6 +248,14 @@ public class ReportManager {
 							}
 						}
 					}
+					Iterator<Entry<Integer, Inventory>> pagei = pages.entrySet().iterator();
+					while(pagei.hasNext()){
+						Entry<Integer, Inventory> entry = pagei.next();
+						if(page < entry.getKey()){
+							entry.getValue().clear();
+						}
+						pagei.remove();
+					}
 					ordering = false;
 				}
 			}.runTaskAsynchronously(battleCraft);
@@ -264,11 +264,12 @@ public class ReportManager {
 
 	public void checkExpires() {
 		new BukkitRunnable() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
-				Iterator<Entry<UUID, Report>> i = reports.entrySet().iterator();
+				Iterator<Entry<String, Report>> i = reports.entrySet().iterator();
 				while (i.hasNext()) {
-					Entry<UUID, Report> entry = i.next();
+					Entry<String, Report> entry = i.next();
 					try {
 						// if
 						// (Main.getPlugin().getBanManager().isBanned(entry.getValue().getReported()))
@@ -290,6 +291,17 @@ public class ReportManager {
 					}
 				}
 				orderPages();
+				if (reports.size() > 0) {
+					for (Player staff : Bukkit.getOnlinePlayers()) {
+						if (battleCraft.getPermissions().isTrial(staff)) {
+							staff.playSound(staff.getLocation(), Sound.EXPLODE, 0.25F, 1F);
+							staff.sendMessage("§0§l");
+							staff.sendMessage("§9§lREPORT §fVocê tem §3§l" + reports.size() + " report"
+									+ ((reports.size() == 1) ? "report" : "reports") + "§f no momento!");
+							staff.sendMessage("§0§l");
+						}
+					}
+				}
 			}
 		}.runTaskAsynchronously(battleCraft);
 	}
@@ -298,7 +310,7 @@ public class ReportManager {
 		return pages;
 	}
 
-	public HashMap<UUID, Report> getReports() {
+	public HashMap<String, Report> getReports() {
 		return reports;
 	}
 
@@ -313,8 +325,8 @@ public class ReportManager {
 		}
 	}
 
-	public void removeReports(UUID id) {
-		reports.remove(id);
+	public void removeReports(String name) {
+		reports.remove(name);
 		orderPages();
 	}
 

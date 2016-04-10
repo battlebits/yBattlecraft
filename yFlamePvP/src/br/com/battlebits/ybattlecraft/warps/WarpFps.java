@@ -44,6 +44,7 @@ public class WarpFps extends BaseWarp {
 			updateTopKS();
 		}
 		if (e.getWarp().getWarpName().equalsIgnoreCase(warp.getWarpName())) {
+			yBattleCraft.getPlayerHideManager().hideForAll(e.getPlayer());
 			yBattleCraft.getKitManager().giveKit(e.getPlayer(), kit, false);
 			getMain().getProtectionManager().addProtection(e.getPlayer().getUniqueId());
 			new BukkitRunnable() {
