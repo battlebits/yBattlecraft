@@ -11,8 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
+import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
+import me.flame.utils.Main;
+import me.flame.utils.ranking.constructors.Account;
 
 public class WarpLavaChallenge extends BaseWarp {
 
@@ -28,10 +31,10 @@ public class WarpLavaChallenge extends BaseWarp {
 			event.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler
-	public void onVelocity(PlayerVelocityEvent e){
-		if(isOnWarp(e.getPlayer())){
+	public void onVelocity(PlayerVelocityEvent e) {
+		if (isOnWarp(e.getPlayer())) {
 			e.setCancelled(true);
 		}
 	}
@@ -50,14 +53,25 @@ public class WarpLavaChallenge extends BaseWarp {
 			if (i == null)
 				p.getInventory().addItem(new ItemStack(Material.MUSHROOM_SOUP));
 		}
-		//TODO: GIVE KIT
-//		getMain().getKitManager().setForcedKit(p, "Lava Challenge");
+		// TODO: GIVE KIT
+		// getMain().getKitManager().setForcedKit(p, "Lava Challenge");
 	}
-	
+
 	@Override
 	protected Warp getWarp(yBattleCraft battleCraft) {
 		Warp lavachallenge = new Warp("Lava Challenge", "Treine seus refils e seus recrafts para ser o melhor no pvp",
-				new ItemStack(Material.LAVA_BUCKET), new Location(Bukkit.getWorld("lavachallengeWarp"), 0.5, 66.5, 0.5, 90 * 2f, 0f), false);
+				new ItemStack(Material.LAVA_BUCKET), new Location(Bukkit.getWorld("lavachallengeWarp"), 0.5, 66.5, 0.5, 90 * 2f, 0f), false,
+				new WarpScoreboard("lava") {
+					@Override
+					public void createScores(Player p) {
+						Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+						createScore(p, "b2", "", "", 5);
+						createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 4);
+						createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 3);
+						createScore(p, "b1", "", "", 2);
+						createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
+					}
+				}, false, false);
 		return lavachallenge;
 	}
 

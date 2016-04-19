@@ -93,7 +93,8 @@ public class ItemFrameListener implements Listener {
 				return;
 			} else if (line.toLowerCase().contains("inquebrável i")) {
 				String s = p.getItemInHand().getType().toString();
-				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
+				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD")
+						|| s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 1);
 				} else {
 					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas ou armaduras");
@@ -101,7 +102,8 @@ public class ItemFrameListener implements Listener {
 				return;
 			} else if (line.toLowerCase().contains("inquebrável ii")) {
 				String s = p.getItemInHand().getType().toString();
-				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
+				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD")
+						|| s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 2);
 				} else {
 					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
@@ -109,7 +111,8 @@ public class ItemFrameListener implements Listener {
 				return;
 			} else if (line.toLowerCase().contains("inquebrável iii")) {
 				String s = p.getItemInHand().getType().toString();
-				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
+				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD")
+						|| s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 3);
 				} else {
 					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
@@ -165,8 +168,11 @@ public class ItemFrameListener implements Listener {
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel fácil do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(1) + "  por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Voce completou o nivel fácil do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(1)
+						+ "  por completar o Lava Challenge");
 				return;
 			} else if (line.toLowerCase().contains("médio")) {
 				if (p.getFireTicks() > 0) {
@@ -174,8 +180,11 @@ public class ItemFrameListener implements Listener {
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel médio do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(3) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Voce completou o nivel médio do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(3)
+						+ " por completar o Lava Challenge");
 				return;
 			} else if (line.toLowerCase().contains("difícil")) {
 				if (p.getFireTicks() > 0) {
@@ -183,24 +192,33 @@ public class ItemFrameListener implements Listener {
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel difícil do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(5) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Voce completou o nivel difícil do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(5)
+						+ " por completar o Lava Challenge");
 			} else if (line.toLowerCase().contains("extreme")) {
 				if (p.getFireTicks() > 0) {
 					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + p.getName() + " completou o nivel extreme do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(10) + " por completar o Lava Challenge");
+				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD
+						+ " >> " + ChatColor.GRAY + p.getName() + " completou o nivel extreme do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(10)
+						+ " por completar o Lava Challenge");
 			} else if (line.toLowerCase().contains("impossible")) {
 				if (p.getFireTicks() > 0) {
 					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + p.getName() + " completou o nivel impossible do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(15) + " por completar o Lava Challenge");
+				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD
+						+ " >> " + ChatColor.GRAY + p.getName() + " completou o nivel impossible do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> "
+						+ ChatColor.GRAY + "Você recebeu " + Main.getPlugin().getRankingManager().getAccount(p).addMoney(15)
+						+ " por completar o Lava Challenge");
 			}
 			return;
 		}
@@ -320,8 +338,10 @@ public class ItemFrameListener implements Listener {
 		if (!(event.getEntity() instanceof ItemFrame)) {
 			return;
 		}
-		if (!(event.getDamager() instanceof Player))
+		if (!(event.getDamager() instanceof Player)) {
+			event.setCancelled(true);
 			return;
+		}
 		Player p = (Player) event.getDamager();
 		if (p.getGameMode() != GameMode.CREATIVE || !p.hasPermission("flame.build")) {
 			event.setCancelled(true);

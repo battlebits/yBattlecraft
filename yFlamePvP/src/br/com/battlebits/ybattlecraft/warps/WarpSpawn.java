@@ -100,8 +100,9 @@ public class WarpSpawn extends BaseWarp {
 		if ((e.getPlayer().getGameMode() != GameMode.CREATIVE)
 				&& (e.getAction() == Action.PHYSICAL && e.getClickedBlock() != null && e.getClickedBlock().getType() != Material.STONE_PLATE
 						&& e.getClickedBlock().getType() != Material.WOOD_PLATE)
-				|| (e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE
-						|| e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST))) {
+				|| (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock() != null
+						&& (e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE || e.getClickedBlock().getType() == Material.CHEST
+								|| e.getClickedBlock().getType() == Material.ENDER_CHEST))) {
 			e.setCancelled(true);
 		}
 	}

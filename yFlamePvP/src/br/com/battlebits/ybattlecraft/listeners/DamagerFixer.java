@@ -60,6 +60,10 @@ public class DamagerFixer implements Listener {
 		}
 		if (isMore)
 			damage -= 2;
+		if(p.getItemInHand().getType().name().endsWith("SWORD")){
+			p.getItemInHand().setDurability((short) 0);
+			p.updateInventory();
+		}
 		event.setDamage(damage);
 	}
 

@@ -3,6 +3,7 @@ package br.com.battlebits.ybattlecraft;
 import java.sql.Connection;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -195,11 +196,16 @@ public class yBattleCraft extends JavaPlugin {
 		System.out.print("World 'rdm' loaded!");
 		getServer().createWorld(new WorldCreator("lavachallengeWarp")).setAutoSave(true);
 		System.out.print("World 'lavachallange' loaded!");
+		getServer().createWorld(new WorldCreator("voidchallengeWarp")).setAutoSave(true);
+		System.out.print("World 'voidchallangewarp' loaded!");
 		for (World world : Bukkit.getWorlds()) {
 			world.setThundering(false);
 			world.setStorm(false);
 			world.setWeatherDuration(1000000000);
-			world.setTime(0);
+			world.setTime(6000);
+			world.setGameRuleValue("doDaylightCycle", "false");
+			world.setDifficulty(Difficulty.PEACEFUL);
+			world.setGameRuleValue("doMobSpawning", "false");
 		}
 	}
 
@@ -267,9 +273,6 @@ public class yBattleCraft extends JavaPlugin {
 		Warp texturas = new Warp("Texturas", "Utilize esta Warp para ver todos os blocos de sua textura =3", new ItemStack(Material.BAKED_POTATO),
 				null, false);
 		getWarpManager().addWarp(texturas);
-		Warp voidchallenge = new Warp("Void Challenge", "Treine seus refils e seus recrafts com um dano maior", new ItemStack(Material.ENDER_PORTAL),
-				null, false);
-		getWarpManager().addWarp(voidchallenge);
 	}
 
 	public ItemManager getItemManager() {

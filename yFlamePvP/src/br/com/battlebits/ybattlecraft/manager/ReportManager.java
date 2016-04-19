@@ -249,12 +249,23 @@ public class ReportManager {
 						}
 					}
 					Iterator<Entry<Integer, Inventory>> pagei = pages.entrySet().iterator();
-					while(pagei.hasNext()){
+					while (pagei.hasNext()) {
 						Entry<Integer, Inventory> entry = pagei.next();
-						if(page < entry.getKey()){
+						if (page < entry.getKey()) {
 							entry.getValue().clear();
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									for (Player p : Bukkit.getOnlinePlayers()) {
+										if (p.getOpenInventory() != null && p.getOpenInventory().getTopInventory() != null && p.getOpenInventory()
+												.getTopInventory().getTitle().equalsIgnoreCase("Reports - Página " + entry.getKey())) {
+											p.closeInventory();
+										}
+									}
+									pagei.remove();
+								}
+							}.runTaskAsynchronously(battleCraft);
 						}
-						pagei.remove();
 					}
 					ordering = false;
 				}
@@ -297,7 +308,7 @@ public class ReportManager {
 							staff.playSound(staff.getLocation(), Sound.EXPLODE, 0.25F, 1F);
 							staff.sendMessage("§0§l");
 							staff.sendMessage("§9§lREPORT §fVocê tem §3§l" + reports.size() + " report"
-									+ ((reports.size() == 1) ? "report" : "reports") + "§f no momento!");
+									+ ((reports.size() == 1) ? "" : "s") + "§f no momento!");
 							staff.sendMessage("§0§l");
 						}
 					}

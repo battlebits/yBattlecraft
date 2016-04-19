@@ -3,7 +3,6 @@ package br.com.battlebits.ybattlecraft.manager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -80,7 +79,7 @@ public class WarpManager {
 	}
 
 	public boolean isInWarp(Player p, String warp) {
-		return hasWarp(p) && playerWarp.get(p.getUniqueId()).contains(warp);
+		return hasWarp(p) && playerWarp.get(p.getUniqueId()).equalsIgnoreCase(warp);
 	}
 
 	public String getPlayerWarp(UUID id) {
@@ -110,9 +109,9 @@ public class WarpManager {
 
 	public ArrayList<UUID> getPlayersInWarp(String name) {
 		ArrayList<UUID> ids = new ArrayList<>();
-		for (Entry<UUID, String> entry : playerWarp.entrySet()) {
-			if (entry.getValue().equalsIgnoreCase(name)) {
-				ids.add(entry.getKey());
+		for (Player p : getWarpByName(name).getWarpLocation().getWorld().getEntitiesByClass(Player.class)) {
+			if (isInWarp(p, name)) {
+				ids.add(p.getUniqueId());
 			}
 		}
 		return ids;
