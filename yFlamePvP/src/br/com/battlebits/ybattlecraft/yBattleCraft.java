@@ -104,8 +104,8 @@ public class yBattleCraft extends JavaPlugin {
 	 */
 	public boolean sql = true;
 	public String host = "localhost";
-	public String password = "saobestanime";
-	public String user = "root";
+	public String password = "LXUZtnFJwEXJa6Yw";
+	public String user = "status";
 	public String port = "3306";
 	public Connect connect;
 	public Connection mainConnection;
@@ -204,7 +204,7 @@ public class yBattleCraft extends JavaPlugin {
 			world.setWeatherDuration(1000000000);
 			world.setTime(6000);
 			world.setGameRuleValue("doDaylightCycle", "false");
-			world.setDifficulty(Difficulty.PEACEFUL);
+			world.setDifficulty(Difficulty.HARD);
 			world.setGameRuleValue("doMobSpawning", "false");
 		}
 	}

@@ -10,7 +10,6 @@ import org.bukkit.scoreboard.Team;
 public abstract class WarpScoreboard {
 
 	private String objId = "";
-	private int objs;
 
 	public WarpScoreboard(String id) {
 		objId = id;
@@ -57,9 +56,6 @@ public abstract class WarpScoreboard {
 		t.setSuffix(value);
 		t.addEntry(prefix);
 		getObjective(p).getScore(prefix).setScore(score);
-		if (score >= objs) {
-			objs = score;
-		}
 		return t;
 	}
 
