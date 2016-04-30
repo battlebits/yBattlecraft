@@ -22,8 +22,8 @@ import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.constructors.Report;
 import br.com.battlebits.ybattlecraft.enums.ReportStatus;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.event.UpdateEvent.UpdateType;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
 public class ReportManager {
 

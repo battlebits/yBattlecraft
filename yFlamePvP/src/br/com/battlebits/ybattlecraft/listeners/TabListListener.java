@@ -19,9 +19,11 @@ import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.event.WarpTeleportEvent;
 import br.com.battlebits.ybattlecraft.nms.TabListManager;
 import br.com.battlebits.ybattlecraft.utils.Formatter;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.event.UpdateEvent.UpdateType;
-import me.flame.utils.ranking.constructors.Account;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class TabListListener implements Listener {
 
@@ -110,7 +112,7 @@ public class TabListListener implements Listener {
 		headerBuilder.append(ChatColor.YELLOW + "Ping: " + ChatColor.WHITE + ping);
 		headerBuilder.append(traco);
 		headerBuilder.append(ChatColor.WHITE + "" + players + "/" + maxPlayer + ChatColor.YELLOW + " players");
-		Account account = me.flame.utils.Main.getPlugin().getRankingManager().getAccount(player);
+		BattlePlayer account = BattlebitsAPI.getAccountCommon().getBattlePlayer(player.getUniqueId());
 		StringBuilder footerBuilder = new StringBuilder();
 		footerBuilder.append(ChatColor.AQUA + "Nick: " + ChatColor.WHITE + player.getName());
 		footerBuilder.append(traco);

@@ -13,8 +13,8 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.event.UpdateEvent.UpdateType;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
 public class MagmaAbility extends BaseAbility {
 

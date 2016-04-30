@@ -14,7 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
-import me.flame.utils.ranking.constructors.Account;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class StatusManager {
 	private HashMap<UUID, Status> statusList;
@@ -89,7 +90,7 @@ public class StatusManager {
 		if (killer != null) {
 			Status killerStatus = getStatusByUuid(killer.getUniqueId());
 			killerStatus.addKills();
-			Account killerAccount = me.flame.utils.Main.getPlugin().getRankingManager().getAccount(killer);
+			BattlePlayer killerAccount = BattlebitsAPI.getAccountCommon().getBattlePlayer(killer.getUniqueId());
 			int money = 1;
 			if (killerStatus.getKillstreak() >= 20) {
 				++money;
@@ -105,7 +106,7 @@ public class StatusManager {
 			}
 		}
 		killedStatus.addDeaths();
-		Account killedAccount = me.flame.utils.Main.getPlugin().getRankingManager().getAccount(killed);
+		BattlePlayer killedAccount = BattlebitsAPI.getAccountCommon().getBattlePlayer(killed.getUniqueId());
 		killedAccount.removeMoney(1);
 		String para = "";
 		if(killer != null)

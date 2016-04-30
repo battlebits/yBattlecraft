@@ -3,7 +3,8 @@ package br.com.battlebits.ybattlecraft.managers;
 import org.bukkit.entity.Player;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import me.flame.utils.permissions.enums.Group;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class Permissions {
 	public yBattleCraft m;
@@ -13,34 +14,34 @@ public class Permissions {
 	}
 
 	public boolean isLight(Player p) {
-		return isPremium(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.LIGHT);
+		return isPremium(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.LIGHT);
 	}
 
 	public boolean isPremium(Player p) {
-		return isUltimate(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.PREMIUM);
+		return isUltimate(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.PREMIUM);
 	}
 
 	public boolean isUltimate(Player p) {
-		return isYouTuber(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.ULTIMATE);
+		return isYouTuber(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.ULTIMATE);
 	}
 
 	public boolean isYouTuber(Player p) {
-		return isTrial(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.YOUTUBER);
+		return isTrial(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.YOUTUBER);
 	}
 
 	public boolean isTrial(Player p) {
-		return isMod(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.TRIAL);
+		return isMod(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL);
 	}
 
 	public boolean isMod(Player p) {
-		return isAdmin(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.MOD);
+		return isAdmin(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.MOD);
 	}
 
 	public boolean isAdmin(Player p) {
-		return isOwner(p) || me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.ADMIN);
+		return isOwner(p) || BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.ADMIN);
 	}
 
 	public boolean isOwner(Player p) {
-		return me.flame.utils.Main.getPlugin().getPermissionManager().isGroup(p, Group.DONO) || p.isOp();
+		return BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.DONO) || p.isOp();
 	}
 }

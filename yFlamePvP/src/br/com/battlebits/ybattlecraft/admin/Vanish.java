@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import me.flame.utils.permissions.enums.Group;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class Vanish {
 	private static HashMap<UUID, VLevel> vanished = new HashMap<>();
@@ -112,7 +113,7 @@ public class Vanish {
 			if (player.getName().equals(p.getName()))
 				continue;
 			if (isVanished(p)) {
-				if (me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(player, Group.MOD))
+				if (BattlebitsAPI.getAccountCommon().getBattlePlayer(player.getUniqueId()).hasGroupPermission(Group.MOD))
 					continue;
 				if (!player.canSee(p))
 					continue;

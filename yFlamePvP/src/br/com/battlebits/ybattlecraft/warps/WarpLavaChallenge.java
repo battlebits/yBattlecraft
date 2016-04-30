@@ -14,8 +14,8 @@ import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
-import me.flame.utils.Main;
-import me.flame.utils.ranking.constructors.Account;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpLavaChallenge extends BaseWarp {
 
@@ -64,7 +64,7 @@ public class WarpLavaChallenge extends BaseWarp {
 				new WarpScoreboard("lava") {
 					@Override
 					public void createScores(Player p) {
-						Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+						BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 						createScore(p, "b2", "", "", 5);
 						createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 4);
 						createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 3);

@@ -24,8 +24,8 @@ import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.nms.Title;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
 import de.inventivegames.holograms.HologramAPI;
-import me.flame.utils.event.UpdateEvent;
 
 public class HotPotatoAbility extends BaseAbility {
 
@@ -43,8 +43,7 @@ public class HotPotatoAbility extends BaseAbility {
 		removeTitle = new Title("", "§c§lRemova a batata quente da sua cabeca!");
 		secureTitle = new Title("", "§9§lAgora voce esta seguro!");
 		ItemBuilder builder = new ItemBuilder();
-		abilityItem = builder.type(Material.BAKED_POTATO).amount(1).glow().name("§c§lHot Potato")
-				.lore("§7Coloque uma batata quente na cabeca do seu inimigo").build();
+		abilityItem = builder.type(Material.BAKED_POTATO).amount(1).glow().name("§c§lHot Potato").lore("§7Coloque uma batata quente na cabeca do seu inimigo").build();
 		tntItem = builder.type(Material.TNT).amount(1).name("§5§lHot Potato").lore("§7Remova da sua cabeca o mais rapido possivel!").build();
 		getItens().add(abilityItem);
 	}
@@ -128,9 +127,7 @@ public class HotPotatoAbility extends BaseAbility {
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l"
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase()
-									+ "§f para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase() + "§f para utilizar sua habilidade!");
 						}
 					}
 				}
@@ -146,9 +143,7 @@ public class HotPotatoAbility extends BaseAbility {
 					if (e.getPlayer().getItemInHand().equals(abilityItem)) {
 						if (battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "hotpotatoability")) {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l"
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase()
-									+ "§f para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§lHOTPOTATO §fAguarde §9§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "hotpotatoability").toUpperCase() + "§f para utilizar sua habilidade!");
 						}
 						e.setCancelled(true);
 					}

@@ -25,7 +25,8 @@ import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.nms.Title;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import me.flame.utils.permissions.enums.Group;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
 import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener {
@@ -46,7 +47,7 @@ public class JoinListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player p = event.getPlayer();
-		if (!me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.LIGHT) && Bukkit.getOnlinePlayers().length >= 150) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.LIGHT) && Bukkit.getOnlinePlayers().length >= 150) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Lotado! Compre VIP em " + yBattleCraft.site + " e tenha sempre um Slot reservado");
 		} else if (!Bukkit.hasWhitelist() || Bukkit.getWhitelistedPlayers().contains(p)) {
 			event.allow();
@@ -90,7 +91,7 @@ public class JoinListener implements Listener {
 				}
 			}.runTaskLaterAsynchronously(m, (i + 1) * 30);
 		}
-		if (me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.TRIAL))
+		if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
 			m.getAdminMode().setAdmin(p);
 		m.getVanish().updateVanished(p);
 		m.getPlayerHideManager().hideForAll(p);
@@ -104,8 +105,7 @@ public class JoinListener implements Listener {
 		try {
 			loadStatus(event.getUniqueId());
 		} catch (SQLException e) {
-			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
-					ChatColor.RED + "Nao foi possivel carregar seus status, tente novamente em breve");
+			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Nao foi possivel carregar seus status, tente novamente em breve");
 		}
 	}
 
@@ -117,7 +117,7 @@ public class JoinListener implements Listener {
 			p.setHealth(20.0);
 			Hotbar.setItems(p);
 			m.getProtectionManager().addProtection(p.getUniqueId());
-			if (me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.TRIAL))
+			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
 				m.getAdminMode().setAdmin(p);
 			m.getVanish().updateVanished(p);
 			try {

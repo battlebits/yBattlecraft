@@ -22,8 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.evento.enums.EventState;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.permissions.enums.Group;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class PlayerListener implements Listener {
 
@@ -57,7 +58,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
-		if (!me.flame.utils.Main.getPlugin().getPermissionManager().hasGroupPermission(p, Group.TRIAL) && (event.getMessage().toLowerCase().contains("hack") || event.getMessage().toLowerCase().contains("autosoup") || event.getMessage().toLowerCase().contains("forcefield"))) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL) && (event.getMessage().toLowerCase().contains("hack") || event.getMessage().toLowerCase().contains("autosoup") || event.getMessage().toLowerCase().contains("forcefield"))) {
 			/*
 			 * BarAPI.setMessage(event.getPlayer(), ChatColor.RED +
 			 * "Use /report para reportar um player!", 5);

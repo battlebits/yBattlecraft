@@ -34,8 +34,8 @@ import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.kit.Kit;
-import me.flame.utils.Main;
-import me.flame.utils.ranking.constructors.Account;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpSpawn extends BaseWarp {
 
@@ -198,7 +198,7 @@ public class WarpSpawn extends BaseWarp {
 			@Override
 			public void createScores(Player p) {
 				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
-				Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b4", "", "", 13);
 				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 12);
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 11);

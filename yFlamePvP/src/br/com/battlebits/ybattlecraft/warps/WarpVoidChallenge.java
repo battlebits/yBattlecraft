@@ -22,10 +22,10 @@ import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
-import me.flame.utils.Main;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.event.UpdateEvent.UpdateType;
-import me.flame.utils.ranking.constructors.Account;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpVoidChallenge extends BaseWarp {
 
@@ -133,7 +133,7 @@ public class WarpVoidChallenge extends BaseWarp {
 		scoreboard = new WarpScoreboard("void") {
 			@Override
 			public void createScores(Player p) {
-				Account a = Main.getPlugin().getRankingManager().getAccount(p.getUniqueId());
+				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b3", "", "", 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
 				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);

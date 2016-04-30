@@ -17,8 +17,8 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import me.flame.utils.event.UpdateEvent;
-import me.flame.utils.event.UpdateEvent.UpdateType;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
 public class BarAPI implements Listener {
 	public static HashMap<UUID, FakeDragon> players = new HashMap<UUID, FakeDragon>();

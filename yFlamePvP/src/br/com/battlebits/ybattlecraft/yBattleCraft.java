@@ -55,7 +55,6 @@ import br.com.battlebits.ybattlecraft.mysql.Connect;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
-import me.flame.utils.utils.PluginUpdater;
 
 public class yBattleCraft extends JavaPlugin {
 
@@ -128,7 +127,7 @@ public class yBattleCraft extends JavaPlugin {
 		startUpdaters();
 		gladiatorFightController = new GladiatorFightController();
 		new CommandLoader(this).loadCommandsAndRegister();
-		getServer().getScheduler().runTaskTimerAsynchronously(this, new PluginUpdater(this), 2L, 108000L);
+		//getServer().getScheduler().runTaskTimerAsynchronously(this, new PluginUpdater(this), 2L, 108000L);
 	}
 
 	@Override
