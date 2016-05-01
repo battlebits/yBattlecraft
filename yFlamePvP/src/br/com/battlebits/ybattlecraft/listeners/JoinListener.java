@@ -1,8 +1,5 @@
 package br.com.battlebits.ybattlecraft.listeners;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
@@ -20,12 +16,15 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.enums.LoadStatus;
 import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.nms.Title;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.account.BattlePlayer;
+import br.com.battlebits.ycommon.common.account.game.GameType;
 import br.com.battlebits.ycommon.common.permissions.enums.Group;
 import net.md_5.bungee.api.ChatColor;
 
@@ -98,15 +97,11 @@ public class JoinListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onAsync(AsyncPlayerPreLoginEvent event) {
-		if (event.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED) {
+	public void onAsync(PlayerLoginEvent event) {
+		if (event.getResult() != Result.ALLOWED) {
 			return;
 		}
-		try {
-			loadStatus(event.getUniqueId());
-		} catch (SQLException e) {
-			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Nao foi possivel carregar seus status, tente novamente em breve");
-		}
+		loadStatus(event.getPlayer());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -120,11 +115,7 @@ public class JoinListener implements Listener {
 			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
 				m.getAdminMode().setAdmin(p);
 			m.getVanish().updateVanished(p);
-			try {
-				loadStatus(p.getUniqueId());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			loadStatus(p.getUniqueId());
 		}
 	}
 
@@ -135,49 +126,15 @@ public class JoinListener implements Listener {
 		m.getServer().getPluginManager().callEvent(evente);
 	}
 
-	private void loadStatus(UUID uuid) throws SQLException {
-		if (!m.sql)
-			return;
-		String sql = "SELECT * FROM `Kits` WHERE (`Uuid` = '" + uuid.toString().replace("-", "") + "');";
-		if (m.mainConnection.isClosed())
-			m.connect.trySQLConnection();
-		PreparedStatement stmt = m.mainConnection.prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();
-		List<String> kitList = new ArrayList<>();
-		while (result.next()) {
-			kitList.add(result.getString("KitName"));
-		}
-		sql = "SELECT * FROM `Status` WHERE (`Uuid` = '" + uuid.toString().replace("-", "") + "');";
-		result.close();
-		stmt.close();
-		stmt = m.mainConnection.prepareStatement(sql);
-		result = stmt.executeQuery();
-		int kills = 0;
-		int deaths = 0;
-		int killstreak = 0;
-		if (result.next()) {
-			kills = result.getInt("Kills");
-			deaths = result.getInt("Deaths");
-			killstreak = result.getInt("Killstreak");
-		}
-		result.close();
-		stmt.close();
-		sql = "SELECT * FROM `KitFavorito` WHERE (`Uuid` = '" + uuid.toString().replace("-", "") + "');";
-		stmt = m.mainConnection.prepareStatement(sql);
-		result = stmt.executeQuery();
-		List<String> kitsFavoritos = new ArrayList<>();
-		if (result.next()) {
-			String kits = result.getString("Kits");
-			if (kits.contains(",")) {
-				for (String str : kits.split(",")) {
-					kitsFavoritos.add(str);
-				}
-			} else {
-				kitsFavoritos.add(kits);
-			}
-		}
-		m.getStatusManager().addPlayer(uuid, kills, deaths, killstreak, kitList, kitsFavoritos);
-		stmt.close();
-		result.close();
+	private void loadStatus(Player p) {
+		loadStatus(p.getUniqueId());
+	}
+
+	private void loadStatus(UUID uuid) {
+		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
+		Status status = player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.class);
+		if (status == null)
+			status = new Status(uuid);
+		m.getStatusManager().addPlayer(uuid, status);
 	}
 }

@@ -1,7 +1,5 @@
 package br.com.battlebits.ybattlecraft;
 
-import java.sql.Connection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -51,7 +49,6 @@ import br.com.battlebits.ybattlecraft.managers.Permissions;
 import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
 import br.com.battlebits.ybattlecraft.managers.ReflectionManager;
 import br.com.battlebits.ybattlecraft.managers.StatusManager;
-import br.com.battlebits.ybattlecraft.mysql.Connect;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
@@ -96,26 +93,10 @@ public class yBattleCraft extends JavaPlugin {
 	// Util
 	private TimeFormater timeFormater;
 
-	/**
-	 * 
-	 * MySQL
-	 * 
-	 */
-	public boolean sql = true;
-	public String host = "localhost";
-	public String password = "LXUZtnFJwEXJa6Yw";
-	public String user = "status";
-	public String port = "3306";
-	public Connect connect;
-	public Connection mainConnection;
-
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
 		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
-		connect = new Connect(this);
-		connect.trySQLConnection();
-		connect.prepareSQL(mainConnection);
 		loadAbilities();
 		loadWorlds();
 		// new WarpSpawn(this);
@@ -127,7 +108,8 @@ public class yBattleCraft extends JavaPlugin {
 		startUpdaters();
 		gladiatorFightController = new GladiatorFightController();
 		new CommandLoader(this).loadCommandsAndRegister();
-		//getServer().getScheduler().runTaskTimerAsynchronously(this, new PluginUpdater(this), 2L, 108000L);
+		// getServer().getScheduler().runTaskTimerAsynchronously(this, new
+		// PluginUpdater(this), 2L, 108000L);
 	}
 
 	@Override
@@ -246,7 +228,7 @@ public class yBattleCraft extends JavaPlugin {
 		teleportManager = new TeleportManager(this);
 		permissions = new Permissions(this);
 		combatLog = new CombatLogManager();
-		statusManager = new StatusManager(this);
+		statusManager = new StatusManager();
 		itemManager = new ItemManager();
 		cooldownManager = new CooldownManager(this);
 		reportManager = new ReportManager(this);
@@ -260,17 +242,13 @@ public class yBattleCraft extends JavaPlugin {
 		warpLoader = new WarpLoader(this);
 		warpLoader.initializeAllWarps();
 		warpLoader.registerWarpsListeners();
-		Warp simulator = new Warp("Simulator", "Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e vá para a luta",
-				new ItemStack(Material.RED_MUSHROOM), null);
+		Warp simulator = new Warp("Simulator", "Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e vá para a luta", new ItemStack(Material.RED_MUSHROOM), null);
 		getWarpManager().addWarp(simulator);
-		Warp startgame = new Warp("StartGame", "Utilize esta Warp para treinar o pvp sem armadura e espadas de madeira",
-				new ItemStack(Material.WOOD_SWORD), null);
+		Warp startgame = new Warp("StartGame", "Utilize esta Warp para treinar o pvp sem armadura e espadas de madeira", new ItemStack(Material.WOOD_SWORD), null);
 		getWarpManager().addWarp(startgame);
-		Warp mlg = new Warp("MLG", "Treine como cair de grandes alturas sem tomar dano de um jeito divertido", new ItemStack(Material.WATER_BUCKET),
-				null, false);
+		Warp mlg = new Warp("MLG", "Treine como cair de grandes alturas sem tomar dano de um jeito divertido", new ItemStack(Material.WATER_BUCKET), null, false);
 		getWarpManager().addWarp(mlg);
-		Warp texturas = new Warp("Texturas", "Utilize esta Warp para ver todos os blocos de sua textura =3", new ItemStack(Material.BAKED_POTATO),
-				null, false);
+		Warp texturas = new Warp("Texturas", "Utilize esta Warp para ver todos os blocos de sua textura =3", new ItemStack(Material.BAKED_POTATO), null, false);
 		getWarpManager().addWarp(texturas);
 	}
 

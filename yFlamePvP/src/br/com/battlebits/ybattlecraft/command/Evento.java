@@ -84,7 +84,6 @@ public class Evento implements CommandExecutor {
 							return true;
 						}
 						String vencedor = args[1];
-						@SuppressWarnings("deprecation")
 						Player target = Bukkit.getPlayer(vencedor);
 						if (target == null) {
 							p.sendMessage(ChatColor.RED + "Player nao existe");
@@ -98,7 +97,6 @@ public class Evento implements CommandExecutor {
 							return true;
 						}
 						String vencedor = args[1];
-						@SuppressWarnings("deprecation")
 						Player target = Bukkit.getPlayer(vencedor);
 						if (target == null) {
 							p.sendMessage(ChatColor.RED + "Player nao existe");

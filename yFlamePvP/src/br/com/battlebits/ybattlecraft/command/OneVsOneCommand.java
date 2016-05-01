@@ -3,11 +3,9 @@ package br.com.battlebits.ybattlecraft.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseCommand;
-import br.com.battlebits.ybattlecraft.constructors.Status;
 
 public class OneVsOneCommand extends BaseCommand {
 
