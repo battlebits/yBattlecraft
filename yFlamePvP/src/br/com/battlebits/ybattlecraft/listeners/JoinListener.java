@@ -135,6 +135,7 @@ public class JoinListener implements Listener {
 		Status status = player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.class);
 		if (status == null)
 			status = new Status(uuid);
+		status.setUuid(uuid);
 		m.getStatusManager().addPlayer(uuid, status);
 	}
 }

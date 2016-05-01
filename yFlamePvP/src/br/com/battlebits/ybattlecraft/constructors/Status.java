@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
+import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
 import br.com.battlebits.ycommon.common.account.game.GameType;
 
 public class Status {
+	private transient UUID uuid;
 	private int kills;
-	private UUID uuid;
 	private int deaths;
 	private int killstreak;
 	private List<String> kits;
@@ -53,6 +56,10 @@ public class Status {
 
 	public List<String> getKitsFavoritos() {
 		return kitsFavoritos;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
 	}
 
 	public void setKills(int kills) {
@@ -101,9 +108,14 @@ public class Status {
 	}
 
 	public void save() {
-		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
-		player.getGameStatus().updateMinigame(GameType.BATTLECRAFT_PVP_STATUS, this);
-		player = null;
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
+				player.getGameStatus().updateMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.this);
+				player = null;
+			}
+		}.runTaskAsynchronously(yBattleCraft.getInstance());
 	}
 
 }

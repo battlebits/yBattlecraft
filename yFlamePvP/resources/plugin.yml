@@ -2,4 +2,4 @@ name: yBattleCraft
 authors: [GustavoInacio, vitorrdgs]
 main: br.com.battlebits.ybattlecraft.yBattleCraft
 version: 0.0.1.7 BETA
-depend: [yUtils]
+depend: [yCommon]

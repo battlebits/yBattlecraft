@@ -92,7 +92,13 @@ public class yBattleCraft extends JavaPlugin {
 
 	// Util
 	private TimeFormater timeFormater;
-
+	
+	private static yBattleCraft instance;
+	
+	{
+		instance = this;
+	}
+	
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
@@ -286,6 +292,10 @@ public class yBattleCraft extends JavaPlugin {
 
 	public PlayerHideManager getPlayerHideManager() {
 		return playerHideManager;
+	}
+	
+	public static yBattleCraft getInstance() {
+		return instance;
 	}
 
 }
