@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -66,6 +67,7 @@ public class JoinListener implements Listener {
 		p.setMaxHealth(20.0);
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
+		p.setGameMode(GameMode.SURVIVAL);
 		Hotbar.setItems(p);
 		Title title = new Title(ChatColor.GOLD + "BATTLECRAFT");
 		title.setSubtitle("Versão 2.0");
