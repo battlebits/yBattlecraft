@@ -89,7 +89,7 @@ public class TabListListener implements Listener {
 	private void constructTabList(Player player) {
 		int ping = 0;
 		ping = ((CraftPlayer) player).getHandle().ping;
-		int players = Bukkit.getOnlinePlayers().length - m.getAdminMode().admin.size();
+		int players = Bukkit.getOnlinePlayers().size() - m.getAdminMode().admin.size();
 		int maxPlayer = 200;
 		Status status = m.getStatusManager().getStatusByUuid(player.getUniqueId());
 		String traco = ChatColor.DARK_BLUE + " - ";
