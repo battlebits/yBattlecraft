@@ -66,7 +66,6 @@ public class DeshzinAbility extends BaseAbility {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onUpdateListener(UpdateEvent e) {
 		if (e.getType() == UpdateType.SECOND) {

@@ -89,7 +89,6 @@ public class SupernovaAbility extends BaseAbility {
 		getItens().add(superNova);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteractListener(PlayerInteractEvent e) {
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -128,7 +127,6 @@ public class SupernovaAbility extends BaseAbility {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (e.getDamager().hasMetadata("Supernova")) {

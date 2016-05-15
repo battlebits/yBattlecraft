@@ -214,7 +214,7 @@ public class yBattleCraft extends JavaPlugin {
 	}
 
 	private void loadManagers() {
-		playerHideManager = new PlayerHideManager(this);
+		playerHideManager = new PlayerHideManager();
 		warpManager = new WarpManager(this);
 		kitManager = new KitManager(this);
 		protection = new ProtectionManager();

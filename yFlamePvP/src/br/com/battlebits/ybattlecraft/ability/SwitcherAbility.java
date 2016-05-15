@@ -23,7 +23,6 @@ public class SwitcherAbility extends BaseAbility {
 		getItens().add(balls);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {

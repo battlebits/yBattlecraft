@@ -63,7 +63,6 @@ public class InteractListener implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onSoup(PlayerInteractEvent event) {
 		Player p = event.getPlayer();

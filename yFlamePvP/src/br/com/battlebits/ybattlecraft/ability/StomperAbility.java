@@ -20,7 +20,6 @@ public class StomperAbility extends BaseAbility {
 		super(yBattleCraft);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onEntityDamageListener(EntityDamageEvent e) {
 		if (e.getCause() == DamageCause.FALL) {

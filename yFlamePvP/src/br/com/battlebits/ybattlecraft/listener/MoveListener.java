@@ -31,7 +31,6 @@ public class MoveListener implements Listener {
 
 	public void startUpdater() {
 		new BukkitRunnable() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				for (Player p : Bukkit.getOnlinePlayers()) {

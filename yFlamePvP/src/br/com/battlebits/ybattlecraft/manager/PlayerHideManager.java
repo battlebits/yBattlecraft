@@ -6,19 +6,16 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class PlayerHideManager {
 
-	private yBattleCraft battleCraft;
 	private ArrayList<UUID> hideAllPlayers;
 //	private ArrayList<UUID> hideForAll;
 
-	public PlayerHideManager(yBattleCraft bc) {
+	public PlayerHideManager() {
 		hideAllPlayers = new ArrayList<>();
 //		hideForAll = new ArrayList<>();
-		battleCraft = bc;
 	}
 
 	public void playerJoin(Player p) {
@@ -36,7 +33,6 @@ public class PlayerHideManager {
 //		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void hideAllPlayers(Player p) {
 		hideAllPlayers.add(p.getUniqueId());
 		for (Player hide : Bukkit.getOnlinePlayers()) {
@@ -59,7 +55,6 @@ public class PlayerHideManager {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void showForAll(Player p) {
 //		if (hideForAll.contains(p.getUniqueId())) {
 //			hideForAll.remove(p.getUniqueId());
@@ -73,7 +68,6 @@ public class PlayerHideManager {
 //		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void hideForAll(Player p) {
 //		if (!hideForAll.contains(p.getUniqueId())) {
 //			hideForAll.add(p.getUniqueId());
@@ -93,7 +87,6 @@ public class PlayerHideManager {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void stop() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			for (Player show : Bukkit.getOnlinePlayers()) {

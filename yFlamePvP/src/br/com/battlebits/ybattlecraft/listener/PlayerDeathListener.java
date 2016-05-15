@@ -27,7 +27,6 @@ public class PlayerDeathListener extends BaseListener {
 		super(plugin);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDamageListener(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -96,7 +95,6 @@ public class PlayerDeathListener extends BaseListener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDamageByBlockListener(EntityDamageByBlockEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -132,7 +130,6 @@ public class PlayerDeathListener extends BaseListener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -178,7 +175,6 @@ public class PlayerDeathListener extends BaseListener {
 				battleCraft.getWarpManager().getPlayerWarp(e.getPlayer().getUniqueId())));
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		e.getPlayer().setNoDamageTicks(100);

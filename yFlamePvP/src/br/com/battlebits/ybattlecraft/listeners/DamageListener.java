@@ -50,7 +50,6 @@ public class DamageListener implements Listener {
 			event.setCancelled(true);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onEntityDamageByEntityListener(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {

@@ -791,7 +791,6 @@ public class Warp1v1 extends BaseWarp {
 					handleQuit(event.getPlayer());
 				}
 
-				@SuppressWarnings("deprecation")
 				public void handleQuit(Player p) {
 					if (!isInPvP(p))
 						return;

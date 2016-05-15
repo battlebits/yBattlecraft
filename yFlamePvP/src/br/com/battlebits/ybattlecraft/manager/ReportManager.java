@@ -129,7 +129,6 @@ public class ReportManager {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public void report(Player reporter, Player reported, String reason) {
 		if (!reports.containsKey(reported.getName())) {
 			reports.put(reported.getName(), new Report(reported.getUniqueId()));
@@ -276,7 +275,6 @@ public class ReportManager {
 
 	public void checkExpires() {
 		new BukkitRunnable() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				Iterator<Entry<String, Report>> i = reports.entrySet().iterator();

@@ -38,10 +38,10 @@ public class Evento {
 	// public Location loc2;
 	private List<Cabine> locations = new ArrayList<>();
 
-	public Evento(final yBattleCraft yBattleCraft, Player organizador, final EventType type) {
+	public Evento(final yBattleCraft battle, Player organizador, final EventType type) {
 		this.type = type;
 		this.state = EventState.WAITING;
-		m = yBattleCraft;
+		m = battle;
 		chatOn = false;
 		if (type == EventType.RDM) {
 			if (m.getConfiguration().getConfig(ConfigEnum.EVENTOS).getConfigurationSection("eventos.rdm") == null) {

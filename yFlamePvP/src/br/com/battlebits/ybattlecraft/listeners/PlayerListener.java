@@ -144,7 +144,7 @@ public class PlayerListener implements Listener {
 			return;
 		boolean isItemKit = false;
 		if (m.getKitManager().hasCurrentKit(p.getUniqueId())) {
-			String kitName = m.getKitManager().getCurrentKit(p.getUniqueId()).toLowerCase();
+			//String kitName = m.getKitManager().getCurrentKit(p.getUniqueId()).toLowerCase();
 			//TODO: UNDROP KIT ITENS
 //			if (m.getKitManager().getKitByName(kitName) != null)
 //				for (ItemStack i : m.getKitManager().getKitByName(kitName).getItens()) {
