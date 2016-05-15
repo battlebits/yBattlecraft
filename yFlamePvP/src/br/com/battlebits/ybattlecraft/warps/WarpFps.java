@@ -22,6 +22,7 @@ import br.com.battlebits.ybattlecraft.enums.KitType;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.kit.Kit;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
@@ -87,7 +88,7 @@ public class WarpFps extends BaseWarp {
 				int ks = 0;
 				UUID topks = null;
 				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
-					if (!yBattleCraft.getAdminMode().isAdmin(Bukkit.getPlayer(id))) {
+					if (!AdminMode.getInstance().isAdmin(Bukkit.getPlayer(id))) {
 						if (!yBattleCraft.getProtectionManager().isProtected(id)) {
 							Status s = yBattleCraft.getStatusManager().getStatusByUuid(id);
 							if (s.getKillstreak() > ks) {

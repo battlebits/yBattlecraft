@@ -13,12 +13,12 @@ import br.com.battlebits.ycommon.common.account.game.GameType;
 
 public class Status {
 	private transient UUID uuid;
-	private int kills;
-	private int deaths;
-	private int killstreak;
-	private List<String> kits;
-	private List<String> kitsFavoritos;
-	private boolean scoreboardEnabled;
+	private int kills = 0;
+	private int deaths = 0;
+	private int killstreak = 0;
+	private List<String> kits = new ArrayList<>();
+	private List<String> kitsFavoritos = new ArrayList<>();
+	private boolean scoreboardEnabled = true;
 
 	public Status(UUID uuid) {
 		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);

@@ -162,8 +162,7 @@ public class KitSelector {
 				} else {
 					description = ChatColor.RED + "Voce nao possui este kit. ";
 				}
-				description = description + ChatColor.RED + "Clique com o direito " + ChatColor.RED + "para remover este kit " + ChatColor.RED
-						+ "dos favoritos. ";
+				description = description + ChatColor.RED + "Clique com o direito " + ChatColor.RED + "para remover este kit " + ChatColor.RED + "dos favoritos. ";
 				meta.setLore(wrap(description + kit.getInfo()));
 				item.setItemMeta(meta);
 				inventory.setItem(i, item);
@@ -194,8 +193,7 @@ public class KitSelector {
 				} else {
 					description = ChatColor.RED + "Voce nao possui este kit. ";
 				}
-				description = description + ChatColor.DARK_PURPLE + "Clique com o direito " + ChatColor.DARK_PURPLE + "para adicionar este "
-						+ ChatColor.DARK_PURPLE + "kit aos favoritos. ";
+				description = description + ChatColor.DARK_PURPLE + "Clique com o direito " + ChatColor.DARK_PURPLE + "para adicionar este " + ChatColor.DARK_PURPLE + "kit aos favoritos. ";
 				meta.setLore(wrap(description + kit.getInfo()));
 				item.setItemMeta(meta);
 				inventory.setItem(i, item);
@@ -286,11 +284,13 @@ public class KitSelector {
 			list = new ArrayList<Kit>();
 		}
 		List<String> kitsFavoritos = m.getStatusManager().getStatusByUuid(player.getUniqueId()).getKitsFavoritos();
-		Collections.sort(kitsFavoritos);
-		for (String name : kitsFavoritos) {
-			Kit k = m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(name.toLowerCase());
-			if (k != null) {
-				list.add(k);
+		if (kitsFavoritos != null && !kitsFavoritos.isEmpty()) {
+			Collections.sort(kitsFavoritos);
+			for (String name : kitsFavoritos) {
+				Kit k = m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(name.toLowerCase());
+				if (k != null) {
+					list.add(k);
+				}
 			}
 		}
 		kits.put(KitCategory.FAVORITE, list);
@@ -403,8 +403,7 @@ public class KitSelector {
 							m.getStatusManager().getStatusByUuid(player.getUniqueId()).addFavoriteKit(kitName.toLowerCase());
 							player.sendMessage(ChatColor.YELLOW + "Você adicionou o kit " + kitName + " aos seus kits favoritos");
 							List<Kit> list = kits.get(KitCategory.FAVORITE);
-							list.add(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId()))
-									.getKit(kitName.toLowerCase()));
+							list.add(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(kitName.toLowerCase()));
 						}
 						return;
 					}
@@ -414,8 +413,7 @@ public class KitSelector {
 							m.getStatusManager().getStatusByUuid(player.getUniqueId()).removeFavoriteKit(kitName.toLowerCase());
 							player.sendMessage(ChatColor.RED + "Você removeu o kit " + kitName + " dos seus kits favoritos");
 							List<Kit> list = kits.get(KitCategory.FAVORITE);
-							list.remove(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId()))
-									.getKit(kitName.toLowerCase()));
+							list.remove(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(kitName.toLowerCase()));
 							updatePage();
 						}
 					}
@@ -445,8 +443,7 @@ public class KitSelector {
 				}
 				if (event.getRawSlot() >= 18) {
 					if (manager.canUseKit(player, ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase())) {
-						manager.giveKit(player, m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId()))
-								.getKit(ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase()), true);
+						manager.giveKit(player, m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase()), true);
 						player.closeInventory();
 						destroy();
 					}

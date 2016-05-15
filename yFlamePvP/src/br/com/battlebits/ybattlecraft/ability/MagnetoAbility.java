@@ -22,13 +22,14 @@ import org.bukkit.util.Vector;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class MagnetoAbility extends BaseAbility {
 
 	private ArrayList<Entity> invencible;
 	private HashMap<UUID, Integer> uses;
 	private ItemStack magnetoItem;
-	
+
 	public MagnetoAbility(yBattleCraft yBattleCraft) {
 		super(yBattleCraft);
 		uses = new HashMap<>();
@@ -40,11 +41,11 @@ public class MagnetoAbility extends BaseAbility {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockIgnite(PlayerInteractEvent e) {
-		if(e.getAction() != Action.LEFT_CLICK_AIR){
-			if(e.getPlayer().getItemInHand() != null){
-				if(e.getPlayer().getItemInHand().equals(magnetoItem)){
-					if(isUsing(e.getPlayer())){
-						if(!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "magnetoability")){
+		if (e.getAction() != Action.LEFT_CLICK_AIR) {
+			if (e.getPlayer().getItemInHand() != null) {
+				if (e.getPlayer().getItemInHand().equals(magnetoItem)) {
+					if (isUsing(e.getPlayer())) {
+						if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "magnetoability")) {
 							if (!uses.containsKey(e.getPlayer().getUniqueId())) {
 								uses.put(e.getPlayer().getUniqueId(), 0);
 							}
@@ -74,7 +75,7 @@ public class MagnetoAbility extends BaseAbility {
 								if (entity instanceof Player) {
 									if (battlecraft.getProtectionManager().isProtected(((Player) entity).getUniqueId()))
 										continue;
-									if (battlecraft.getAdminMode().isAdmin((Player) entity))
+									if (AdminMode.getInstance().isAdmin((Player) entity))
 										continue;
 								}
 								entity.setVelocity(v);
@@ -87,9 +88,7 @@ public class MagnetoAbility extends BaseAbility {
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§LMAGNETO §fAguarde §9§l"
-									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability").toUpperCase()
-									+ "§f para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("§5§LMAGNETO §fAguarde §9§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability").toUpperCase() + "§f para utilizar sua habilidade!");
 						}
 					}
 				}

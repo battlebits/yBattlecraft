@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class TeleportManager {
 
@@ -65,7 +66,7 @@ public class TeleportManager {
 							for (Player t : p.getWorld().getEntitiesByClass(Player.class)) {
 								if (t.getUniqueId() != p.getUniqueId()) {
 									if (!battleCraft.getProtectionManager().isProtected(t.getUniqueId())) {
-										if (!battleCraft.getAdminMode().isAdmin(t)) {
+										if (!AdminMode.getInstance().isAdmin(t)) {
 											if (t.getLocation().distance(p.getLocation()) <= 10) {
 												wait = true;
 												break;

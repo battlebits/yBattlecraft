@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class StomperAbility extends BaseAbility {
 
@@ -30,15 +31,14 @@ public class StomperAbility extends BaseAbility {
 					for (Player ps : p.getWorld().getEntitiesByClass(p.getClass())) {
 						if (ps.getUniqueId() != p.getUniqueId()) {
 							if (!battlecraft.getProtectionManager().isProtected(ps.getUniqueId())) {
-								if (!battlecraft.getAdminMode().isAdmin(ps)) {
+								if (!AdminMode.getInstance().isAdmin(ps)) {
 									if (p.getLocation().distance(ps.getLocation()) <= 5) {
 										double dmg = e.getDamage();
 										if (ps.isSneaking() && dmg > 8) {
 											dmg = 8;
 										}
 										if (dmg >= ((Damageable) ps).getHealth()) {
-											Bukkit.getPluginManager().callEvent(
-													new PlayerDeathInWarpEvent(ps, p, battlecraft.getWarpManager().getPlayerWarp(ps.getUniqueId())));
+											Bukkit.getPluginManager().callEvent(new PlayerDeathInWarpEvent(ps, p, battlecraft.getWarpManager().getPlayerWarp(ps.getUniqueId())));
 										} else {
 											ps.damage(dmg, p);
 										}

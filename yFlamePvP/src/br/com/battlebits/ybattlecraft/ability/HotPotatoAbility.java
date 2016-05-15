@@ -24,6 +24,7 @@ import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.nms.Title;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
 import de.inventivegames.holograms.HologramAPI;
 
@@ -97,7 +98,7 @@ public class HotPotatoAbility extends BaseAbility {
 					if (e.getPlayer().getItemInHand().equals(abilityItem)) {
 						if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), "hotpotatoability")) {
 							Player target = (Player) e.getRightClicked();
-							if (!battlecraft.getAdminMode().isAdmin(target)) {
+							if (!AdminMode.getInstance().isAdmin(target)) {
 								if (!battlecraft.getProtectionManager().isProtected(target.getUniqueId())) {
 									if (target.getInventory().getHelmet() == null || !target.getInventory().getHelmet().equals(tntItem)) {
 										if (battlecraft.getProtectionManager().removeProtection(e.getPlayer().getUniqueId())) {

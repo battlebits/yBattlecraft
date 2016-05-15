@@ -23,6 +23,7 @@ import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.nms.Title;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
 import br.com.battlebits.ycommon.common.account.game.GameType;
@@ -43,7 +44,6 @@ public class JoinListener implements Listener {
 		novidades.add("Seja bem-vindo");
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player p = event.getPlayer();
@@ -93,8 +93,7 @@ public class JoinListener implements Listener {
 			}.runTaskLaterAsynchronously(m, (i + 1) * 30);
 		}
 		if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
-			m.getAdminMode().setAdmin(p);
-		m.getVanish().updateVanished(p);
+			AdminMode.getInstance().setAdmin(p);
 		m.getPlayerHideManager().hideForAll(p);
 	}
 
@@ -106,7 +105,6 @@ public class JoinListener implements Listener {
 		loadStatus(event.getPlayer());
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPluginReload(PluginEnableEvent event) {
 		for (Player p : m.getServer().getOnlinePlayers()) {
@@ -115,8 +113,7 @@ public class JoinListener implements Listener {
 			Hotbar.setItems(p);
 			m.getProtectionManager().addProtection(p.getUniqueId());
 			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
-				m.getAdminMode().setAdmin(p);
-			m.getVanish().updateVanished(p);
+				AdminMode.getInstance().setAdmin(p);
 			loadStatus(p.getUniqueId());
 		}
 	}

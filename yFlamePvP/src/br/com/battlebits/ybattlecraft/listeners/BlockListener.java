@@ -8,12 +8,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.permissions.enums.Group;
+
 public class BlockListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBreak(BlockBreakEvent event) {
 		Player p = event.getPlayer();
-		if (!p.hasPermission("flame.build") || p.getGameMode() != GameMode.CREATIVE) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.ADMIN) || p.getGameMode() != GameMode.CREATIVE) {
 			event.setCancelled(true);
 		}
 	}
@@ -21,7 +24,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void onPlace(BlockPlaceEvent event) {
 		Player p = event.getPlayer();
-		if (!p.hasPermission("flame.build") || p.getGameMode() != GameMode.CREATIVE) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.ADMIN) || p.getGameMode() != GameMode.CREATIVE) {
 			event.setCancelled(true);
 		}
 	}

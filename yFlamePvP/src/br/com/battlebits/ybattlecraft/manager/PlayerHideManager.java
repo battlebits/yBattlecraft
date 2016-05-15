@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class PlayerHideManager {
 
@@ -45,13 +46,12 @@ public class PlayerHideManager {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void showAllPlayers(Player p) {
 		if (hideAllPlayers.contains(p.getUniqueId())) {
 			hideAllPlayers.remove(p.getUniqueId());
 		}
 		for (Player show : Bukkit.getOnlinePlayers()) {
-			if (!hideAllPlayers.contains(show.getUniqueId()) && !battleCraft.getAdminMode().isAdmin(show)) {
+			if (!hideAllPlayers.contains(show.getUniqueId()) && !AdminMode.getInstance().isAdmin(show)) {
 				if (show.getUniqueId() != p.getUniqueId()) {
 					p.showPlayer(show);
 				}

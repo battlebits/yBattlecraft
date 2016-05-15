@@ -9,8 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import br.com.battlebits.ybattlecraft.admin.Mode;
-import br.com.battlebits.ybattlecraft.admin.Vanish;
 import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.evento.Evento;
@@ -60,8 +58,6 @@ public class yBattleCraft extends JavaPlugin {
 	public static String motd = "";
 	private KitManager kitManager;
 	private WarpManager warpManager;
-	private Mode mode = new Mode(this);
-	private Vanish vanish = new Vanish(this);
 	private Config config;
 	private Permissions permissions;
 	private ProtectionManager protection;
@@ -138,14 +134,6 @@ public class yBattleCraft extends JavaPlugin {
 
 	public StatusManager getStatusManager() {
 		return statusManager;
-	}
-
-	public Mode getAdminMode() {
-		return mode;
-	}
-
-	public Vanish getVanish() {
-		return vanish;
 	}
 
 	public Config getConfiguration() {

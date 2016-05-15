@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.selectors.KitSelector;
 import br.com.battlebits.ybattlecraft.selectors.WarpSelector;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class InteractListener implements Listener {
 
@@ -40,7 +41,7 @@ public class InteractListener implements Listener {
 			return;
 		String displayName = item.getItemMeta().getDisplayName();
 		if (displayName.contains("Kits")) {
-//			TODO: KIT SELECTOR
+			// TODO: KIT SELECTOR
 			new KitSelector(p, m).open();
 			return;
 		}
@@ -94,7 +95,7 @@ public class InteractListener implements Listener {
 	public void onInteractEntity(PlayerInteractEntityEvent event) {
 		Player p = event.getPlayer();
 		Entity e = event.getRightClicked();
-		if (!m.getAdminMode().isAdmin(p)) {
+		if (!AdminMode.getInstance().isAdmin(p)) {
 			return;
 		}
 		if (e instanceof Player) {

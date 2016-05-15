@@ -16,12 +16,6 @@ public class QuitListener implements Listener {
 		this.m = m;
 	}
 
-	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
-		m.getAdminMode().removeAdmin(event.getPlayer());
-		m.getVanish().removeVanished(event.getPlayer());
-	}
-
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onRemoveMessag(PlayerQuitEvent event) {
 		event.setQuitMessage(null);

@@ -22,6 +22,7 @@ import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.constructors.Report;
 import br.com.battlebits.ybattlecraft.enums.ReportStatus;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
@@ -327,8 +328,8 @@ public class ReportManager {
 
 	public void open(Player p) {
 		if (reports.size() > 0 && pages.containsKey(1)) {
-			if (!battleCraft.getAdminMode().isAdmin(p)) {
-				battleCraft.getAdminMode().setAdmin(p);
+			if (!AdminMode.getInstance().isAdmin(p)) {
+				AdminMode.getInstance().setAdmin(p);
 			}
 			p.openInventory(pages.get(1));
 		} else {

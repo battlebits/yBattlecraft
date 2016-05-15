@@ -19,11 +19,11 @@ import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.event.WarpTeleportEvent;
 import br.com.battlebits.ybattlecraft.nms.TabListManager;
 import br.com.battlebits.ybattlecraft.utils.Formatter;
+import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
-import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class TabListListener implements Listener {
 
@@ -89,13 +89,12 @@ public class TabListListener implements Listener {
 	private void constructTabList(Player player) {
 		int ping = 0;
 		ping = ((CraftPlayer) player).getHandle().ping;
-		int players = Bukkit.getOnlinePlayers().size() - m.getAdminMode().admin.size();
+		int players = Bukkit.getOnlinePlayers().size() - AdminMode.getInstance().playersInAdmin();
 		int maxPlayer = 200;
 		Status status = m.getStatusManager().getStatusByUuid(player.getUniqueId());
 		String traco = ChatColor.DARK_BLUE + " - ";
 		StringBuilder headerBuilder = new StringBuilder();
-		headerBuilder.append(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + ">> " + ChatColor.GOLD + ChatColor.BOLD + "Battlecraft"
-				+ ChatColor.DARK_GRAY + ChatColor.BOLD + " <<");
+		headerBuilder.append(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + ">> " + ChatColor.GOLD + ChatColor.BOLD + "Battlecraft" + ChatColor.DARK_GRAY + ChatColor.BOLD + " <<");
 		headerBuilder.append("\n        ");
 		headerBuilder.append(ChatColor.YELLOW + "Kills: " + ChatColor.WHITE + status.getKills());
 		headerBuilder.append(traco);
@@ -103,11 +102,9 @@ public class TabListListener implements Listener {
 		headerBuilder.append(traco);
 		headerBuilder.append(ChatColor.YELLOW + "Killstreak: " + ChatColor.WHITE + status.getKillstreak());
 		headerBuilder.append("\n");
-		headerBuilder.append(
-				ChatColor.YELLOW + "Kit: " + ChatColor.WHITE + Formatter.getFormattedName(m.getKitManager().getCurrentKit(player.getUniqueId())));
+		headerBuilder.append(ChatColor.YELLOW + "Kit: " + ChatColor.WHITE + Formatter.getFormattedName(m.getKitManager().getCurrentKit(player.getUniqueId())));
 		headerBuilder.append(traco);
-		headerBuilder.append(
-				ChatColor.YELLOW + "Warp: " + ChatColor.WHITE + Formatter.getFormattedName(m.getWarpManager().getPlayerWarp(player.getUniqueId())));
+		headerBuilder.append(ChatColor.YELLOW + "Warp: " + ChatColor.WHITE + Formatter.getFormattedName(m.getWarpManager().getPlayerWarp(player.getUniqueId())));
 		headerBuilder.append(traco);
 		headerBuilder.append(ChatColor.YELLOW + "Ping: " + ChatColor.WHITE + ping);
 		headerBuilder.append(traco);
