@@ -90,7 +90,6 @@ public class TabListListener implements Listener {
 		int ping = 0;
 		ping = ((CraftPlayer) player).getHandle().ping;
 		int players = Bukkit.getOnlinePlayers().size() - AdminMode.getInstance().playersInAdmin();
-		int maxPlayer = 200;
 		Status status = m.getStatusManager().getStatusByUuid(player.getUniqueId());
 		String traco = ChatColor.DARK_BLUE + " - ";
 		StringBuilder headerBuilder = new StringBuilder();
@@ -108,7 +107,7 @@ public class TabListListener implements Listener {
 		headerBuilder.append(traco);
 		headerBuilder.append(ChatColor.YELLOW + "Ping: " + ChatColor.WHITE + ping);
 		headerBuilder.append(traco);
-		headerBuilder.append(ChatColor.WHITE + "" + players + "/" + maxPlayer + ChatColor.YELLOW + " players");
+		headerBuilder.append(ChatColor.WHITE + "" + players + "/" + Bukkit.getMaxPlayers() + ChatColor.YELLOW + " players");
 		BattlePlayer account = BattlebitsAPI.getAccountCommon().getBattlePlayer(player.getUniqueId());
 		StringBuilder footerBuilder = new StringBuilder();
 		footerBuilder.append(ChatColor.AQUA + "Nick: " + ChatColor.WHITE + player.getName());
