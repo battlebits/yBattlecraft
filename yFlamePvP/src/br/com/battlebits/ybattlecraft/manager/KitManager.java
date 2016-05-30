@@ -1,6 +1,5 @@
 package br.com.battlebits.ybattlecraft.manager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,6 @@ import br.com.battlebits.ybattlecraft.utils.Formatter;
 
 public class KitManager {
 
-	private HashMap<UUID, ArrayList<String>> playerKits = new HashMap<>();
 	public HashMap<String, List<String>> freeKits = new HashMap<>();
 	private yBattleCraft battlecraft;
 	private HashMap<UUID, String> playerKit;
@@ -45,8 +43,7 @@ public class KitManager {
 		p.setItemOnCursor(null);
 		String kitName = playerKit.remove(p.getUniqueId());
 		if (kitName != null) {
-			PlayerRemoveKitEvent event = new PlayerRemoveKitEvent(p.getUniqueId(), kitName,
-					battlecraft.getWarpManager().getPlayerWarp(p.getUniqueId()));
+			PlayerRemoveKitEvent event = new PlayerRemoveKitEvent(p.getUniqueId(), kitName, battlecraft.getWarpManager().getPlayerWarp(p.getUniqueId()));
 			Bukkit.getPluginManager().callEvent(event);
 		}
 	}
@@ -54,12 +51,6 @@ public class KitManager {
 	public boolean canUseKit(Player p, String kit) {
 		if (battlecraft.getPermissions().isUltimate(p)) {
 			return true;
-		}
-		if (playerKit.containsKey(p.getUniqueId())) {
-			for (String i : playerKits.get(p.getUniqueId())) {
-				if (i.toLowerCase().equals(kit.toLowerCase()))
-					return true;
-			}
 		}
 		for (String i : freeKits.get("normal")) {
 			if (i.toLowerCase().equals(kit.toLowerCase()))
@@ -77,7 +68,7 @@ public class KitManager {
 					return true;
 			}
 		}
-		return false;
+		return yBattleCraft.getInstance().getStatusManager().getStatusByUuid(p.getUniqueId()).hasKit(kit);
 	}
 
 	public String getCurrentKit(UUID id) {

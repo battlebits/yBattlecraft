@@ -1,1 +1,8 @@
 FullIron: false
+# MySQL details
+database:
+  hostname: 127.0.0.1
+  port: 3306
+  database: 'ybattlecraft'
+  username: 'root'
+  password: ''

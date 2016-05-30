@@ -42,8 +42,7 @@ public class CommandLoader {
 					} catch (Exception ex) {
 						command = (BaseCommandWithTab) commandClass.newInstance();
 					}
-					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7),
-							command.getDescription(), command.getAliases()).setTabCompleter(command);
+					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7), command.getDescription(), command.getAliases()).setTabCompleter(command);
 				} catch (Exception e) {
 					battleCraft.getLogger().warning("Erro ao carregar o comando " + commandClass.getSimpleName() + " (With TabCompleter)");
 				}
@@ -56,8 +55,7 @@ public class CommandLoader {
 					} catch (Exception ex) {
 						command = (BaseCommand) commandClass.newInstance();
 					}
-					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7),
-							command.getDescription(), command.getAliases());
+					registerCommand(command, command.getClass().getSimpleName().substring(0, command.getClass().getSimpleName().length() - 7), command.getDescription(), command.getAliases());
 				} catch (Exception e) {
 					e.printStackTrace();
 					battleCraft.getLogger().warning("Erro ao carregar o comando " + commandClass.getSimpleName());

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
-import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
 import br.com.battlebits.ycommon.common.account.game.GameType;
@@ -77,6 +74,23 @@ public class Status {
 		save();
 	}
 
+	public boolean addKit(String kitName) {
+		if (hasKit(kitName))
+			return false;
+		kits.add(kitName.toLowerCase());
+		save();
+		return true;
+	}
+
+	public void removeKit(String kitName) {
+		kits.remove(kitName);
+		save();
+	}
+
+	public boolean hasKit(String kitName) {
+		return kits.contains(kitName.toLowerCase());
+	}
+
 	public void addFavoriteKit(String kitName) {
 		if (!kitsFavoritos.contains(kitName)) {
 			kitsFavoritos.add(kitName);
@@ -108,14 +122,9 @@ public class Status {
 	}
 
 	public void save() {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
-				player.getGameStatus().updateMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.this);
-				player = null;
-			}
-		}.runTaskAsynchronously(yBattleCraft.getInstance());
+		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
+		player.getGameStatus().updateMinigame(GameType.BATTLECRAFT_PVP_STATUS, this);
+		player = null;
 	}
 
 }

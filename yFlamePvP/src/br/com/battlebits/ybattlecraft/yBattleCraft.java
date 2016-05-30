@@ -1,5 +1,8 @@
 package br.com.battlebits.ybattlecraft;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -50,6 +53,12 @@ import br.com.battlebits.ybattlecraft.managers.StatusManager;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
+import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandFramework;
+import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandLoader;
+import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.ycommon.common.connection.backend.MySQLBackend;
+import br.com.battlebits.ycommon.common.translate.Translate;
+import br.com.battlebits.ycommon.common.translate.languages.Language;
 
 public class yBattleCraft extends JavaPlugin {
 
@@ -88,16 +97,32 @@ public class yBattleCraft extends JavaPlugin {
 
 	// Util
 	private TimeFormater timeFormater;
-	
+
+	// MySQL
+	private MySQLBackend mysql;
+	private String hostname = "localhost";
+	private int port = 3306;
+	private String database = "ybattlecraft";
+	private String username = "root";
+	private String password = "";
+
 	private static yBattleCraft instance;
-	
+
 	{
 		instance = this;
 	}
-	
+
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
+		mysql = new MySQLBackend(hostname, port, database, username, password);
+		try {
+			mysql.startConnection();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		loadConfiguration();
+		loadTranslations();
 		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
 		loadAbilities();
 		loadWorlds();
@@ -110,6 +135,7 @@ public class yBattleCraft extends JavaPlugin {
 		startUpdaters();
 		gladiatorFightController = new GladiatorFightController();
 		new CommandLoader(this).loadCommandsAndRegister();
+		getLogger().info(new BukkitCommandLoader(new BukkitCommandFramework(this)).loadCommandsFromPackage("br.com.battlebits.ybattlecraft.command") + " classes de comandos foram carregadas");
 		// getServer().getScheduler().runTaskTimerAsynchronously(this, new
 		// PluginUpdater(this), 2L, 108000L);
 	}
@@ -184,6 +210,43 @@ public class yBattleCraft extends JavaPlugin {
 		}
 	}
 
+	private void loadTranslations() {
+		try {
+			BattlebitsAPI.debug("TRANSLATIONS > LOADING");
+			PreparedStatement stmt = null;
+			ResultSet result = null;
+			for (Language lang : Language.values()) {
+				try {
+					stmt = getConnection().getConnection().prepareStatement("SELECT * FROM `translations` WHERE `language`='" + lang + "';");
+					result = stmt.executeQuery();
+					if (result.next()) {
+						Translate.loadTranslations("ybattlecraft", lang, result.getString("json"));
+						BattlebitsAPI.debug(lang.toString() + " > LOADED");
+					}
+					result.close();
+					stmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					BattlebitsAPI.debug(lang.toString() + " > FAILED");
+				}
+			}
+			result = null;
+			stmt = null;
+			BattlebitsAPI.debug("TRANSLATIONS > CLOSE");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void loadConfiguration() {
+		hostname = getConfig().getString("database.hostname");
+		port = getConfig().getInt("database.port");
+		database = getConfig().getString("database.database");
+		username = getConfig().getString("database.username");
+		password = getConfig().getString("database.password");
+	}
+
 	private void loadAbilities() {
 		abilityManager = new AbilityManager();
 		abilityLoader = new AbilityLoader(this);
@@ -246,6 +309,10 @@ public class yBattleCraft extends JavaPlugin {
 		getWarpManager().addWarp(texturas);
 	}
 
+	public MySQLBackend getConnection() {
+		return mysql;
+	}
+
 	public ItemManager getItemManager() {
 		return itemManager;
 	}
@@ -281,7 +348,7 @@ public class yBattleCraft extends JavaPlugin {
 	public PlayerHideManager getPlayerHideManager() {
 		return playerHideManager;
 	}
-	
+
 	public static yBattleCraft getInstance() {
 		return instance;
 	}
