@@ -115,13 +115,13 @@ public class yBattleCraft extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
+		loadConfiguration();
 		mysql = new MySQLBackend(hostname, port, database, username, password);
 		try {
 			mysql.startConnection();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		loadConfiguration();
 		loadTranslations();
 		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
 		loadAbilities();
