@@ -82,9 +82,12 @@ public class Status {
 		return true;
 	}
 
-	public void removeKit(String kitName) {
+	public boolean removeKit(String kitName) {
+		if (!hasKit(kitName))
+			return false;
 		kits.remove(kitName);
 		save();
+		return true;
 	}
 
 	public boolean hasKit(String kitName) {
