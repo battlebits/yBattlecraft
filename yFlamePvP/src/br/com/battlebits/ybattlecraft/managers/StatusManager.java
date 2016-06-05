@@ -20,7 +20,9 @@ public class StatusManager {
 	}
 
 	public Status getStatusByUuid(UUID uuid) {
-		return statusList.get(uuid);
+		if (statusList.containsKey(uuid))
+			return statusList.get(uuid);
+		return new Status(uuid);
 	}
 
 	public void addPlayer(UUID uuid, Status status) {
