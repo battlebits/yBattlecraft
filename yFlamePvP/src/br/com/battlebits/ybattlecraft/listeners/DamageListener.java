@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 
@@ -78,6 +79,28 @@ public class DamageListener implements Listener {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onStatus(EntityDamageByEntityEvent e) {
+		if (e.isCancelled())
+			return;
+		if (e.getEntity() instanceof Player) {
+			Player damaged = (Player) e.getEntity();
+			Player damager = null;
+			if (e.getDamager() instanceof Player) {
+				damager = (Player) e.getDamager();
+			} else if (e.getDamager() instanceof Projectile) {
+				Projectile pr = (Projectile) e.getDamager();
+				if (pr.getShooter() != null && pr.getShooter() instanceof Player) {
+					damager = (Player) pr.getShooter();
+				}
+			}
+			if (damager != null) {
+				Status damagedStatus = m.getStatusManager().getStatusByUuid(damaged.getUniqueId());
+				damagedStatus.addDamage(damager.getUniqueId(), e.getDamage());
 			}
 		}
 	}

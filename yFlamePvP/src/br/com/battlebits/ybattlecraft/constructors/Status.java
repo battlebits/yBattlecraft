@@ -1,7 +1,9 @@
 package br.com.battlebits.ybattlecraft.constructors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
@@ -16,6 +18,7 @@ public class Status {
 	private List<String> kits = new ArrayList<>();
 	private List<String> kitsFavoritos = new ArrayList<>();
 	private boolean scoreboardEnabled = true;
+	private transient Map<UUID, Double> damageTaken = new HashMap<>();
 
 	public Status(UUID uuid) {
 		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
@@ -122,6 +125,35 @@ public class Status {
 
 	public void setScoreboardEnabled(boolean scoreboardEnabled) {
 		this.scoreboardEnabled = scoreboardEnabled;
+	}
+
+	public void addDamage(UUID uuid, double damage) {
+		double d = 0;
+		if (damageTaken.containsKey(uuid))
+			d = damageTaken.get(uuid);
+		d += damage;
+		damageTaken.put(uuid, d);
+	}
+	
+	public void death() {
+		damageTaken.clear();
+	}
+
+	public double getPorcentagemTaken(UUID uuid) {
+		if (!damageTaken.containsKey(uuid))
+			return 0;
+		double total = getTotalDamageTaken();
+		double received = damageTaken.get(uuid);
+		double porcentagem = received * 100 / total;
+		return porcentagem;
+	}
+
+	public double getTotalDamageTaken() {
+		double ret = 0;
+		for (Double d : damageTaken.values()) {
+			ret += d;
+		}
+		return ret;
 	}
 
 	public void save() {

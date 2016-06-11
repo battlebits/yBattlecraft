@@ -56,6 +56,7 @@ public class WarpManager {
 		if (event.isCanceled()) {
 			return;
 		}
+		battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId()).death();
 		battleCraft.getKitManager().removeKit(p);
 		for (PotionEffect potion : p.getActivePotionEffects()) {
 			p.removePotionEffect(potion.getType());

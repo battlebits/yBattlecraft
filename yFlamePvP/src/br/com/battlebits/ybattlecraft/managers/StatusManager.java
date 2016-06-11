@@ -39,6 +39,7 @@ public class StatusManager {
 	}
 
 	public void updateStatus(Player killer, Player killed) {
+		BattlePlayer killedAccount = BattlebitsAPI.getAccountCommon().getBattlePlayer(killed.getUniqueId());
 		Status killedStatus = getStatusByUuid(killed.getUniqueId());
 		if (killer != null) {
 			Status killerStatus = getStatusByUuid(killer.getUniqueId());
@@ -48,11 +49,13 @@ public class StatusManager {
 			if (killerStatus.getKillstreak() >= 20) {
 				++money;
 			}
+			int xp = calculatePlayerKill(killerAccount, killedAccount);
+
 			killer.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "KILL " + ChatColor.WHITE + "Voce matou " + ChatColor.YELLOW + ChatColor.BOLD + killed.getName());
 			killer.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "MONEY" + ChatColor.WHITE + " Voce recebeu " + ChatColor.GOLD + ChatColor.BOLD + killerAccount.addMoney(money) + " MOEDAS");
-			// killer.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "XP " +
-			// ChatColor.WHITE + " ");
+			killer.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "XP " + ChatColor.WHITE + " Voce recebeu " + ChatColor.BLUE + ChatColor.BOLD + killerAccount.addXp(xp) + " XPs");
 			if (killerStatus.getKillstreak() % 5 == 0 && killerStatus.getKillstreak() > 5) {
+				killerAccount.addXp(1);
 				Bukkit.broadcastMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "KILLSTREAK " + ChatColor.RED + ChatColor.BOLD + killer.getName() + ChatColor.WHITE + " conseguiu um " + ChatColor.GOLD + ChatColor.BOLD + "KILLSTREAK DE " + killerStatus.getKillstreak());
 			}
 			if (killedStatus.getKillstreak() >= 10) {
@@ -60,13 +63,31 @@ public class StatusManager {
 			}
 		}
 		killedStatus.addDeaths();
-		BattlePlayer killedAccount = BattlebitsAPI.getAccountCommon().getBattlePlayer(killed.getUniqueId());
 		killedAccount.removeMoney(1);
 		String para = "";
 		if (killer != null)
 			para = " para " + ChatColor.YELLOW + ChatColor.BOLD + killer.getName();
 		killed.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "MORTE " + ChatColor.WHITE + "Voce morreu" + para);
-		killed.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "MONEY" + ChatColor.WHITE + " Voce perdeu " + ChatColor.DARK_RED + ChatColor.BOLD + "1 MOEDA");
+		killedStatus.death();
+	}
+
+	private int calculatePlayerKill(BattlePlayer killer, BattlePlayer killed) {
+		int xpValue = 20;
+
+		int ligaDifference = killed.getLiga().ordinal() - killer.getLiga().ordinal();
+		Status killedStatus = getStatusByUuid(killed.getUuid());
+		Status killerStatus = getStatusByUuid(killer.getUuid());
+		double killedKd = killedStatus.getKills() / killedStatus.getDeaths();
+		int killStreakDifference = killedStatus.getKillstreak() - killerStatus.getKillstreak();
+
+		xpValue += ligaDifference;
+		xpValue += killStreakDifference / 3;
+
+		xpValue *= killedStatus.getPorcentagemTaken(killer.getUuid()) / 100;
+
+		xpValue *= killedKd;
+
+		return xpValue;
 	}
 
 }
