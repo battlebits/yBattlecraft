@@ -44,13 +44,13 @@ public class StatusManager {
 		if (killer != null) {
 			Status killerStatus = getStatusByUuid(killer.getUniqueId());
 			killerStatus.addKills();
+			killerStatus.addKill(killed.getUniqueId());
 			BattlePlayer killerAccount = BattlebitsAPI.getAccountCommon().getBattlePlayer(killer.getUniqueId());
 			int money = 1;
 			if (killerStatus.getKillstreak() >= 20) {
 				++money;
 			}
 			int xp = calculatePlayerKill(killerAccount, killedAccount);
-
 			killer.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "KILL " + ChatColor.WHITE + "Voce matou " + ChatColor.YELLOW + ChatColor.BOLD + killed.getName());
 			killer.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "MONEY" + ChatColor.WHITE + " Voce recebeu " + ChatColor.GOLD + ChatColor.BOLD + killerAccount.addMoney(money) + " MOEDAS");
 			killer.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "XP " + ChatColor.WHITE + " Voce recebeu " + ChatColor.BLUE + ChatColor.BOLD + killerAccount.addXp(xp) + " XPs");
@@ -72,7 +72,7 @@ public class StatusManager {
 	}
 
 	private int calculatePlayerKill(BattlePlayer killer, BattlePlayer killed) {
-		double xpValue = 20;
+		double xpValue = 10;
 
 		int ligaDifference = killed.getLiga().ordinal() - killer.getLiga().ordinal();
 		Status killedStatus = getStatusByUuid(killed.getUuid());
@@ -83,11 +83,18 @@ public class StatusManager {
 		xpValue += ligaDifference;
 		xpValue += killStreakDifference / 3;
 
-		xpValue *= killedStatus.getPorcentagemTaken(killer.getUuid()) / 100;
-
-		xpValue *= killedKd;
-
-		return (int) xpValue;
+		if (killedKd >= 1) {
+			xpValue += killedKd;
+		} else {
+			xpValue *= killedKd;
+		}
+		xpValue += killedStatus.getTotalDamageTaken() / 50;
+		xpValue += 10 * killedStatus.getPorcentagemTaken(killer.getUuid()) / 100;
+		xpValue -= 5 * ((100 - killerStatus.getPorcentagemKilled(killed.getUuid())) / 100);
+		int i = (int) xpValue;
+		if (i < 1)
+			i = 1;
+		return i;
 	}
 
 }

@@ -19,6 +19,7 @@ public class Status {
 	private List<String> kitsFavoritos = new ArrayList<>();
 	private boolean scoreboardEnabled = true;
 	private transient Map<UUID, Double> damageTaken = new HashMap<>();
+	private transient Map<UUID, Integer> killedPlayers = new HashMap<>();
 
 	public Status(UUID uuid) {
 		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
@@ -127,6 +128,16 @@ public class Status {
 		this.scoreboardEnabled = scoreboardEnabled;
 	}
 
+	public void addKill(UUID uuid) {
+		int k = 0;
+		if (killedPlayers == null)
+			killedPlayers = new HashMap<>();
+		if (!killedPlayers.isEmpty())
+			if (killedPlayers.containsKey(uuid))
+				k = killedPlayers.get(uuid);
+		killedPlayers.put(uuid, ++k);
+	}
+
 	public void addDamage(UUID uuid, double damage) {
 		double d = 0;
 		if (damageTaken == null)
@@ -152,10 +163,27 @@ public class Status {
 		double porcentagem = received * 100 / total;
 		return porcentagem;
 	}
+	
+	public double getPorcentagemKilled(UUID uuid) {
+		if (!killedPlayers.containsKey(uuid))
+			return 0;
+		int total = getTotalKills();
+		int times = killedPlayers.get(uuid);
+		double porcentagem = times * 100 / total;
+		return porcentagem;
+	}
 
 	public double getTotalDamageTaken() {
 		double ret = 0;
 		for (Double d : damageTaken.values()) {
+			ret += d;
+		}
+		return ret;
+	}
+	
+	public int getTotalKills() {
+		int ret = 0;
+		for (Integer d : killedPlayers.values()) {
 			ret += d;
 		}
 		return ret;
