@@ -129,14 +129,19 @@ public class Status {
 
 	public void addDamage(UUID uuid, double damage) {
 		double d = 0;
-		if (damageTaken.containsKey(uuid))
-			d = damageTaken.get(uuid);
+		if (damageTaken == null)
+			damageTaken = new HashMap<>();
+		if (!damageTaken.isEmpty())
+			if (damageTaken.containsKey(uuid))
+				d = damageTaken.get(uuid);
 		d += damage;
 		damageTaken.put(uuid, d);
 	}
-	
+
 	public void death() {
-		damageTaken.clear();
+		if (damageTaken != null)
+			if (!damageTaken.isEmpty())
+				damageTaken.clear();
 	}
 
 	public double getPorcentagemTaken(UUID uuid) {

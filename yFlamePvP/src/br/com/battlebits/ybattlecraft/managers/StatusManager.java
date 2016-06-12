@@ -77,7 +77,7 @@ public class StatusManager {
 		int ligaDifference = killed.getLiga().ordinal() - killer.getLiga().ordinal();
 		Status killedStatus = getStatusByUuid(killed.getUuid());
 		Status killerStatus = getStatusByUuid(killer.getUuid());
-		double killedKd = killedStatus.getKills() / killedStatus.getDeaths();
+		double killedKd = killedStatus.getKills() / (killedStatus.getDeaths() > 0 ? killedStatus.getDeaths() : 1);
 		int killStreakDifference = killedStatus.getKillstreak() - killerStatus.getKillstreak();
 
 		xpValue += ligaDifference;
