@@ -88,8 +88,8 @@ public class StatusManager {
 		} else {
 			xpValue *= killedKd;
 		}
-		xpValue += killedStatus.getTotalDamageTaken() / 50;
-		xpValue += 10 * killedStatus.getPorcentagemTaken(killer.getUuid()) / 100;
+		xpValue += (killedStatus.getTotalDamageTaken() - 20) / 32;
+		xpValue -= 10 * (100 - (killedStatus.getPorcentagemTaken(killer.getUuid()) / 100));
 		xpValue -= 5 * ((100 - killerStatus.getPorcentagemKilled(killed.getUuid())) / 100);
 		int i = (int) xpValue;
 		if (i < 1)
