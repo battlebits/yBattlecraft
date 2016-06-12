@@ -72,7 +72,7 @@ public class StatusManager {
 	}
 
 	private int calculatePlayerKill(BattlePlayer killer, BattlePlayer killed) {
-		double xpValue = 10;
+		double xpValue = 20;
 
 		int ligaDifference = killed.getLiga().ordinal() - killer.getLiga().ordinal();
 		Status killedStatus = getStatusByUuid(killed.getUuid());
