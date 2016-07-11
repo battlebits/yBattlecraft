@@ -92,6 +92,8 @@ public class StatusManager {
 		int i = (int) xpValue;
 		if (i < 1)
 			i = 1;
+		if (i > 50)
+			i = 50;
 		return i;
 	}
 
