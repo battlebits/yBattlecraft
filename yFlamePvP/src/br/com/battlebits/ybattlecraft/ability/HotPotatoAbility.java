@@ -49,6 +49,7 @@ public class HotPotatoAbility extends BaseAbility {
 		getItens().add(abilityItem);
 	}
 
+	
 	@EventHandler
 	public void onUpdateListener(UpdateEvent e) {
 		for (Entry<UUID, Long> entry : playersWithHotPotato.entrySet()) {

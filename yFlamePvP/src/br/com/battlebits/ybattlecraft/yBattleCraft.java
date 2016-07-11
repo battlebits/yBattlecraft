@@ -2,15 +2,20 @@ package br.com.battlebits.ybattlecraft;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 
 import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -53,12 +58,14 @@ import br.com.battlebits.ybattlecraft.managers.StatusManager;
 import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
+import br.com.battlebits.ycommon.bukkit.BukkitMain;
 import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandFramework;
 import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandLoader;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.connection.backend.MySQLBackend;
 import br.com.battlebits.ycommon.common.translate.Translate;
 import br.com.battlebits.ycommon.common.translate.languages.Language;
+import net.md_5.bungee.api.ChatColor;
 
 public class yBattleCraft extends JavaPlugin {
 
@@ -144,6 +151,11 @@ public class yBattleCraft extends JavaPlugin {
 	public void onDisable() {
 		gladiatorFightController.stop();
 		blockResetManager.stopAndResetAll();
+		try {
+			mysql.closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Permissions getPermissions() {
@@ -347,6 +359,14 @@ public class yBattleCraft extends JavaPlugin {
 
 	public PlayerHideManager getPlayerHideManager() {
 		return playerHideManager;
+	}
+
+	public static void sendNextServer(Player p) {
+		String command = IS_FULLIRON_MODE ? "PVPFulliron" : "PVPSimulator";
+		ByteArrayDataOutput outp = ByteStreams.newDataOutput();
+		outp.writeUTF(command);
+		p.sendPluginMessage(BukkitMain.getPlugin(), "BungeeCord", outp.toByteArray());
+		p.kickPlayer(ChatColor.RED + "O servidor está se preparando para reiniciar e você foi kickado do servidor.");
 	}
 
 	public static yBattleCraft getInstance() {

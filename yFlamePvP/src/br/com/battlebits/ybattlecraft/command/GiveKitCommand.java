@@ -20,7 +20,7 @@ import br.com.battlebits.ycommon.common.translate.languages.Language;
 
 public class GiveKitCommand extends CommandClass {
 
-	@Command(name = "givekit", groupToUse = Group.ADMIN, runAsync = true, noPermMessageId = "command-givekit-no-access")
+	@Command(name = "givekit", groupToUse = Group.MODPLUS, runAsync = true, noPermMessageId = "command-givekit-no-access")
 	public void giveKit(CommandArgs cmdArgs) {
 		CommandSender sender = cmdArgs.getSender();
 		Language language = BattlebitsAPI.getDefaultLanguage();
