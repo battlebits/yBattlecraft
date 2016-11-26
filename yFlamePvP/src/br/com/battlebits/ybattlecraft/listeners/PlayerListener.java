@@ -71,7 +71,9 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPreCommand(PlayerCommandPreprocessEvent event) {
-		if (event.getMessage().startsWith("/kill"))
+		if (event.getMessage().toLowerCase().startsWith("/kill "))
+			event.setCancelled(true);
+		if (event.getMessage().equalsIgnoreCase("/kill"))
 			event.setCancelled(true);
 	}
 

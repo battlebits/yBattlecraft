@@ -47,7 +47,7 @@ public class JoinListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player p = event.getPlayer();
-		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.LIGHT) && Bukkit.getOnlinePlayers().size() >= Bukkit.getMaxPlayers()) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.LIGHT) && Bukkit.getOnlinePlayers().size() >= Bukkit.getMaxPlayers() + AdminMode.getInstance().playersInAdmin()) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Lotado! Compre VIP em " + yBattleCraft.site + " e tenha sempre um Slot reservado");
 		} else if (!Bukkit.hasWhitelist() || Bukkit.getWhitelistedPlayers().contains(p)) {
 			event.allow();

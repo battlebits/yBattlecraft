@@ -20,6 +20,7 @@ public class Status {
 	private boolean scoreboardEnabled = true;
 	private transient Map<UUID, Double> damageTaken = new HashMap<>();
 	private transient Map<UUID, Integer> killedPlayers = new HashMap<>();
+	private boolean canResetKD = false;
 
 	public Status(UUID uuid) {
 		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
@@ -95,6 +96,14 @@ public class Status {
 	}
 
 	public boolean hasKit(String kitName) {
+		if (kits == null)
+			kits = new ArrayList<>();
+		if (kits.isEmpty())
+			return false;
+		if (kitName.isEmpty()) {
+			System.out.println("Jogador " + uuid.toString() + " não pode adicionar o kit " + kitName);
+			return true;
+		}
 		return kits.contains(kitName.toLowerCase());
 	}
 
@@ -138,6 +147,18 @@ public class Status {
 		killedPlayers.put(uuid, ++k);
 	}
 
+	public void setCanResetKD() {
+		this.canResetKD = true;
+	}
+
+	public boolean resetKD() {
+		if (this.canResetKD) {
+			this.canResetKD = false;
+			return true;
+		}
+		return false;
+	}
+
 	public void addDamage(UUID uuid, double damage) {
 		double d = 0;
 		if (damageTaken == null)
@@ -156,6 +177,8 @@ public class Status {
 	}
 
 	public double getPorcentagemTaken(UUID uuid) {
+		if (damageTaken == null)
+			return 0;
 		if (!damageTaken.containsKey(uuid))
 			return 0;
 		double total = getTotalDamageTaken();
@@ -163,8 +186,10 @@ public class Status {
 		double porcentagem = received * 100 / total;
 		return porcentagem;
 	}
-	
+
 	public double getPorcentagemKilled(UUID uuid) {
+		if (killedPlayers == null)
+			return 0;
 		if (!killedPlayers.containsKey(uuid))
 			return 0;
 		int total = getTotalKills();
@@ -174,14 +199,18 @@ public class Status {
 	}
 
 	public double getTotalDamageTaken() {
+		if (damageTaken == null)
+			return 0;
 		double ret = 0;
 		for (Double d : damageTaken.values()) {
 			ret += d;
 		}
 		return ret;
 	}
-	
+
 	public int getTotalKills() {
+		if (killedPlayers == null)
+			return 0;
 		int ret = 0;
 		for (Integer d : killedPlayers.values()) {
 			ret += d;

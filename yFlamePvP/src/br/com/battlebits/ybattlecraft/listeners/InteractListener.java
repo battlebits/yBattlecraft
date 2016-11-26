@@ -43,22 +43,28 @@ public class InteractListener implements Listener {
 		if (displayName.contains("Kits")) {
 			// TODO: KIT SELECTOR
 			new KitSelector(p, m).open();
+			event.setCancelled(true);
 			return;
 		}
 		if (displayName.contains("Warps")) {
 			warpSelector.open(p);
+			event.setCancelled(true);
 			return;
 		}
 		if (displayName.contains("Kits - StartGame")) {
+			event.setCancelled(true);
 			return;
 		}
 		if (displayName.contains("BattleCraft")) {
+			event.setCancelled(true);
 			return;
 		}
 		if (displayName.contains("Shop")) {
+			event.setCancelled(true);
 			return;
 		}
 		if (displayName.contains("Eventos")) {
+			event.setCancelled(true);
 			p.chat("/evento");
 		}
 	}

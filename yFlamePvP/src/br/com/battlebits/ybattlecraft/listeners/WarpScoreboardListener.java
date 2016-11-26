@@ -5,7 +5,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
@@ -23,28 +22,18 @@ public class WarpScoreboardListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerWarpJoinListenr(PlayerWarpJoinEvent e) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (yBattleCraft.getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).isScoreboardEnabled()) {
-					if (e.getWarp().hasScoreboard()) {
-						e.getWarp().getScoreboard().setSidebar(e.getPlayer());
-						return;
-					}
-				}
-				e.getPlayer().getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
+		if (yBattleCraft.getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).isScoreboardEnabled()) {
+			if (e.getWarp().hasScoreboard()) {
+				e.getWarp().getScoreboard().setSidebar(e.getPlayer());
+				return;
 			}
-		}.runTaskLaterAsynchronously(yBattleCraft, 1L);
+		}
+		e.getPlayer().getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoinListener(PlayerJoinEvent e) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				e.getPlayer().getScoreboard().registerNewObjective("clear", "dummy");
-			}
-		}.runTaskAsynchronously(yBattleCraft);
+		e.getPlayer().getScoreboard().registerNewObjective("clear", "dummy");
 	}
 
 	@EventHandler

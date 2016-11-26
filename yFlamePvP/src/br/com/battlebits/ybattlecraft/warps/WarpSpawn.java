@@ -29,6 +29,7 @@ import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.enums.KitType;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerRemoveKitEvent;
+import br.com.battlebits.ybattlecraft.event.PlayerResetKDEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
@@ -93,6 +94,16 @@ public class WarpSpawn extends BaseWarp {
 			if (topKsUUID.toString().equalsIgnoreCase(e.getPlayer().getUniqueId().toString())) {
 				updateTopKS();
 			}
+		}
+	}
+
+	@EventHandler
+	public void onResetKD(PlayerResetKDEvent e) {
+		if (isOnWarp(e.getPlayer())) {
+			scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "kills", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
+			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
+			updateTopKS();
 		}
 	}
 

@@ -58,8 +58,10 @@ public class GiveKitCommand extends CommandClass {
 			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
 			playerStatus = player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.class);
-		if (playerStatus == null)
+		if (playerStatus == null) {
+			System.out.println("NEW STATUS");
 			playerStatus = new Status(player.getUuid());
+		}
 		playerStatus.setUuid(player.getUuid());
 		if (playerStatus.addKit(kitName))
 			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "command-givekit-success").replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getUserName()));

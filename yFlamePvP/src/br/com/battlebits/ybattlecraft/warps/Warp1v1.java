@@ -42,6 +42,7 @@ import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.utils.Name;
+import br.com.battlebits.ycommon.bukkit.api.vanish.VanishAPI;
 import br.com.battlebits.ycommon.common.BattlebitsAPI;
 import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
@@ -734,8 +735,10 @@ public class Warp1v1 extends BaseWarp {
 					DecimalFormat dm = new DecimalFormat("##.#");
 					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
 					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com " + dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
-					yBattleCraft.getPlayerHideManager().showAllPlayers(killer);
-					yBattleCraft.getPlayerHideManager().showAllPlayers(p);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(killer, false);
+					VanishAPI.getInstance().updateVanishToPlayer(killer);
+					yBattleCraft.getPlayerHideManager().showAllPlayers(p, false);
+					VanishAPI.getInstance().updateVanishToPlayer(p);
 					l.teleport1v1(killer);
 					killer.setHealth(20D);
 					killer.updateInventory();
