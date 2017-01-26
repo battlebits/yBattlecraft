@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
@@ -75,24 +76,31 @@ public class ResetKDCommand extends CommandClass {
 			playerStatus = new Status(player.getUuid());
 		playerStatus.setUuid(player.getUuid());
 		playerStatus.setCanResetKD();
-		TextComponent requestMessage = new TextComponent(Translate.getTranslation(player.getLanguage(), "command-resetkd-prefix") + " " + Translate.getTranslation(player.getLanguage(), "command-resetkd-request"));
-		TextComponent yes = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD + Translate.getTranslation(player.getLanguage(), "yes").toUpperCase());
-		yes.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd accept"));
-		yes.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(player.getLanguage(), "command-resetkd-hover-yes")) }));
+		final Language lang = language;
+		final String userName = player.getUserName();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				TextComponent requestMessage = new TextComponent(Translate.getTranslation(lang, "command-resetkd-prefix") + " " + Translate.getTranslation(lang, "command-resetkd-request"));
+				TextComponent yes = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD + Translate.getTranslation(lang, "yes").toUpperCase());
+				yes.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd accept"));
+				yes.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-yes")) }));
 
-		TextComponent no = new TextComponent(ChatColor.RED + "" + ChatColor.BOLD + Translate.getTranslation(player.getLanguage(), "no").toUpperCase());
-		no.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd reject"));
-		no.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(player.getLanguage(), "command-resetkd-hover-no")) }));
-		TextComponent space = new TextComponent(ChatColor.WHITE + " - ");
-		for (int i = 0; i < 100; i++) {
-			target.sendMessage(" ");
-		}
-		sender.sendMessage(resetKDPrefix + Translate.getTranslation(language, "command-resetkd-requested").replace("%player%", player.getUserName()));
-		target.spigot().sendMessage(requestMessage, yes, space, no);
-		target.playSound(target.getLocation(), Sound.ENDERDRAGON_GROWL, 1f, 1f);
-		Title title = new Title(Translate.getTranslation(player.getLanguage(), "command-resetkd-request-title"));
-		title.setSubtitle(Translate.getTranslation(player.getLanguage(), "command-resetkd-request-subtitle"));
-		title.send(cmdArgs.getPlayer());
+				TextComponent no = new TextComponent(ChatColor.RED + "" + ChatColor.BOLD + Translate.getTranslation(lang, "no").toUpperCase());
+				no.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd reject"));
+				no.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-no")) }));
+				TextComponent space = new TextComponent(ChatColor.WHITE + " - ");
+				for (int i = 0; i < 100; i++) {
+					target.sendMessage(" ");
+				}
+				sender.sendMessage(resetKDPrefix + Translate.getTranslation(lang, "command-resetkd-requested").replace("%player%", userName));
+				target.spigot().sendMessage(requestMessage, yes, space, no);
+				target.playSound(target.getLocation(), Sound.ENDERDRAGON_GROWL, 1f, 1f);
+				Title title = new Title(Translate.getTranslation(lang, "command-resetkd-request-title"));
+				title.setSubtitle(Translate.getTranslation(lang, "command-resetkd-request-subtitle"));
+				title.send(cmdArgs.getPlayer());
+			}
+		}.runTaskLater(yBattleCraft.getInstance(), 20 * 10);
 	}
 
 	@Command(name = "resetkd", runAsync = false)

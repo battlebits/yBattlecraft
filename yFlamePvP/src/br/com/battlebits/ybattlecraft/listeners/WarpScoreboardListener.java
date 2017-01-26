@@ -22,6 +22,8 @@ public class WarpScoreboardListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerWarpJoinListenr(PlayerWarpJoinEvent e) {
+		if (e.getPlayer() == null)
+			return;
 		if (yBattleCraft.getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).isScoreboardEnabled()) {
 			if (e.getWarp().hasScoreboard()) {
 				e.getWarp().getScoreboard().setSidebar(e.getPlayer());
@@ -31,7 +33,7 @@ public class WarpScoreboardListener implements Listener {
 		e.getPlayer().getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoinListener(PlayerJoinEvent e) {
 		e.getPlayer().getScoreboard().registerNewObjective("clear", "dummy");
 	}
