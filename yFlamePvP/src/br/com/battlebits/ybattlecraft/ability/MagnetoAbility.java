@@ -19,10 +19,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import br.com.battlebits.commons.api.admin.AdminMode;
+import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class MagnetoAbility extends BaseAbility {
 

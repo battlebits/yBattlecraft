@@ -10,12 +10,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import br.com.battlebits.commons.api.admin.AdminMode;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
 public class MagmaAbility extends BaseAbility {
 

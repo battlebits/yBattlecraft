@@ -13,12 +13,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import br.com.battlebits.commons.api.title.TitleAPI;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.WarpTeleportEvent;
-import br.com.battlebits.ybattlecraft.nms.Title;
-import br.com.battlebits.ybattlecraft.nms.barapi.BarAPI;
 import br.com.battlebits.ybattlecraft.utils.Formatter;
 
 public class WarpManager {
@@ -63,14 +62,8 @@ public class WarpManager {
 		}
 		if (event.hasAviso()) {
 			p.sendMessage("§9§lTELEPORTE §fVocê foi teleportado para §3§l" + warp.getWarpName());
-			BarAPI.setMessage(p, "§fVocê foi teleportado para §3§l" + warp.getWarpName(), 5);
-			Title title = new Title(ChatColor.YELLOW + "Warp " + Formatter.getFormattedName(warp.getWarpName()));
-			title.setSubtitle("Você foi teleportado");
-			title.setTimingsToTicks();
-			title.setFadeInTime(10);
-			title.setStayTime(40);
-			title.setFadeOutTime(10);
-			title.send(p);
+			TitleAPI.setTitle(p, ChatColor.YELLOW + "Warp " + Formatter.getFormattedName(warp.getWarpName()),
+					"Você foi teleportado");
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 		}
 		p.teleport(warp.getWarpLocation());

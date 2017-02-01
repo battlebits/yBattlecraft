@@ -8,11 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
 
 public class DeshzinAbility extends BaseAbility {
 

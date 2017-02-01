@@ -2,7 +2,7 @@ package br.com.battlebits.ybattlecraft.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,6 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.api.admin.AdminMode;
+import br.com.battlebits.commons.api.tablist.TabListAPI;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.enums.LoadStatus;
@@ -17,13 +23,7 @@ import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.event.WarpTeleportEvent;
-import br.com.battlebits.ybattlecraft.nms.TabListManager;
 import br.com.battlebits.ybattlecraft.utils.Formatter;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class TabListListener implements Listener {
 
@@ -112,13 +112,13 @@ public class TabListListener implements Listener {
 		StringBuilder footerBuilder = new StringBuilder();
 		footerBuilder.append(ChatColor.AQUA + "Nick: " + ChatColor.WHITE + player.getName());
 		footerBuilder.append(traco);
-		footerBuilder.append(ChatColor.AQUA + "Liga: " + ChatColor.WHITE + account.getLiga().toString());
+		footerBuilder.append(ChatColor.AQUA + "Liga: " + ChatColor.WHITE + account.getLeague().toString());
 		footerBuilder.append(traco);
 		footerBuilder.append(ChatColor.AQUA + "XP: " + ChatColor.WHITE + account.getXp());
 		footerBuilder.append(traco);
 		footerBuilder.append(ChatColor.AQUA + "Money: " + ChatColor.WHITE + account.getMoney());
 		footerBuilder.append("\n");
 		footerBuilder.append(ChatColor.AQUA + "Mais informacoes em: " + ChatColor.WHITE + "battlebits.com.br");
-		TabListManager.setHeaderAndFooter(player, headerBuilder.toString(), footerBuilder.toString());
+		TabListAPI.setHeaderAndFooter(player, headerBuilder.toString(), footerBuilder.toString());
 	}
 }

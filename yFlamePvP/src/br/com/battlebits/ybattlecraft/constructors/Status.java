@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
-import br.com.battlebits.ycommon.common.account.game.GameType;
-
 public class Status {
 	private transient UUID uuid;
 	private int kills = 0;
@@ -26,7 +22,8 @@ public class Status {
 		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
 	}
 
-	public Status(UUID uuid, int kills, int deaths, int killstreak, List<String> kits, List<String> kitsFavoritos, boolean scoreboard) {
+	public Status(UUID uuid, int kills, int deaths, int killstreak, List<String> kits, List<String> kitsFavoritos,
+			boolean scoreboard) {
 		this.uuid = uuid;
 		this.kills = kills;
 		this.deaths = deaths;
@@ -219,9 +216,9 @@ public class Status {
 	}
 
 	public void save() {
-		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
-		player.getGameStatus().updateMinigame(GameType.BATTLECRAFT_PVP_STATUS, this);
-		player = null;
+		// BattlePlayer player =
+		// BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
+		// TODO SaveEach
 	}
 
 }

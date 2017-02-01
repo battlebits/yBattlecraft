@@ -13,6 +13,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.api.admin.AdminMode;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Status;
@@ -23,9 +26,6 @@ import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerResetKDEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.kit.Kit;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpFps extends BaseWarp {
 
@@ -36,7 +36,8 @@ public class WarpFps extends BaseWarp {
 
 	public WarpFps(yBattleCraft yBattleCraft) {
 		super(yBattleCraft);
-		kit = new Kit(yBattleCraft, "PvP", "Kit Padrao", new ArrayList<ItemStack>(), new ItemStack(Material.DIAMOND_SWORD), 0, KitType.NEUTRO, new ArrayList<>());
+		kit = new Kit(yBattleCraft, "PvP", "Kit Padrao", new ArrayList<ItemStack>(),
+				new ItemStack(Material.DIAMOND_SWORD), 0, KitType.NEUTRO, new ArrayList<>());
 	}
 
 	@EventHandler
@@ -69,11 +70,14 @@ public class WarpFps extends BaseWarp {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
 			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
 			if (e.hasKiller()) {
-				scoreboard.updateScoreValue(e.getKiller(), "kills", "§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
-				scoreboard.updateScoreValue(e.getKiller(), "ks", "§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+				scoreboard.updateScoreValue(e.getKiller(), "kills",
+						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+				scoreboard.updateScoreValue(e.getKiller(), "ks",
+						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
 			}
 			updateTopKS();
 		}
@@ -82,9 +86,12 @@ public class WarpFps extends BaseWarp {
 	@EventHandler
 	public void onResetKD(PlayerResetKDEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
-			scoreboard.updateScoreValue(e.getPlayer(), "kills", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
-			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
+			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "kills",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
+			scoreboard.updateScoreValue(e.getPlayer(), "ks",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
 			updateTopKS();
 		}
 	}
@@ -131,7 +138,8 @@ public class WarpFps extends BaseWarp {
 						}
 						if (p != null && p.isOnline()) {
 							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
-							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - "
+									+ yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
@@ -156,7 +164,7 @@ public class WarpFps extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 4);
 				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 3);
@@ -164,7 +172,9 @@ public class WarpFps extends BaseWarp {
 				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 			}
 		};
-		warp = new Warp("FPS", "Utilize esta Warp feita com um mapa mais leve para aumentar seus FPSs", new ItemStack(Material.GLASS), new Location(Bukkit.getWorld("fpsWarp"), 0.5, 65.5, 0.5, 0, 0), 3.5, scoreboard, true);
+		warp = new Warp("FPS", "Utilize esta Warp feita com um mapa mais leve para aumentar seus FPSs",
+				new ItemStack(Material.GLASS), new Location(Bukkit.getWorld("fpsWarp"), 0.5, 65.5, 0.5, 0, 0), 3.5,
+				scoreboard, true);
 		return warp;
 	}
 }

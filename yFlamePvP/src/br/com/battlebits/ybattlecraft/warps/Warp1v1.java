@@ -32,6 +32,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.api.vanish.VanishAPI;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Desafio;
@@ -42,9 +45,6 @@ import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.utils.Name;
-import br.com.battlebits.ycommon.bukkit.api.vanish.VanishAPI;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class Warp1v1 extends BaseWarp {
 
@@ -94,8 +94,12 @@ public class Warp1v1 extends BaseWarp {
 			if (playersInQueue.size() > 0) {
 				Player player = playersInQueue.get(0);
 				if (player != null) {
-					player.sendMessage(ChatColor.BLUE + "O 1v1 Rapido encontrou alguem para voce lutar! O player escolhido foi: " + ChatColor.YELLOW + p.getName());
-					p.sendMessage(ChatColor.BLUE + "O 1v1 Rapido encontrou alguem para voce lutar! O player escolhido foi: " + ChatColor.YELLOW + player.getName());
+					player.sendMessage(
+							ChatColor.BLUE + "O 1v1 Rapido encontrou alguem para voce lutar! O player escolhido foi: "
+									+ ChatColor.YELLOW + p.getName());
+					p.sendMessage(
+							ChatColor.BLUE + "O 1v1 Rapido encontrou alguem para voce lutar! O player escolhido foi: "
+									+ ChatColor.YELLOW + player.getName());
 					setIn1v1(new Desafio(player, p));
 					return;
 				}
@@ -180,8 +184,10 @@ public class Warp1v1 extends BaseWarp {
 			hashDesa.put(p.getName(), new Desafio(p, clicado));
 			hash.put(type, hashDesa);
 			playerDesafios.put(clicado.getName(), hash);
-			p.sendMessage(ChatColor.GRAY + "Voce enviou um desafio de 1v1 normal para " + ChatColor.AQUA + clicado.getName());
-			clicado.sendMessage(ChatColor.YELLOW + "Voce recebeu desafio de 1v1 normal de " + ChatColor.GRAY + p.getName());
+			p.sendMessage(
+					ChatColor.GRAY + "Voce enviou um desafio de 1v1 normal para " + ChatColor.AQUA + clicado.getName());
+			clicado.sendMessage(
+					ChatColor.YELLOW + "Voce recebeu desafio de 1v1 normal de " + ChatColor.GRAY + p.getName());
 		} else {
 			openChallange(p, clicado);
 		}
@@ -196,7 +202,9 @@ public class Warp1v1 extends BaseWarp {
 	}
 
 	public boolean hasDesafio(Player desafiado, Player desafiante, ChanllengeType type) {
-		return playerDesafios.containsKey(desafiado.getName()) && playerDesafios.get(desafiado.getName()).containsKey(type) && playerDesafios.get(desafiado.getName()).get(type).containsKey(desafiante.getName());
+		return playerDesafios.containsKey(desafiado.getName())
+				&& playerDesafios.get(desafiado.getName()).containsKey(type)
+				&& playerDesafios.get(desafiado.getName()).get(type).containsKey(desafiante.getName());
 	}
 
 	public Desafio getDesafio(Player desafiado, Player desafiante, ChanllengeType type) {
@@ -214,12 +222,18 @@ public class Warp1v1 extends BaseWarp {
 	public static void openChallange(Player p, Player desafiador) {
 		ItemStack nullitem = getItem(Material.STAINED_GLASS_PANE, " ");
 		ItemStack enviar = getItem(new ItemStack(Material.WOOL, 1, (byte) 5), ChatColor.GREEN + "Enviar Desafio!");
-		ItemStack sword = getItem(Material.WOOD_SWORD, ChatColor.GOLD + "Espada de Madeira", ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!");
-		ItemStack armor = getItem(Material.GLASS, ChatColor.RED + "Sem Armadura", ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!");
-		ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!");
-		ItemStack forca = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!");
-		ItemStack sopa = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "full sopa!");
-		ItemStack sharp = getItem(Material.BOOK, ChatColor.GREEN + "Sem Afiada", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I");
+		ItemStack sword = getItem(Material.WOOD_SWORD, ChatColor.GOLD + "Espada de Madeira",
+				ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!");
+		ItemStack armor = getItem(Material.GLASS, ChatColor.RED + "Sem Armadura",
+				ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!");
+		ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade",
+				ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!");
+		ItemStack forca = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca",
+				ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!");
+		ItemStack sopa = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar",
+				ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "full sopa!");
+		ItemStack sharp = getItem(Material.BOOK, ChatColor.GREEN + "Sem Afiada",
+				ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I");
 
 		Inventory inventoty = Bukkit.createInventory(null, 54, ChatColor.RED + "1v1 contra " + desafiador.getName());
 		for (int i = 0; i < 54; i++) {
@@ -508,44 +522,57 @@ public class Warp1v1 extends BaseWarp {
 			hash.put(ChanllengeType.CUSTOM, hashDesa);
 			playerDesafios.put(desafiado.getName(), hash);
 			p.sendMessage(ChatColor.YELLOW + "Voce enviou um desafio para " + ChatColor.GRAY + desafiado.getName());
-			desafiado.sendMessage(ChatColor.GOLD + p.getName() + ChatColor.AQUA + " enviou um desafio de 1v1 customizado para voce");
+			desafiado.sendMessage(
+					ChatColor.GOLD + p.getName() + ChatColor.AQUA + " enviou um desafio de 1v1 customizado para voce");
 			p.closeInventory();
 		} else if (item.getType().toString().contains("_SWORD")) {
 			String swordName = getNextSwordLevel(item.getType().toString().replace("_SWORD", "")) + "_SWORD";
-			ItemStack sword = getItem(Material.valueOf(swordName), new Name().getName(swordName), ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!");
+			ItemStack sword = getItem(Material.valueOf(swordName), new Name().getName(swordName),
+					ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo da espada!");
 			p.getOpenInventory().setItem(event.getSlot(), sword);
-		} else if (item.getType().toString().equalsIgnoreCase("GLASS") || item.getType().toString().contains("_CHESTPLATE")) {
+		} else if (item.getType().toString().equalsIgnoreCase("GLASS")
+				|| item.getType().toString().contains("_CHESTPLATE")) {
 			String materialName;
 			if (item.getType().toString().equalsIgnoreCase("DIAMOND_CHESTPLATE")) {
 				materialName = getNextArmorLevel(item.getType().toString().replace("_CHESTPLATE", ""));
 			} else {
 				materialName = getNextArmorLevel(item.getType().toString().replace("_CHESTPLATE", "")) + "_CHESTPLATE";
 			}
-			ItemStack armor = getItem(Material.valueOf(materialName), new Name().getName(materialName), ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!");
+			ItemStack armor = getItem(Material.valueOf(materialName), new Name().getName(materialName),
+					ChatColor.DARK_AQUA + "Clique aqui para mudar", ChatColor.DARK_AQUA + "o tipo de armadura!");
 			p.getOpenInventory().setItem(event.getSlot(), armor);
 		} else if (event.getSlot() == 22 && item.getType().toString().equalsIgnoreCase("GLASS_BOTTLE")) {
-			ItemStack speed = getItem(new ItemStack(Material.POTION, 1, (byte) 8194), ChatColor.GREEN + "Com Velocidade", ChatColor.DARK_AQUA + "Clique aqui para remover", ChatColor.DARK_AQUA + "a pocao de velocidade!");
+			ItemStack speed = getItem(new ItemStack(Material.POTION, 1, (byte) 8194),
+					ChatColor.GREEN + "Com Velocidade", ChatColor.DARK_AQUA + "Clique aqui para remover",
+					ChatColor.DARK_AQUA + "a pocao de velocidade!");
 			p.getOpenInventory().setItem(event.getSlot(), speed);
 		} else if (event.getSlot() == 22 && item.getType().toString().equalsIgnoreCase("POTION")) {
-			ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!");
+			ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Velocidade",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de velocidade!");
 			p.getOpenInventory().setItem(event.getSlot(), speed);
 		} else if (event.getSlot() == 23 && item.getType().toString().equalsIgnoreCase("GLASS_BOTTLE")) {
-			ItemStack speed = getItem(new ItemStack(Material.POTION, 1, (byte) 8201), ChatColor.GREEN + "Com Forca", ChatColor.DARK_AQUA + "Clique aqui para remover", ChatColor.DARK_AQUA + "a pocao de forca!");
+			ItemStack speed = getItem(new ItemStack(Material.POTION, 1, (byte) 8201), ChatColor.GREEN + "Com Forca",
+					ChatColor.DARK_AQUA + "Clique aqui para remover", ChatColor.DARK_AQUA + "a pocao de forca!");
 			p.getOpenInventory().setItem(event.getSlot(), speed);
 		} else if (event.getSlot() == 23 && item.getType().toString().equalsIgnoreCase("POTION")) {
-			ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!");
+			ItemStack speed = getItem(Material.GLASS_BOTTLE, ChatColor.RED + "Sem Forca",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "pocao de forca!");
 			p.getOpenInventory().setItem(event.getSlot(), speed);
 		} else if (item.getType().toString().equalsIgnoreCase("BOWL")) {
-			ItemStack sopa = getItem(Material.MUSHROOM_SOUP, ChatColor.AQUA + "Full Sopa", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "1 HotBar!");
+			ItemStack sopa = getItem(Material.MUSHROOM_SOUP, ChatColor.AQUA + "Full Sopa",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "1 HotBar!");
 			p.getOpenInventory().setItem(event.getSlot(), sopa);
 		} else if (item.getType().toString().equalsIgnoreCase("MUSHROOM_SOUP")) {
-			ItemStack sopa = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "FullSopa!");
+			ItemStack sopa = getItem(Material.BOWL, ChatColor.GREEN + "1 HotBar",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "FullSopa!");
 			p.getOpenInventory().setItem(event.getSlot(), sopa);
 		} else if (item.getType().toString().equalsIgnoreCase("ENCHANTED_BOOK")) {
-			ItemStack sharp = getItem(Material.BOOK, ChatColor.GRAY + "Sem Afiada", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I");
+			ItemStack sharp = getItem(Material.BOOK, ChatColor.GRAY + "Sem Afiada",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "Afiada I");
 			p.getOpenInventory().setItem(event.getSlot(), sharp);
 		} else if (item.getType().toString().equalsIgnoreCase("BOOK")) {
-			ItemStack sharp = getItem(Material.ENCHANTED_BOOK, ChatColor.AQUA + "Com Afiada", ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "sem Afiada I");
+			ItemStack sharp = getItem(Material.ENCHANTED_BOOK, ChatColor.AQUA + "Com Afiada",
+					ChatColor.DARK_AQUA + "Clique aqui para usar", ChatColor.DARK_AQUA + "sem Afiada I");
 			p.getOpenInventory().setItem(event.getSlot(), sharp);
 		}
 	}
@@ -660,7 +687,8 @@ public class Warp1v1 extends BaseWarp {
 				}
 			}
 			desafiante.sendMessage(ChatColor.AQUA + desafiado.getName() + ChatColor.RED + " rejeitou seu desafio");
-			desafiado.sendMessage(ChatColor.RED + "Voce rejeitou o desafio de " + ChatColor.AQUA + desafiante.getName());
+			desafiado
+					.sendMessage(ChatColor.RED + "Voce rejeitou o desafio de " + ChatColor.AQUA + desafiante.getName());
 			p.closeInventory();
 		}
 	}
@@ -724,7 +752,8 @@ public class Warp1v1 extends BaseWarp {
 						killer = player1;
 					int i = 0;
 					for (ItemStack sopa : killer.getInventory().getContents()) {
-						if (sopa != null && sopa.getType() != Material.AIR && sopa.getType() == Material.MUSHROOM_SOUP) {
+						if (sopa != null && sopa.getType() != Material.AIR
+								&& sopa.getType() == Material.MUSHROOM_SOUP) {
 							i = i + sopa.getAmount();
 						}
 					}
@@ -733,8 +762,12 @@ public class Warp1v1 extends BaseWarp {
 					killer.getInventory().clear();
 					killer.getInventory().setArmorContents(null);
 					DecimalFormat dm = new DecimalFormat("##.#");
-					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com " + dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
-					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com " + dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i + " sopas restantes");
+					p.sendMessage(ChatColor.RED + killer.getName() + " venceu o 1v1 com "
+							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i
+							+ " sopas restantes");
+					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
+							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i
+							+ " sopas restantes");
 					yBattleCraft.getPlayerHideManager().showAllPlayers(killer, false);
 					VanishAPI.getInstance().updateVanishToPlayer(killer);
 					yBattleCraft.getPlayerHideManager().showAllPlayers(p, false);
@@ -818,7 +851,7 @@ public class Warp1v1 extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "battlewith", "§7Batalhando", "§7 contra:", 4);
 				createScore(p, "battleplayer", "§3Ninguem", "", 3);
@@ -826,7 +859,8 @@ public class Warp1v1 extends BaseWarp {
 				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 			}
 		};
-		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD), new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, 0.5), false, scoreboard);
+		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD),
+				new Location(Bukkit.getWorld("1v1spawn"), 0.5, 67.5, 0.5), false, scoreboard);
 		return onevsone;
 	}
 

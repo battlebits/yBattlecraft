@@ -9,9 +9,9 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 
 public class FishermanAbility extends BaseAbility {
 

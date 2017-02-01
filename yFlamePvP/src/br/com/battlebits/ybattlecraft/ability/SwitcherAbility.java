@@ -9,9 +9,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 
 public class SwitcherAbility extends BaseAbility {
 

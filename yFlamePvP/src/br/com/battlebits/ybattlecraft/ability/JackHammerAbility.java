@@ -12,9 +12,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 
 public class JackHammerAbility extends BaseAbility {
 

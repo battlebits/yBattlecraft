@@ -9,10 +9,10 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class TeleportManager {
 
@@ -41,7 +41,8 @@ public class TeleportManager {
 										new BukkitRunnable() {
 											@Override
 											public void run() {
-												battleCraft.getWarpManager().teleportWarp(p, w.getWarpName().toLowerCase().trim(), true);
+												battleCraft.getWarpManager().teleportWarp(p,
+														w.getWarpName().toLowerCase().trim(), true);
 											}
 										}.runTask(battleCraft);
 									}
@@ -83,7 +84,8 @@ public class TeleportManager {
 						p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
 						battleCraft.getWarpManager().teleportWarp(p, warp.getWarpName().toLowerCase().trim(), true);
 					} else {
-						playerWarpDelay.put(p.getUniqueId(), warp.getWarpName().toLowerCase().trim() + "-" + (System.currentTimeMillis() + 5000));
+						playerWarpDelay.put(p.getUniqueId(),
+								warp.getWarpName().toLowerCase().trim() + "-" + (System.currentTimeMillis() + 5000));
 						p.playSound(p.getLocation(), Sound.IRONGOLEM_WALK, 1.0F, 1.0F);
 						p.sendMessage("§9§lTELEPORTE §fVoce sera teleportado em §3§l5 SEGUNDOS§f. Não se mexa!");
 					}

@@ -8,9 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.constructors.Status;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class StatusManager {
 	private HashMap<UUID, Status> statusList;
@@ -29,7 +29,8 @@ public class StatusManager {
 		statusList.put(uuid, status);
 	}
 
-	public void addPlayer(UUID uuid, int kills, int deaths, int killstreak, List<String> kitList, List<String> kitsFavoritos) {
+	public void addPlayer(UUID uuid, int kills, int deaths, int killstreak, List<String> kitList,
+			List<String> kitsFavoritos) {
 		statusList.put(uuid, new Status(uuid, kills, deaths, killstreak, kitList, kitsFavoritos, true));
 	}
 
@@ -52,15 +53,23 @@ public class StatusManager {
 					++money;
 				}
 				int xp = calculatePlayerKill(killerAccount, killedAccount);
-				killer.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "KILL " + ChatColor.WHITE + "Voce matou " + ChatColor.YELLOW + ChatColor.BOLD + killed.getName());
-				killer.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "MONEY" + ChatColor.WHITE + " Voce recebeu " + ChatColor.GOLD + ChatColor.BOLD + killerAccount.addMoney(money) + " MOEDAS");
-				killer.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "XP " + ChatColor.WHITE + " Voce recebeu " + ChatColor.BLUE + ChatColor.BOLD + killerAccount.addXp(xp) + " XPs");
+				killer.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "KILL " + ChatColor.WHITE + "Voce matou "
+						+ ChatColor.YELLOW + ChatColor.BOLD + killed.getName());
+				killer.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "MONEY" + ChatColor.WHITE + " Voce recebeu "
+						+ ChatColor.GOLD + ChatColor.BOLD + killerAccount.addMoney(money) + " MOEDAS");
+				killer.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "XP " + ChatColor.WHITE + " Voce recebeu "
+						+ ChatColor.BLUE + ChatColor.BOLD + killerAccount.addXp(xp) + " XPs");
 				if (killerStatus.getKillstreak() % 5 == 0 && killerStatus.getKillstreak() > 5) {
 					killerAccount.addXp(1);
-					Bukkit.broadcastMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "KILLSTREAK " + ChatColor.RED + ChatColor.BOLD + killer.getName() + ChatColor.WHITE + " conseguiu um " + ChatColor.GOLD + ChatColor.BOLD + "KILLSTREAK DE " + killerStatus.getKillstreak());
+					Bukkit.broadcastMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "KILLSTREAK " + ChatColor.RED
+							+ ChatColor.BOLD + killer.getName() + ChatColor.WHITE + " conseguiu um " + ChatColor.GOLD
+							+ ChatColor.BOLD + "KILLSTREAK DE " + killerStatus.getKillstreak());
 				}
 				if (killedStatus.getKillstreak() >= 10) {
-					Bukkit.broadcastMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "KILLSTREAK " + ChatColor.DARK_BLUE + ChatColor.BOLD + killed.getName() + ChatColor.WHITE + " perdeu seu " + ChatColor.GOLD + ChatColor.BOLD + "KILLSTREAK DE " + killedStatus.getKillstreak() + ChatColor.WHITE + " para " + ChatColor.RED + ChatColor.BOLD + killer.getName());
+					Bukkit.broadcastMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "KILLSTREAK "
+							+ ChatColor.DARK_BLUE + ChatColor.BOLD + killed.getName() + ChatColor.WHITE + " perdeu seu "
+							+ ChatColor.GOLD + ChatColor.BOLD + "KILLSTREAK DE " + killedStatus.getKillstreak()
+							+ ChatColor.WHITE + " para " + ChatColor.RED + ChatColor.BOLD + killer.getName());
 				}
 			}
 		}
@@ -76,17 +85,17 @@ public class StatusManager {
 	private int calculatePlayerKill(BattlePlayer killer, BattlePlayer killed) {
 		double xpValue = 10;
 
-		int ligaDifference = killed.getLiga().ordinal() - killer.getLiga().ordinal();
-		Status killedStatus = getStatusByUuid(killed.getUuid());
-		Status killerStatus = getStatusByUuid(killer.getUuid());
+		int ligaDifference = killed.getLeague().ordinal() - killer.getLeague().ordinal();
+		Status killedStatus = getStatusByUuid(killed.getUniqueId());
+		Status killerStatus = getStatusByUuid(killer.getUniqueId());
 		double killedKd = killedStatus.getKills() / (killedStatus.getDeaths() > 0 ? killedStatus.getDeaths() : 1);
 
 		xpValue += ligaDifference;
 		xpValue += killedStatus.getKillstreak() / 2;
 
 		xpValue += (killedStatus.getTotalDamageTaken() - 20) / 50;
-		xpValue -= 10 * ((100 - killedStatus.getPorcentagemTaken(killer.getUuid())) / 100);
-		xpValue -= 5 * ((100 - killerStatus.getPorcentagemKilled(killed.getUuid())) / 100);
+		xpValue -= 10 * ((100 - killedStatus.getPorcentagemTaken(killer.getUniqueId())) / 100);
+		xpValue -= 5 * ((100 - killerStatus.getPorcentagemKilled(killed.getUniqueId())) / 100);
 		if (killedKd < 1)
 			xpValue *= killedKd;
 		int i = (int) xpValue;

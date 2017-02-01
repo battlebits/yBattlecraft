@@ -11,10 +11,10 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.selectors.KitSelector;
 import br.com.battlebits.ybattlecraft.selectors.WarpSelector;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
 
 public class InteractListener implements Listener {
 

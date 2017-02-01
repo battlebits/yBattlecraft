@@ -20,9 +20,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.api.admin.AdminMode;
+import br.com.battlebits.commons.api.item.ItemBuilder;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
@@ -35,9 +38,6 @@ import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
 import br.com.battlebits.ybattlecraft.kit.Kit;
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpSpawn extends BaseWarp {
 
@@ -100,16 +100,26 @@ public class WarpSpawn extends BaseWarp {
 	@EventHandler
 	public void onResetKD(PlayerResetKDEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
-			scoreboard.updateScoreValue(e.getPlayer(), "kills", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
-			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
+			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "kills",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
+			scoreboard.updateScoreValue(e.getPlayer(), "ks",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
 			updateTopKS();
 		}
 	}
 
 	@EventHandler
 	public void onPlayerInteractListener(PlayerInteractEvent e) {
-		if ((e.getPlayer().getGameMode() != GameMode.CREATIVE) && (e.getAction() == Action.PHYSICAL && e.getClickedBlock() != null && e.getClickedBlock().getType() != Material.STONE_PLATE && e.getClickedBlock().getType() != Material.WOOD_PLATE) || (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE || e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST))) {
+		if ((e.getPlayer().getGameMode() != GameMode.CREATIVE)
+				&& (e.getAction() == Action.PHYSICAL && e.getClickedBlock() != null
+						&& e.getClickedBlock().getType() != Material.STONE_PLATE
+						&& e.getClickedBlock().getType() != Material.WOOD_PLATE)
+				|| (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock() != null
+						&& (e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE
+								|| e.getClickedBlock().getType() == Material.CHEST
+								|| e.getClickedBlock().getType() == Material.ENDER_CHEST))) {
 			e.setCancelled(true);
 		}
 	}
@@ -131,11 +141,14 @@ public class WarpSpawn extends BaseWarp {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
+					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
 			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
 			if (e.hasKiller()) {
-				scoreboard.updateScoreValue(e.getKiller(), "kills", "§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
-				scoreboard.updateScoreValue(e.getKiller(), "ks", "§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+				scoreboard.updateScoreValue(e.getKiller(), "kills",
+						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+				scoreboard.updateScoreValue(e.getKiller(), "ks",
+						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
 			}
 			updateTopKS();
 		}
@@ -183,7 +196,8 @@ public class WarpSpawn extends BaseWarp {
 						}
 						if (p != null && p.isOnline()) {
 							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
-							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - " + yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - "
+									+ yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
@@ -208,7 +222,7 @@ public class WarpSpawn extends BaseWarp {
 				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 11);
 				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 10);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 9);
-				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 8);
+				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 8);
 				createScore(p, "b3", "", "", 7);
 				createScore(p, "topks", "§7Top Kill", "§7Streak:", 6);
 				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 5);
@@ -218,29 +232,58 @@ public class WarpSpawn extends BaseWarp {
 				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 			}
 		};
-		warp = new Warp("Spawn", "Spawn do Servidor", new ItemStack(Material.NETHER_STAR), new Location(Bukkit.getWorld("spawnWarp"), 0.5, 87.5, 0.5, 180f, 0), 25.5, scoreboard, true, true);
+		warp = new Warp("Spawn", "Spawn do Servidor", new ItemStack(Material.NETHER_STAR),
+				new Location(Bukkit.getWorld("spawnWarp"), 0.5, 87.5, 0.5, 180f, 0), 25.5, scoreboard, true, true);
 		// warp.addKit(new Kit(battleCraft, "Deshzin", "Aperte espaço para dar
 		// um double jump.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.FIREWORK), 1000, KitType.MOBILIDADE,
 		// Arrays.asList("deshzin")));
 		ItemBuilder builder = new ItemBuilder();
-		warp.addKit(new Kit(battleCraft, "Grappler", "Movimente mais rapido sua corda!", new ArrayList<>(), new ItemStack(Material.LEASH), 1000, KitType.MOBILIDADE, Arrays.asList("grappler")));
-		warp.addKit(new Kit(battleCraft, "Ninja", "Aperte SHIFT para teleportar-se para o utltimo jogador hitado.", new ArrayList<ItemStack>(), new ItemStack(Material.EMERALD), 1000, KitType.ESTRATEGIA, Arrays.asList("ninja")));
-		warp.addKit(new Kit(battleCraft, "PvP", "Kit padrao para PVP", new ArrayList<ItemStack>(), new ItemStack(Material.DIAMOND_SWORD), 0, KitType.NEUTRO, new ArrayList<>()));
-		warp.addKit(new Kit(battleCraft, "Snail", "Deixe seus inimigos mais lerdos", new ArrayList<ItemStack>(), new ItemStack(Material.FERMENTED_SPIDER_EYE), 1000, KitType.FORCA, Arrays.asList("snail")));
-		warp.addKit(new Kit(battleCraft, "Stomper", "Esmague seus inimigos", new ArrayList<ItemStack>(), new ItemStack(Material.IRON_BOOTS), 2000, KitType.FORCA, Arrays.asList("stomper")));
-		warp.addKit(new Kit(battleCraft, "Viper", "Deixe seus inimigos envenenados", new ArrayList<ItemStack>(), new ItemStack(Material.SPIDER_EYE), 1000, KitType.FORCA, Arrays.asList("viper")));
-		warp.addKit(new Kit(battleCraft, "Switcher", "Troque de lugar com suas snowballs.", new ArrayList<ItemStack>(), new ItemStack(Material.SNOW_BALL), 1000, KitType.ESTRATEGIA, Arrays.asList("switcher")));
-		warp.addKit(new Kit(battleCraft, "HotPotato", "Coloque uma TNT na cabeça de seus inimigos e exploda eles todos", new ArrayList<ItemStack>(), new ItemStack(Material.TNT), 1000, KitType.ESTRATEGIA, Arrays.asList("hotpotato")));
-		warp.addKit(new Kit(battleCraft, "Kangaroo", "Utilize seu foguete para ser lançado para onde você desejar", new ArrayList<ItemStack>(), new ItemStack(Material.FIREWORK), 0, KitType.MOBILIDADE, Arrays.asList("kangaroo")));
-		warp.addKit(new Kit(battleCraft, "Lifesteal", "Ao atacar um jogador tem chances de aumentar meio coração.", new ArrayList<ItemStack>(), new ItemStack(Material.TORCH), 1000, KitType.FORCA, Arrays.asList("lifesteal")));
-		warp.addKit(new Kit(battleCraft, "Magneto", "Sugue seus inimigos por 5 segundos", new ArrayList<ItemStack>(), new ItemStack(Material.IRON_INGOT), 1000, KitType.ESTRATEGIA, Arrays.asList("magneto")));
-		warp.addKit(new Kit(battleCraft, "Anchor", "Nao leve e nao de knockback.", new ArrayList<ItemStack>(), new ItemStack(Material.ANVIL), 1000, KitType.MOBILIDADE, Arrays.asList("anchor")));
-		warp.addKit(new Kit(battleCraft, "Gladiator", "Puxe um jogador clicando com o direito nele para uma luta nos ceus.", new ArrayList<ItemStack>(), new ItemStack(Material.IRON_FENCE), 1000, KitType.ESTRATEGIA, Arrays.asList("gladiator")));
-		warp.addKit(new Kit(battleCraft, "Supernova", "Ao usar sua estrela do nether, cria uma explosao de flechas", new ArrayList<ItemStack>(), new ItemStack(Material.ARROW), 1000, KitType.FORCA, Arrays.asList("supernova")));
-		warp.addKit(new Kit(battleCraft, "Fisherman", "Puxe os jogadores com sua vara de pescar.", new ArrayList<ItemStack>(), new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA, Arrays.asList("fisherman")));
-		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo", new ArrayList<ItemStack>(), new ItemStack(Material.FIRE), 1000, KitType.FORCA, Arrays.asList("magma")));
-		warp.addKit(new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira", Arrays.asList(builder.type(Material.BOW).amount(1).name("§b§lArcher Bow").enchantment(Enchantment.ARROW_DAMAGE).enchantment(Enchantment.ARROW_INFINITE).build(), builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()), new ItemStack(Material.BOW), 1, KitType.NEUTRO, new ArrayList<>()));
+		warp.addKit(new Kit(battleCraft, "Grappler", "Movimente mais rapido sua corda!", new ArrayList<>(),
+				new ItemStack(Material.LEASH), 1000, KitType.MOBILIDADE, Arrays.asList("grappler")));
+		warp.addKit(new Kit(battleCraft, "Ninja", "Aperte SHIFT para teleportar-se para o utltimo jogador hitado.",
+				new ArrayList<ItemStack>(), new ItemStack(Material.EMERALD), 1000, KitType.ESTRATEGIA,
+				Arrays.asList("ninja")));
+		warp.addKit(new Kit(battleCraft, "PvP", "Kit padrao para PVP", new ArrayList<ItemStack>(),
+				new ItemStack(Material.DIAMOND_SWORD), 0, KitType.NEUTRO, new ArrayList<>()));
+		warp.addKit(new Kit(battleCraft, "Snail", "Deixe seus inimigos mais lerdos", new ArrayList<ItemStack>(),
+				new ItemStack(Material.FERMENTED_SPIDER_EYE), 1000, KitType.FORCA, Arrays.asList("snail")));
+		warp.addKit(new Kit(battleCraft, "Stomper", "Esmague seus inimigos", new ArrayList<ItemStack>(),
+				new ItemStack(Material.IRON_BOOTS), 2000, KitType.FORCA, Arrays.asList("stomper")));
+		warp.addKit(new Kit(battleCraft, "Viper", "Deixe seus inimigos envenenados", new ArrayList<ItemStack>(),
+				new ItemStack(Material.SPIDER_EYE), 1000, KitType.FORCA, Arrays.asList("viper")));
+		warp.addKit(new Kit(battleCraft, "Switcher", "Troque de lugar com suas snowballs.", new ArrayList<ItemStack>(),
+				new ItemStack(Material.SNOW_BALL), 1000, KitType.ESTRATEGIA, Arrays.asList("switcher")));
+		warp.addKit(new Kit(battleCraft, "HotPotato", "Coloque uma TNT na cabeça de seus inimigos e exploda eles todos",
+				new ArrayList<ItemStack>(), new ItemStack(Material.TNT), 1000, KitType.ESTRATEGIA,
+				Arrays.asList("hotpotato")));
+		warp.addKit(new Kit(battleCraft, "Kangaroo", "Utilize seu foguete para ser lançado para onde você desejar",
+				new ArrayList<ItemStack>(), new ItemStack(Material.FIREWORK), 0, KitType.MOBILIDADE,
+				Arrays.asList("kangaroo")));
+		warp.addKit(new Kit(battleCraft, "Lifesteal", "Ao atacar um jogador tem chances de aumentar meio coração.",
+				new ArrayList<ItemStack>(), new ItemStack(Material.TORCH), 1000, KitType.FORCA,
+				Arrays.asList("lifesteal")));
+		warp.addKit(new Kit(battleCraft, "Magneto", "Sugue seus inimigos por 5 segundos", new ArrayList<ItemStack>(),
+				new ItemStack(Material.IRON_INGOT), 1000, KitType.ESTRATEGIA, Arrays.asList("magneto")));
+		warp.addKit(new Kit(battleCraft, "Anchor", "Nao leve e nao de knockback.", new ArrayList<ItemStack>(),
+				new ItemStack(Material.ANVIL), 1000, KitType.MOBILIDADE, Arrays.asList("anchor")));
+		warp.addKit(new Kit(battleCraft, "Gladiator",
+				"Puxe um jogador clicando com o direito nele para uma luta nos ceus.", new ArrayList<ItemStack>(),
+				new ItemStack(Material.IRON_FENCE), 1000, KitType.ESTRATEGIA, Arrays.asList("gladiator")));
+		warp.addKit(new Kit(battleCraft, "Supernova", "Ao usar sua estrela do nether, cria uma explosao de flechas",
+				new ArrayList<ItemStack>(), new ItemStack(Material.ARROW), 1000, KitType.FORCA,
+				Arrays.asList("supernova")));
+		warp.addKit(new Kit(battleCraft, "Fisherman", "Puxe os jogadores com sua vara de pescar.",
+				new ArrayList<ItemStack>(), new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA,
+				Arrays.asList("fisherman")));
+		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo",
+				new ArrayList<ItemStack>(), new ItemStack(Material.FIRE), 1000, KitType.FORCA, Arrays.asList("magma")));
+		warp.addKit(
+				new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
+						Arrays.asList(builder.type(Material.BOW).amount(1).name("§b§lArcher Bow")
+								.enchantment(Enchantment.ARROW_DAMAGE).enchantment(Enchantment.ARROW_INFINITE).build(),
+								builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()),
+						new ItemStack(Material.BOW), 1, KitType.NEUTRO, new ArrayList<>()));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,

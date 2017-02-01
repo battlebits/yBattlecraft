@@ -19,7 +19,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
+import br.com.battlebits.commons.BattlebitsAPI;
 
 public class ItemFrameListener implements Listener {
 

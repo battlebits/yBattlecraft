@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import br.com.battlebits.ycommon.bukkit.api.admin.AdminMode;
+import br.com.battlebits.commons.api.admin.AdminMode;
 
 public class PlayerHideManager {
 

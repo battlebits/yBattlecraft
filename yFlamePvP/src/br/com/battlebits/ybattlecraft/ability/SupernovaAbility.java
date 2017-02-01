@@ -19,9 +19,9 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
-import br.com.battlebits.ybattlecraft.builder.ItemBuilder;
 import br.com.battlebits.ybattlecraft.util.NovaDirection;
 
 public class SupernovaAbility extends BaseAbility {

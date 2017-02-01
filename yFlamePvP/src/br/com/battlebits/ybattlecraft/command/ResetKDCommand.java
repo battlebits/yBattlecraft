@@ -8,36 +8,37 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.api.title.TitleAPI;
+import br.com.battlebits.commons.bukkit.command.BukkitCommandArgs;
+import br.com.battlebits.commons.bukkit.command.BukkitCommandSender;
+import br.com.battlebits.commons.core.account.BattlePlayer;
+import br.com.battlebits.commons.core.command.CommandClass;
+import br.com.battlebits.commons.core.command.CommandFramework.Command;
+import br.com.battlebits.commons.core.data.DataPlayer;
+import br.com.battlebits.commons.core.permission.Group;
+import br.com.battlebits.commons.core.translate.Language;
+import br.com.battlebits.commons.core.translate.Translate;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.event.PlayerResetKDEvent;
-import br.com.battlebits.ycommon.bukkit.BukkitMain;
-import br.com.battlebits.ycommon.bukkit.api.title.Title;
-import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandFramework.Command;
-import br.com.battlebits.ycommon.bukkit.commands.BukkitCommandFramework.CommandArgs;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
-import br.com.battlebits.ycommon.common.account.game.GameType;
-import br.com.battlebits.ycommon.common.commandmanager.CommandClass;
-import br.com.battlebits.ycommon.common.permissions.enums.Group;
-import br.com.battlebits.ycommon.common.translate.Translate;
-import br.com.battlebits.ycommon.common.translate.languages.Language;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class ResetKDCommand extends CommandClass {
+public class ResetKDCommand implements CommandClass {
 
-	@Command(name = "resetkdconsole", groupToUse = Group.DONO, runAsync = false, noPermMessageId = "command-resetkd-no-access")
-	public void resetkd(CommandArgs cmdArgs) {
-		CommandSender sender = cmdArgs.getSender();
+	@Command(name = "resetkdconsole", groupToUse = Group.DONO, runAsync = true, noPermMessageId = "command-resetkd-no-access")
+	public void resetkd(BukkitCommandArgs cmdArgs) {
+		CommandSender sender = ((BukkitCommandSender) cmdArgs.getSender()).getSender();
 		Language language = BattlebitsAPI.getDefaultLanguage();
 		String[] args = cmdArgs.getArgs();
 		String resetKDPrefix = Translate.getTranslation(language, "command-resetkd-prefix") + " ";
 		if (cmdArgs.isPlayer())
-			language = BattlebitsAPI.getAccountCommon().getBattlePlayer(cmdArgs.getPlayer().getUniqueId()).getLanguage();
+			language = BattlebitsAPI.getAccountCommon().getBattlePlayer(cmdArgs.getPlayer().getUniqueId())
+					.getLanguage();
 		if (args.length != 1) {
 			sender.sendMessage(resetKDPrefix + Translate.getTranslation(language, "command-resetkd-usage"));
 			return;
@@ -55,7 +56,7 @@ public class ResetKDCommand extends CommandClass {
 		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
 		if (player == null) {
 			try {
-				player = BukkitMain.getPlugin().getAccountManager().loadPlayer(uuid);
+				player = DataPlayer.getPlayer(uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
 				sender.sendMessage(resetKDPrefix + Translate.getTranslation(language, "cant-request-offline"));
@@ -71,40 +72,49 @@ public class ResetKDCommand extends CommandClass {
 		if (Bukkit.getPlayer(uuid) != null)
 			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
-			playerStatus = player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.class);
+			playerStatus = null;// TODO GetPlayerStatus
 		if (playerStatus == null)
-			playerStatus = new Status(player.getUuid());
-		playerStatus.setUuid(player.getUuid());
+			playerStatus = new Status(player.getUniqueId());
 		playerStatus.setCanResetKD();
 		final Language lang = language;
-		final String userName = player.getUserName();
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				TextComponent requestMessage = new TextComponent(Translate.getTranslation(lang, "command-resetkd-prefix") + " " + Translate.getTranslation(lang, "command-resetkd-request"));
-				TextComponent yes = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD + Translate.getTranslation(lang, "yes").toUpperCase());
-				yes.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd accept"));
-				yes.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-yes")) }));
+		final String userName = player.getName();
+		if (Bukkit.getPlayer(uuid) != null) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					TextComponent requestMessage = new TextComponent(
+							Translate.getTranslation(lang, "command-resetkd-prefix") + " "
+									+ Translate.getTranslation(lang, "command-resetkd-request"));
+					TextComponent yes = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD
+							+ Translate.getTranslation(lang, "yes").toUpperCase());
+					yes.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd accept"));
+					yes.setHoverEvent(
+							new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] {
+									new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-yes")) }));
 
-				TextComponent no = new TextComponent(ChatColor.RED + "" + ChatColor.BOLD + Translate.getTranslation(lang, "no").toUpperCase());
-				no.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd reject"));
-				no.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] { new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-no")) }));
-				TextComponent space = new TextComponent(ChatColor.WHITE + " - ");
-				for (int i = 0; i < 100; i++) {
-					target.sendMessage(" ");
+					TextComponent no = new TextComponent(
+							ChatColor.RED + "" + ChatColor.BOLD + Translate.getTranslation(lang, "no").toUpperCase());
+					no.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/resetkd reject"));
+					no.setHoverEvent(
+							new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new TextComponent[] {
+									new TextComponent(Translate.getTranslation(lang, "command-resetkd-hover-no")) }));
+					TextComponent space = new TextComponent(ChatColor.WHITE + " - ");
+					for (int i = 0; i < 100; i++) {
+						target.sendMessage(" ");
+					}
+					sender.sendMessage(resetKDPrefix + Translate.getTranslation(lang, "command-resetkd-requested")
+							.replace("%player%", userName));
+					target.spigot().sendMessage(requestMessage, yes, space, no);
+					target.playSound(target.getLocation(), Sound.ENDERDRAGON_GROWL, 1f, 1f);
+					TitleAPI.setTitle(target, Translate.getTranslation(lang, "command-resetkd-request-title"),
+							Translate.getTranslation(lang, "command-resetkd-request-subtitle"));
 				}
-				sender.sendMessage(resetKDPrefix + Translate.getTranslation(lang, "command-resetkd-requested").replace("%player%", userName));
-				target.spigot().sendMessage(requestMessage, yes, space, no);
-				target.playSound(target.getLocation(), Sound.ENDERDRAGON_GROWL, 1f, 1f);
-				Title title = new Title(Translate.getTranslation(lang, "command-resetkd-request-title"));
-				title.setSubtitle(Translate.getTranslation(lang, "command-resetkd-request-subtitle"));
-				title.send(cmdArgs.getPlayer());
-			}
-		}.runTaskLater(yBattleCraft.getInstance(), 20 * 10);
+			}.runTaskLater(yBattleCraft.getInstance(), 20);
+		}
 	}
 
 	@Command(name = "resetkd", runAsync = false)
-	public void resetkdplayer(CommandArgs cmdArgs) {
+	public void resetkdplayer(BukkitCommandArgs cmdArgs) {
 		if (!cmdArgs.isPlayer()) {
 			return;
 		}
@@ -116,7 +126,7 @@ public class ResetKDCommand extends CommandClass {
 		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
 		if (player == null) {
 			try {
-				player = BukkitMain.getPlugin().getAccountManager().loadPlayer(uuid);
+				player = DataPlayer.getPlayer(uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -130,31 +140,33 @@ public class ResetKDCommand extends CommandClass {
 		if (Bukkit.getPlayer(uuid) != null)
 			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
-			playerStatus = player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS, Status.class);
+			playerStatus = null;// TODO Load Status
 		if (playerStatus == null)
-			playerStatus = new Status(player.getUuid());
-		playerStatus.setUuid(player.getUuid());
+			playerStatus = new Status(player.getUniqueId());
+		playerStatus.setUuid(player.getUniqueId());
 		String resetKDPrefix = Translate.getTranslation(player.getLanguage(), "command-resetkd-prefix") + " ";
 		switch (cmdArgs.getArgs()[0].toLowerCase()) {
 		case "accept":
 			if (playerStatus.resetKD()) {
 				cmdArgs.getPlayer().playSound(cmdArgs.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
-				Title title = new Title(Translate.getTranslation(player.getLanguage(), "command-resetkd-accept-title"));
-				title.setSubtitle(Translate.getTranslation(player.getLanguage(), "command-resetkd-accept-subtitle"));
-				title.send(cmdArgs.getPlayer());
+				TitleAPI.setTitle(cmdArgs.getPlayer(),
+						Translate.getTranslation(player.getLanguage(), "command-resetkd-accept-title"),
+						Translate.getTranslation(player.getLanguage(), "command-resetkd-accept-subtitle"));
 				playerStatus.setKills(0);
 				playerStatus.setKillstreak(0);
 				playerStatus.setDeaths(0);
 				Bukkit.getPluginManager().callEvent(new PlayerResetKDEvent(cmdArgs.getPlayer()));
-				cmdArgs.getSender().sendMessage(resetKDPrefix + Translate.getTranslation(player.getLanguage(), "command-resetkd-accepted-success"));
+				cmdArgs.getSender().sendMessage(resetKDPrefix
+						+ Translate.getTranslation(player.getLanguage(), "command-resetkd-accepted-success"));
 			}
 			break;
 		default:
 			if (playerStatus.resetKD()) {
-				cmdArgs.getSender().sendMessage(resetKDPrefix + Translate.getTranslation(player.getLanguage(), "command-resetkd-rejected-success"));
-				Title title = new Title(Translate.getTranslation(player.getLanguage(), "command-resetkd-reject-title"));
-				title.setSubtitle(Translate.getTranslation(player.getLanguage(), "command-resetkd-reject-subtitle"));
-				title.send(cmdArgs.getPlayer());
+				cmdArgs.getSender().sendMessage(resetKDPrefix
+						+ Translate.getTranslation(player.getLanguage(), "command-resetkd-rejected-success"));
+				TitleAPI.setTitle(cmdArgs.getPlayer(),
+						Translate.getTranslation(player.getLanguage(), "command-resetkd-reject-title"),
+						Translate.getTranslation(player.getLanguage(), "command-resetkd-reject-subtitle"));
 			}
 			break;
 		}

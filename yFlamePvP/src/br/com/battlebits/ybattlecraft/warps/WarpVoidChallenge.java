@@ -15,6 +15,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -22,10 +26,6 @@ import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent.UpdateType;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpVoidChallenge extends BaseWarp {
 
@@ -60,8 +60,8 @@ public class WarpVoidChallenge extends BaseWarp {
 				public void run() {
 					for (Player p : getPlayersInWarp()) {
 						if (time.containsKey(p.getUniqueId())) {
-							String tempo = yBattleCraft.getTimeUtils()
-									.formatToMinutesAndSeconds((int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000));
+							String tempo = yBattleCraft.getTimeUtils().formatToMinutesAndSeconds(
+									(int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000));
 							String p1 = tempo;
 							String p2 = "";
 							if (p1.length() > 14) {
@@ -92,10 +92,10 @@ public class WarpVoidChallenge extends BaseWarp {
 				}
 			}
 			if (time.containsKey(p.getUniqueId())) {
-				p.sendMessage("§5§lVOID CHALLENGE §fVocê sobreviveu por §9§l"
-						+ yBattleCraft.getTimeUtils()
-								.formatToMinutesAndSeconds((int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000)).toUpperCase()
-						+ "§f!");
+				p.sendMessage("§5§lVOID CHALLENGE §fVocê sobreviveu por §9§l" + yBattleCraft.getTimeUtils()
+						.formatToMinutesAndSeconds(
+								(int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000))
+						.toUpperCase() + "§f!");
 				time.remove(p.getUniqueId());
 			}
 		}
@@ -136,7 +136,7 @@ public class WarpVoidChallenge extends BaseWarp {
 				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b3", "", "", 8);
 				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 6);
+				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
 				createScore(p, "sobreviveu", "§7Para §ainiciar", "§7 o desafio", 4);
 				createScore(p, "tempo", "§7desafio pule", "§7 no §5void§7!", 3);
@@ -144,8 +144,9 @@ public class WarpVoidChallenge extends BaseWarp {
 				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 			}
 		};
-		Warp w = new Warp("Void Challenge", "Treine seus refils e seus recrafts com um dano maior", new ItemStack(Material.ENDER_PORTAL),
-				new Location(Bukkit.getWorld("voidchallengeWarp"), 0, 54, -18), false, scoreboard, false, false);
+		Warp w = new Warp("Void Challenge", "Treine seus refils e seus recrafts com um dano maior",
+				new ItemStack(Material.ENDER_PORTAL), new Location(Bukkit.getWorld("voidchallengeWarp"), 0, 54, -18),
+				false, scoreboard, false, false);
 		return w;
 	}
 }

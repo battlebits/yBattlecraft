@@ -8,14 +8,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.account.BattlePlayer;
 
 public class WarpLavaChallenge extends BaseWarp {
 
@@ -60,14 +60,16 @@ public class WarpLavaChallenge extends BaseWarp {
 	@Override
 	protected Warp getWarp(yBattleCraft battleCraft) {
 		Warp lavachallenge = new Warp("Lava Challenge", "Treine seus refils e seus recrafts para ser o melhor no pvp",
-				new ItemStack(Material.LAVA_BUCKET), new Location(Bukkit.getWorld("lavachallengeWarp"), 0.5, 66.5, 0.5, 90 * 2f, 0f), false,
+				new ItemStack(Material.LAVA_BUCKET),
+				new Location(Bukkit.getWorld("lavachallengeWarp"), 0.5, 66.5, 0.5, 90 * 2f, 0f), false,
 				new WarpScoreboard("lava") {
 					@Override
 					public void createScores(Player p) {
 						BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 						createScore(p, "b2", "", "", 5);
 						createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 4);
-						createScore(p, "liga", "§7Liga: ", a.getLiga().getSymbol() + " " + a.getLiga().toString(), 3);
+						createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(),
+								3);
 						createScore(p, "b1", "", "", 2);
 						createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
 					}

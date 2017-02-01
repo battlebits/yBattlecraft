@@ -2,7 +2,6 @@ package br.com.battlebits.ybattlecraft.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -16,21 +15,16 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.evento.enums.EventState;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
-import br.com.battlebits.ycommon.bukkit.BukkitMain;
-import br.com.battlebits.ycommon.bukkit.event.ram.RamOutOfLimitEvent;
-import br.com.battlebits.ycommon.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ycommon.common.BattlebitsAPI;
-import br.com.battlebits.ycommon.common.permissions.enums.Group;
 
 public class PlayerListener implements Listener {
 
@@ -38,30 +32,6 @@ public class PlayerListener implements Listener {
 
 	public PlayerListener(yBattleCraft m) {
 		this.m = m;
-	}
-
-	@EventHandler
-	public void onRam(RamOutOfLimitEvent event) {
-		for (Player p : m.getServer().getOnlinePlayers()) {
-			if (m.getProtectionManager().isProtected(p.getUniqueId()))
-				if (p.getGameMode() != GameMode.CREATIVE)
-					yBattleCraft.sendNextServer(p);
-		}
-	}
-
-	@EventHandler
-	public void onJoin(PlayerLoginEvent event) {
-		if (BukkitMain.isMemoryRamRestart())
-			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(event.getPlayer().getUniqueId()).hasGroupPermission(Group.TRIAL)) {
-				event.disallow(Result.KICK_OTHER, ChatColor.RED + "O servidor está se preparando para reiniciar e você foi kickado do servidor.");
-			}
-	}
-
-	@EventHandler
-	public void onWarp(PlayerWarpJoinEvent event) {
-		if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
-			if (BukkitMain.isMemoryRamRestart())
-				yBattleCraft.sendNextServer(event.getPlayer());
 	}
 
 	@EventHandler

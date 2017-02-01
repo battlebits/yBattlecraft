@@ -2,18 +2,18 @@ package br.com.battlebits.ybattlecraft.constructors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftSnowball;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftSnowball;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 
-import net.minecraft.server.v1_7_R4.EntityFishingHook;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntitySnowball;
-import net.minecraft.server.v1_7_R4.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_8_R3.EntityFishingHook;
+import net.minecraft.server.v1_8_R3.EntityHuman;
+import net.minecraft.server.v1_8_R3.EntitySnowball;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 
 public class GrapplingHook extends EntityFishingHook {
 	private Snowball sb;
