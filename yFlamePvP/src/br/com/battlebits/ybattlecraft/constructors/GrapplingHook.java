@@ -30,17 +30,19 @@ public class GrapplingHook extends EntityFishingHook {
 	}
 
 	@Override
-	public void h() {
+	public void t_() {
 		if (!this.lastControllerDead && this.controller.dead) {
 			((Player) this.owner.getBukkitEntity()).sendMessage("§5§lGRAPPLER §fSua corda foi §9§lFISGADA§f!");
 		}
 		this.lastControllerDead = this.controller.dead;
 		for (Entity entity : this.controller.world.getWorld().getEntities()) {
-			if (!(entity instanceof Firework) && !(entity instanceof Snowball) && entity.getEntityId() != getBukkitEntity().getEntityId()
+			if (!(entity instanceof Firework) && !(entity instanceof Snowball)
+					&& entity.getEntityId() != getBukkitEntity().getEntityId()
 					&& entity.getEntityId() != this.owner.getBukkitEntity().getEntityId()
 					&& entity.getEntityId() != this.controller.getBukkitEntity().getEntityId()
-					&& (entity.getLocation().distance(this.controller.getBukkitEntity().getLocation()) < 2.0D || (entity instanceof Player
-							&& ((Player) entity).getEyeLocation().distance(this.controller.getBukkitEntity().getLocation()) < 2.0D))) {
+					&& (entity.getLocation().distance(this.controller.getBukkitEntity().getLocation()) < 2.0D
+							|| (entity instanceof Player && ((Player) entity).getEyeLocation()
+									.distance(this.controller.getBukkitEntity().getLocation()) < 2.0D))) {
 				if (entity instanceof Player) {
 					Player p = (Player) entity;
 					if (p.getUniqueId().equals(owner.getProfile().getId())) {

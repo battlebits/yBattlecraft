@@ -277,7 +277,8 @@ public class WarpSpawn extends BaseWarp {
 				new ArrayList<ItemStack>(), new ItemStack(Material.FISHING_ROD), 0, KitType.ESTRATEGIA,
 				Arrays.asList("fisherman")));
 		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo",
-				new ArrayList<ItemStack>(), new ItemStack(Material.FIRE), 1000, KitType.FORCA, Arrays.asList("magma")));
+				new ArrayList<ItemStack>(), new ItemStack(Material.LAVA_BUCKET), 1000, KitType.FORCA,
+				Arrays.asList("magma")));
 		warp.addKit(
 				new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
 						Arrays.asList(builder.type(Material.BOW).amount(1).name("§b§lArcher Bow")

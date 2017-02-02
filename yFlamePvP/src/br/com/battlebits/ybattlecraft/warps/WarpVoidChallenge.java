@@ -145,7 +145,7 @@ public class WarpVoidChallenge extends BaseWarp {
 			}
 		};
 		Warp w = new Warp("Void Challenge", "Treine seus refils e seus recrafts com um dano maior",
-				new ItemStack(Material.ENDER_PORTAL), new Location(Bukkit.getWorld("voidchallengeWarp"), 0, 54, -18),
+				new ItemStack(Material.ENDER_PORTAL_FRAME), new Location(Bukkit.getWorld("voidchallengeWarp"), 0, 54, -18),
 				false, scoreboard, false, false);
 		return w;
 	}
