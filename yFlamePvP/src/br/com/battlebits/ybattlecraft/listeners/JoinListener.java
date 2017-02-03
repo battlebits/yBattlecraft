@@ -67,7 +67,7 @@ public class JoinListener implements Listener {
 		p.setMaxHealth(20.0);
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
-		p.setGameMode(GameMode.SURVIVAL);
+		p.setGameMode(GameMode.ADVENTURE);
 		Hotbar.setItems(p);
 		TitleAPI.setTitle(p, ChatColor.GOLD + "BATTLECRAFT", "Versão 2.0", 30, 20, 0, true);
 		m.getProtectionManager().addProtection(p.getUniqueId());
