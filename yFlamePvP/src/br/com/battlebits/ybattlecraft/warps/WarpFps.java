@@ -46,7 +46,7 @@ public class WarpFps extends BaseWarp {
 			updateTopKS();
 		}
 		if (e.getWarp().getWarpName().equalsIgnoreCase(warp.getWarpName())) {
-			Battlecraft.getPlayerHideManager().hideForAll(e.getPlayer());
+			Battlecraft.getPlayerHideManager().hidePlayer(e.getPlayer());
 			Battlecraft.getKitManager().giveKit(e.getPlayer(), kit, false);
 			getMain().getProtectionManager().addProtection(e.getPlayer().getUniqueId());
 			new BukkitRunnable() {

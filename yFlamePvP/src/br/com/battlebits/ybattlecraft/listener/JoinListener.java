@@ -83,7 +83,6 @@ public class JoinListener implements Listener {
 		}
 		if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
 			AdminMode.getInstance().setAdmin(p);
-		m.getPlayerHideManager().hideForAll(p);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)

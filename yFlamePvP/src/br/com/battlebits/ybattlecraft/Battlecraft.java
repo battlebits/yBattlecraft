@@ -96,8 +96,8 @@ public class Battlecraft extends JavaPlugin {
 	private ItemManager itemManager;
 	private TeleportManager teleportManager;
 	private BlockResetManager blockResetManager;
+	@Getter
 	private PlayerHideManager playerHideManager;
-
 	// Updater
 	private WarpScoreboardUpdater warpScoreboardUpdater;
 
@@ -323,10 +323,6 @@ public class Battlecraft extends JavaPlugin {
 
 	public GladiatorFightController getGladiatorFightController() {
 		return gladiatorFightController;
-	}
-
-	public PlayerHideManager getPlayerHideManager() {
-		return playerHideManager;
 	}
 
 	public static void sendNextServer(Player p) {

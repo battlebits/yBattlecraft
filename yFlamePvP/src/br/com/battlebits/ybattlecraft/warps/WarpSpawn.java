@@ -57,7 +57,7 @@ public class WarpSpawn extends BaseWarp {
 			if (above.getType() == Material.GRASS) {
 				if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
 					p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-					Battlecraft.getPlayerHideManager().showForAll(p);
+					Battlecraft.getPlayerHideManager().showPlayer(p);
 				}
 			}
 		}
@@ -75,7 +75,7 @@ public class WarpSpawn extends BaseWarp {
 					setTopKS(e.getPlayer());
 				}
 			}.runTaskLaterAsynchronously(Battlecraft, 20L);
-			Battlecraft.getPlayerHideManager().hideForAll(e.getPlayer());
+			Battlecraft.getPlayerHideManager().hidePlayer(e.getPlayer());
 			Battlecraft.getWarpManager().removeWarp(e.getPlayer());
 			Battlecraft.getKitManager().removeKit(e.getPlayer());
 			Hotbar.setItems(e.getPlayer());

@@ -65,25 +65,25 @@ public class MoveListener implements Listener {
 		if (event.getTo().getX() > warp.getWarpLocation().getX() + warp.getRadius()) {
 			if (m.getProtectionManager().removeProtection(p.getUniqueId())) {
 				p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-				m.getPlayerHideManager().showForAll(p);
+				m.getPlayerHideManager().showPlayer(p);
 			}
 			return;
 		} else if (event.getTo().getZ() > warp.getWarpLocation().getZ() + warp.getRadius()) {
 			if (m.getProtectionManager().removeProtection(p.getUniqueId())) {
 				p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-				m.getPlayerHideManager().showForAll(p);
+				m.getPlayerHideManager().showPlayer(p);
 			}
 			return;
 		} else if (event.getTo().getZ() < warp.getWarpLocation().getZ() - warp.getRadius()) {
 			if (m.getProtectionManager().removeProtection(p.getUniqueId())) {
 				p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-				m.getPlayerHideManager().showForAll(p);
+				m.getPlayerHideManager().showPlayer(p);
 			}
 			return;
 		} else if (event.getTo().getX() < warp.getWarpLocation().getX() - warp.getRadius()) {
 			if (m.getProtectionManager().removeProtection(p.getUniqueId())) {
 				p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-				m.getPlayerHideManager().showForAll(p);
+				m.getPlayerHideManager().showPlayer(p);
 			}
 			return;
 		}

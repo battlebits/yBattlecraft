@@ -34,6 +34,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.api.vanish.VanishAPI;
+import br.com.battlebits.commons.bukkit.event.vanish.PlayerShowToPlayerEvent;
 import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
@@ -361,10 +362,6 @@ public class Warp1v1 extends BaseWarp {
 		playersIn1v1.add(desafiado);
 		getMain().getProtectionManager().removeProtection(p.getUniqueId());
 		getMain().getProtectionManager().removeProtection(desafiado.getUniqueId());
-		Battlecraft.getPlayerHideManager().hideAllPlayers(p);
-		Battlecraft.getPlayerHideManager().hideAllPlayers(desafiado);
-		p.showPlayer(desafiado);
-		desafiado.showPlayer(p);
 		if (firstLoction == null)
 			firstLoction = new Location(Bukkit.getWorld("1v1spawn"), 150.5, 67.5, 138.5);
 		p.teleport(firstLoction);
@@ -768,9 +765,9 @@ public class Warp1v1 extends BaseWarp {
 					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
 							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i
 							+ " sopas restantes");
-					Battlecraft.getPlayerHideManager().showAllPlayers(killer, false);
+					Battlecraft.getPlayerHideManager().showAllPlayers(killer);
 					VanishAPI.getInstance().updateVanishToPlayer(killer);
-					Battlecraft.getPlayerHideManager().showAllPlayers(p, false);
+					Battlecraft.getPlayerHideManager().showAllPlayers(p);
 					VanishAPI.getInstance().updateVanishToPlayer(p);
 					l.teleport1v1(killer);
 					killer.setHealth(20D);
@@ -806,6 +803,12 @@ public class Warp1v1 extends BaseWarp {
 					handleQuit(event.getPlayer());
 				}
 
+				@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGHEST)
+				public void onPlayerShow(PlayerShowToPlayerEvent event) {
+					if (event.isCancelled() && isIn1v1(event.getToPlayer()))
+						event.setCancelled(false);
+				}
+
 				public void handleQuit(Player p) {
 					if (!isInPvP(p))
 						return;
@@ -831,6 +834,10 @@ public class Warp1v1 extends BaseWarp {
 				}
 			};
 			Bukkit.getPluginManager().registerEvents(listener, l.getMain());
+			Battlecraft.getPlayerHideManager().hideAllPlayers(player1);
+			Battlecraft.getPlayerHideManager().hideAllPlayers(player2);
+			player1.showPlayer(player2);
+			player2.showPlayer(player1);
 		}
 
 		public void destroy() {
