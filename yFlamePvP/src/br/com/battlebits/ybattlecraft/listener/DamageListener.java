@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -8,17 +8,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
-import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
+import br.com.battlebits.ybattlecraft.manager.ProtectionManager;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 
 public class DamageListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 	private ProtectionManager manager;
 
-	public DamageListener(yBattleCraft m) {
+	public DamageListener(Battlecraft m) {
 		this.m = m;
 		manager = this.m.getProtectionManager();
 	}

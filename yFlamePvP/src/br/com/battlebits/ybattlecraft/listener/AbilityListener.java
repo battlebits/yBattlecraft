@@ -3,7 +3,7 @@ package br.com.battlebits.ybattlecraft.listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerRemoveKitEvent;
@@ -11,7 +11,7 @@ import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 
 public class AbilityListener extends BaseListener {
 
-	public AbilityListener(yBattleCraft plugin) {
+	public AbilityListener(Battlecraft plugin) {
 		super(plugin);
 	}
 

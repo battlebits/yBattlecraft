@@ -17,7 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 import br.com.battlebits.commons.api.title.TitleAPI;
 import br.com.battlebits.commons.core.account.BattlePlayer;
 import br.com.battlebits.commons.core.permission.Group;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.event.PlayerRemoveKitEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerSelectKitEvent;
 import br.com.battlebits.ybattlecraft.kit.Kit;
@@ -27,10 +27,10 @@ import br.com.battlebits.ybattlecraft.utils.Formatter;
 public class KitManager {
 
 	public HashMap<String, List<String>> freeKits = new HashMap<>();
-	private yBattleCraft battlecraft;
+	private Battlecraft battlecraft;
 	private HashMap<UUID, String> playerKit;
 
-	public KitManager(yBattleCraft plugin) {
+	public KitManager(Battlecraft plugin) {
 		this.battlecraft = plugin;
 		this.playerKit = new HashMap<>();
 		freeKits.put("normal", Arrays.asList("anchor", "archer", "pvp"));
@@ -68,7 +68,7 @@ public class KitManager {
 				if (i.toLowerCase().equals(kit.toLowerCase()))
 					return true;
 			}
-		return yBattleCraft.getInstance().getStatusManager().getStatusByUuid(p.getUniqueId()).hasKit(kit);
+		return Battlecraft.getInstance().getStatusManager().getStatusByUuid(p.getUniqueId()).hasKit(kit);
 	}
 
 	public String getCurrentKit(UUID id) {
@@ -93,7 +93,7 @@ public class KitManager {
 		API.clearInventory(p);
 		p.playSound(p.getLocation(), Sound.ANVIL_LAND, 1f, 1);
 		PlayerInventory inv = p.getInventory();
-		if (yBattleCraft.IS_FULLIRON_MODE) {
+		if (Battlecraft.IS_FULLIRON_MODE) {
 			inv.setHelmet(new ItemStack(Material.IRON_HELMET));
 			inv.setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
 			inv.setLeggings(new ItemStack(Material.IRON_LEGGINGS));
@@ -101,20 +101,20 @@ public class KitManager {
 		}
 		switch (kit.getType()) {
 		case ESTRATEGIA:
-			if (yBattleCraft.IS_FULLIRON_MODE)
+			if (Battlecraft.IS_FULLIRON_MODE)
 				inv.setItem(0, new ItemStack(Material.DIAMOND_SWORD));
 			else
 				inv.setItem(0, new ItemStack(Material.STONE_SWORD));
 			break;
 		case FORCA:
-			if (yBattleCraft.IS_FULLIRON_MODE)
+			if (Battlecraft.IS_FULLIRON_MODE)
 				inv.setItem(0, new ItemStack(Material.IRON_SWORD));
 			else
 				inv.setItem(0, new ItemStack(Material.WOOD_SWORD));
 			break;
 		case MOBILIDADE:
 			ItemStack item;
-			if (yBattleCraft.IS_FULLIRON_MODE)
+			if (Battlecraft.IS_FULLIRON_MODE)
 				item = new ItemStack(Material.IRON_SWORD);
 			else
 				item = new ItemStack(Material.WOOD_SWORD);
@@ -123,7 +123,7 @@ public class KitManager {
 			break;
 		default:
 			ItemStack diamond;
-			if (yBattleCraft.IS_FULLIRON_MODE)
+			if (Battlecraft.IS_FULLIRON_MODE)
 				diamond = new ItemStack(Material.DIAMOND_SWORD);
 			else
 				diamond = new ItemStack(Material.STONE_SWORD);
@@ -133,7 +133,7 @@ public class KitManager {
 		for (ItemStack item : kit.getItens()) {
 			inv.addItem(item);
 		}
-		if (!yBattleCraft.IS_FULLIRON_MODE) {
+		if (!Battlecraft.IS_FULLIRON_MODE) {
 			inv.setItem(14, new ItemStack(Material.RED_MUSHROOM, 64));
 			inv.setItem(15, new ItemStack(Material.BOWL, 64));
 			inv.setItem(16, new ItemStack(Material.BROWN_MUSHROOM, 64));

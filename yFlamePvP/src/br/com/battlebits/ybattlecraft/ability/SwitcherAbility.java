@@ -10,15 +10,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class SwitcherAbility extends BaseAbility {
 
 	private ItemStack balls;
 
-	public SwitcherAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public SwitcherAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		balls = new ItemBuilder().type(Material.SNOW_BALL).amount(16).name("§b§lSwitcher Balls").glow().build();
 		getItens().add(balls);
 	}

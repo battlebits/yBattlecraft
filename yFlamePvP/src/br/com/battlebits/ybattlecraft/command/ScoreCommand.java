@@ -1,39 +1,36 @@
 package br.com.battlebits.ybattlecraft.command;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.base.BaseCommand;
+import br.com.battlebits.commons.bukkit.command.BukkitCommandArgs;
+import br.com.battlebits.commons.core.account.BattlePlayer;
+import br.com.battlebits.commons.core.command.CommandClass;
+import br.com.battlebits.commons.core.command.CommandFramework.Command;
+import br.com.battlebits.commons.core.translate.Translate;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 
-public class ScoreCommand extends BaseCommand {
-
-	public ScoreCommand(yBattleCraft bc) {
-		super(bc);
-		description = "Utilize este comando para ativar e desativar sua scoreboard";
-		aliases = new String[] { "scoreboard" };
-	}
-
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (sender instanceof Player) {
-			Player p = (Player) sender;
-			Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
+public class ScoreCommand implements CommandClass {
+	@Command(name = "score", aliases = { "scoreboard" })
+	public void admin(BukkitCommandArgs args) {
+		if (args.isPlayer()) {
+			Player p = args.getPlayer();
+			Status s = Battlecraft.getInstance().getStatusManager().getStatusByUuid(p.getUniqueId());
 			if (s.isScoreboardEnabled()) {
 				p.getScoreboard().getObjective("clear").setDisplaySlot(DisplaySlot.SIDEBAR);
-				p.sendMessage("§6§lSCOREBOARD §fVoce §e§lDESATIVOU §fa Scoreboard!");
+				p.sendMessage(
+						Translate.getTranslation(BattlePlayer.getLanguage(p.getUniqueId()), "scoreboard-disabled"));
 				s.setScoreboardEnabled(false);
 			} else {
-				battleCraft.getWarpManager().getWarpByName(battleCraft.getWarpManager().getPlayerWarp(p.getUniqueId())).getScoreboard().setSidebar(p);
-				p.sendMessage("§6§lSCOREBOARD §fVoce §e§lATIVOU §fa Scoreboard!");
+				Battlecraft.getInstance().getWarpManager()
+						.getWarpByName(Battlecraft.getInstance().getWarpManager().getPlayerWarp(p.getUniqueId()))
+						.getScoreboard().setSidebar(p);
+				p.sendMessage(
+						Translate.getTranslation(BattlePlayer.getLanguage(p.getUniqueId()), "scoreboard-enabled"));
 				s.setScoreboardEnabled(true);
 			}
-		} else {
-			sender.sendMessage("§6§lSCOREBOARD §fComando §e§lAPENAS§f para jogadores.");
 		}
-		return false;
-	}
 
+	}
 }

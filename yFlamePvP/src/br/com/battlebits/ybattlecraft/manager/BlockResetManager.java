@@ -7,15 +7,15 @@ import org.bukkit.Material;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class BlockResetManager {
 
 	private ArrayList<Location> blocks;
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public BlockResetManager(yBattleCraft yBattleCraft) {
-		battleCraft = yBattleCraft;
+	public BlockResetManager(Battlecraft Battlecraft) {
+		battleCraft = Battlecraft;
 		blocks = new ArrayList<>();
 		startBlockReseter();
 	}

@@ -6,14 +6,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import net.md_5.bungee.api.ChatColor;
 
 public class MLGAbility extends BaseAbility {
 
-	public MLGAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public MLGAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

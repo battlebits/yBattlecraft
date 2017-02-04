@@ -7,15 +7,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public class WarpMain extends BaseWarp {
 
-	public WarpMain(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public WarpMain(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler
@@ -30,7 +30,7 @@ public class WarpMain extends BaseWarp {
 	}
 
 	@Override
-	protected Warp getWarp(yBattleCraft battleCraft) {
+	protected Warp getWarp(Battlecraft battleCraft) {
 		Warp main = new Warp("Main", "Treine seu PvP com poções de força e velocidade", new ItemStack(Material.POTION), null, 10.5);
 		return main;
 	}

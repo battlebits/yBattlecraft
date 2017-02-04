@@ -5,13 +5,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public class PlayerHideListener extends BaseListener {
 
-	public PlayerHideListener(yBattleCraft plugin) {
+	public PlayerHideListener(Battlecraft plugin) {
 		super(plugin);
 	}
 

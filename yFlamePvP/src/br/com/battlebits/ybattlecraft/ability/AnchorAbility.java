@@ -8,14 +8,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 
 public class AnchorAbility extends BaseAbility {
 
-	public AnchorAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public AnchorAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler(priority = EventPriority.LOW)

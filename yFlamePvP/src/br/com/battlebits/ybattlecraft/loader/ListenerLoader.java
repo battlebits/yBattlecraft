@@ -2,15 +2,15 @@ package br.com.battlebits.ybattlecraft.loader;
 
 import org.bukkit.Bukkit;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class ListenerLoader {
 
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public ListenerLoader(yBattleCraft plugin) {
+	public ListenerLoader(Battlecraft plugin) {
 		this.battleCraft = plugin;
 	}
 
@@ -21,7 +21,7 @@ public class ListenerLoader {
 				try {
 					BaseListener listener;
 					try {
-						listener = (BaseListener) baseListener.getConstructor(yBattleCraft.class).newInstance(battleCraft);
+						listener = (BaseListener) baseListener.getConstructor(Battlecraft.class).newInstance(battleCraft);
 					} catch (Exception e) {
 						listener = (BaseListener) baseListener.newInstance();
 					}

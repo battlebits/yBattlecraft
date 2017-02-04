@@ -3,16 +3,16 @@ package br.com.battlebits.ybattlecraft.loader;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class AbilityLoader {
 
 	private HashMap<String, BaseAbility> abilities = new HashMap<String, BaseAbility>();
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public AbilityLoader(yBattleCraft plugin) {
+	public AbilityLoader(Battlecraft plugin) {
 		this.battleCraft = plugin;
 	}
 
@@ -23,7 +23,7 @@ public class AbilityLoader {
 				try {
 					BaseAbility abilityListener;
 					try {
-						abilityListener = (BaseAbility) abilityClass.getConstructor(yBattleCraft.class).newInstance(battleCraft);
+						abilityListener = (BaseAbility) abilityClass.getConstructor(Battlecraft.class).newInstance(battleCraft);
 					} catch (Exception e) {
 						abilityListener = (BaseAbility) abilityClass.newInstance();
 					}

@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
@@ -19,8 +19,8 @@ public class NinjaAbility extends BaseAbility {
 
 	private HashMap<UUID, NinjaHit> ninjaHits;
 
-	public NinjaAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public NinjaAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		ninjaHits = new HashMap<>();
 	}
 

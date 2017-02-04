@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.core.account.BattlePlayer;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -34,9 +34,9 @@ public class WarpFps extends BaseWarp {
 	private Kit kit;
 	private UUID topKsUUID;
 
-	public WarpFps(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
-		kit = new Kit(yBattleCraft, "PvP", "Kit Padrao", new ArrayList<ItemStack>(),
+	public WarpFps(Battlecraft Battlecraft) {
+		super(Battlecraft);
+		kit = new Kit(Battlecraft, "PvP", "Kit Padrao", new ArrayList<ItemStack>(),
 				new ItemStack(Material.DIAMOND_SWORD), 0, KitType.NEUTRO, new ArrayList<>());
 	}
 
@@ -46,15 +46,15 @@ public class WarpFps extends BaseWarp {
 			updateTopKS();
 		}
 		if (e.getWarp().getWarpName().equalsIgnoreCase(warp.getWarpName())) {
-			yBattleCraft.getPlayerHideManager().hideForAll(e.getPlayer());
-			yBattleCraft.getKitManager().giveKit(e.getPlayer(), kit, false);
+			Battlecraft.getPlayerHideManager().hideForAll(e.getPlayer());
+			Battlecraft.getKitManager().giveKit(e.getPlayer(), kit, false);
 			getMain().getProtectionManager().addProtection(e.getPlayer().getUniqueId());
 			new BukkitRunnable() {
 				@Override
 				public void run() {
 					setTopKS(e.getPlayer());
 				}
-			}.runTaskLaterAsynchronously(yBattleCraft, 20L);
+			}.runTaskLaterAsynchronously(Battlecraft, 20L);
 		}
 	}
 
@@ -102,10 +102,10 @@ public class WarpFps extends BaseWarp {
 			public void run() {
 				int ks = 0;
 				UUID topks = null;
-				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
+				for (UUID id : Battlecraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
 					if (!AdminMode.getInstance().isAdmin(Bukkit.getPlayer(id))) {
-						if (!yBattleCraft.getProtectionManager().isProtected(id)) {
-							Status s = yBattleCraft.getStatusManager().getStatusByUuid(id);
+						if (!Battlecraft.getProtectionManager().isProtected(id)) {
+							Status s = Battlecraft.getStatusManager().getStatusByUuid(id);
 							if (s.getKillstreak() > ks) {
 								ks = s.getKillstreak();
 								topks = id;
@@ -114,12 +114,12 @@ public class WarpFps extends BaseWarp {
 					}
 				}
 				topKsUUID = topks;
-				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
+				for (UUID id : Battlecraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
 					Player p = Bukkit.getPlayer(id);
 					setTopKS(p);
 				}
 			}
-		}.runTaskAsynchronously(yBattleCraft);
+		}.runTaskAsynchronously(Battlecraft);
 	}
 
 	public void setTopKS(Player p) {
@@ -139,7 +139,7 @@ public class WarpFps extends BaseWarp {
 						if (p != null && p.isOnline()) {
 							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
 							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - "
-									+ yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+									+ Battlecraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
@@ -149,11 +149,11 @@ public class WarpFps extends BaseWarp {
 					scoreboard.updateScoreValue(p, "topksplayer", "§3 - 0");
 				}
 			}
-		}.runTaskAsynchronously(yBattleCraft);
+		}.runTaskAsynchronously(Battlecraft);
 	}
 
 	@Override
-	protected Warp getWarp(yBattleCraft battleCraft) {
+	protected Warp getWarp(Battlecraft battleCraft) {
 		scoreboard = new WarpScoreboard("fps") {
 			@Override
 			public void createScores(Player p) {

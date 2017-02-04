@@ -2,7 +2,7 @@ package br.com.battlebits.ybattlecraft.constructors;
 
 import org.bukkit.entity.Player;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class Desafio {
 	private Player desafiante;
@@ -19,7 +19,7 @@ public class Desafio {
 	public Desafio(Player desafiante, Player desafiado) {
 		this.desafiante = desafiante;
 		this.desafiado = desafiado;
-		if (yBattleCraft.IS_FULLIRON_MODE) {
+		if (Battlecraft.IS_FULLIRON_MODE) {
 			this.espada = "DIAMOND_SWORD";
 			this.armadura = "IRON_CHESTPLATE";
 		} else {

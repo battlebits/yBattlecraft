@@ -1,26 +1,20 @@
 package br.com.battlebits.ybattlecraft.command;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import br.com.battlebits.commons.bukkit.command.BukkitCommandArgs;
+import br.com.battlebits.commons.core.command.CommandClass;
+import br.com.battlebits.commons.core.command.CommandFramework.Command;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
-import br.com.battlebits.ybattlecraft.base.BaseCommand;
+public class SpawnCommand implements CommandClass {
 
-public class SpawnCommand extends BaseCommand {
-
-	public SpawnCommand(yBattleCraft bc) {
-		super(bc);
-		description = "Utilize este comando para ir ao Spawn";
-	}
-
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (sender instanceof Player) {
-			battleCraft.getTeleportManager().tryToTeleport((Player) sender, battleCraft.getWarpManager().getWarpByName("spawn"));
+	@Command(name = "spawn")
+	public void spawn(BukkitCommandArgs args) {
+		if (args.isPlayer()) {
+			Battlecraft.getInstance().getTeleportManager().tryToTeleport(args.getPlayer(),
+					Battlecraft.getInstance().getWarpManager().getWarpByName("spawn"));
 		} else {
-			sender.sendMessage("§9§lSPAWN §fComando §3§lAPENAS §fpara jogadores.");
+			args.getSender().sendMessage("§9§lSPAWN §fComando §3§lAPENAS §fpara jogadores.");
 		}
-		return false;
 	}
 
 }

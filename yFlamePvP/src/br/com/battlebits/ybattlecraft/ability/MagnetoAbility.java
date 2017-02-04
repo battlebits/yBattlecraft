@@ -21,7 +21,7 @@ import org.bukkit.util.Vector;
 
 import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class MagnetoAbility extends BaseAbility {
@@ -30,8 +30,8 @@ public class MagnetoAbility extends BaseAbility {
 	private HashMap<UUID, Integer> uses;
 	private ItemStack magnetoItem;
 
-	public MagnetoAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public MagnetoAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		uses = new HashMap<>();
 		invencible = new ArrayList<>();
 		magnetoItem = new ItemBuilder().amount(1).type(Material.IRON_INGOT).name("§7Magneto").glow().build();

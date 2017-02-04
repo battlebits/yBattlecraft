@@ -24,7 +24,7 @@ import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.commons.core.account.BattlePlayer;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -45,8 +45,8 @@ public class WarpSpawn extends BaseWarp {
 	private WarpScoreboard scoreboard;
 	private UUID topKsUUID;
 
-	public WarpSpawn(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public WarpSpawn(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler
@@ -57,7 +57,7 @@ public class WarpSpawn extends BaseWarp {
 			if (above.getType() == Material.GRASS) {
 				if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
 					p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
-					yBattleCraft.getPlayerHideManager().showForAll(p);
+					Battlecraft.getPlayerHideManager().showForAll(p);
 				}
 			}
 		}
@@ -74,15 +74,15 @@ public class WarpSpawn extends BaseWarp {
 				public void run() {
 					setTopKS(e.getPlayer());
 				}
-			}.runTaskLaterAsynchronously(yBattleCraft, 20L);
-			yBattleCraft.getPlayerHideManager().hideForAll(e.getPlayer());
-			yBattleCraft.getWarpManager().removeWarp(e.getPlayer());
-			yBattleCraft.getKitManager().removeKit(e.getPlayer());
+			}.runTaskLaterAsynchronously(Battlecraft, 20L);
+			Battlecraft.getPlayerHideManager().hideForAll(e.getPlayer());
+			Battlecraft.getWarpManager().removeWarp(e.getPlayer());
+			Battlecraft.getKitManager().removeKit(e.getPlayer());
 			Hotbar.setItems(e.getPlayer());
 			for (PotionEffect potion : e.getPlayer().getActivePotionEffects()) {
 				e.getPlayer().removePotionEffect(potion.getType());
 			}
-			if (yBattleCraft.getProtectionManager().addProtection(e.getPlayer().getUniqueId())) {
+			if (Battlecraft.getProtectionManager().addProtection(e.getPlayer().getUniqueId())) {
 				e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lRECEBEU§f proteção de spawn");
 			}
 		}
@@ -160,10 +160,10 @@ public class WarpSpawn extends BaseWarp {
 			public void run() {
 				int ks = 0;
 				UUID topks = null;
-				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
+				for (UUID id : Battlecraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
 					if (!AdminMode.getInstance().isAdmin(Bukkit.getPlayer(id))) {
-						if (!yBattleCraft.getProtectionManager().isProtected(id)) {
-							Status s = yBattleCraft.getStatusManager().getStatusByUuid(id);
+						if (!Battlecraft.getProtectionManager().isProtected(id)) {
+							Status s = Battlecraft.getStatusManager().getStatusByUuid(id);
 							if (s.getKillstreak() > ks) {
 								ks = s.getKillstreak();
 								topks = id;
@@ -172,12 +172,12 @@ public class WarpSpawn extends BaseWarp {
 					}
 				}
 				topKsUUID = topks;
-				for (UUID id : yBattleCraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
+				for (UUID id : Battlecraft.getWarpManager().getPlayersInWarp(warp.getWarpName())) {
 					Player p = Bukkit.getPlayer(id);
 					setTopKS(p);
 				}
 			}
-		}.runTaskAsynchronously(yBattleCraft);
+		}.runTaskAsynchronously(Battlecraft);
 	}
 
 	public void setTopKS(Player p) {
@@ -197,7 +197,7 @@ public class WarpSpawn extends BaseWarp {
 						if (p != null && p.isOnline()) {
 							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
 							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - "
-									+ yBattleCraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
+									+ Battlecraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
@@ -207,11 +207,11 @@ public class WarpSpawn extends BaseWarp {
 					scoreboard.updateScoreValue(p, "topksplayer", "§3 - 0");
 				}
 			}
-		}.runTaskAsynchronously(yBattleCraft);
+		}.runTaskAsynchronously(Battlecraft);
 	}
 
 	@Override
-	protected Warp getWarp(yBattleCraft battleCraft) {
+	protected Warp getWarp(Battlecraft battleCraft) {
 		scoreboard = new WarpScoreboard("spawn") {
 			@Override
 			public void createScores(Player p) {

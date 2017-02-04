@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import br.com.battlebits.ybattlecraft.combatlog.CombatLog;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
-import br.com.battlebits.ybattlecraft.managers.CombatLogManager;
+import br.com.battlebits.ybattlecraft.manager.CombatLogManager;
 
 public class CombatLogListener implements Listener {
 

@@ -16,47 +16,47 @@ import com.google.common.io.ByteStreams;
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.bukkit.BukkitMain;
 import br.com.battlebits.commons.bukkit.command.BukkitCommandFramework;
+import br.com.battlebits.commons.util.updater.AutoUpdater;
 import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.evento.Evento;
 import br.com.battlebits.ybattlecraft.fight.gladiator.GladiatorFightController;
+import br.com.battlebits.ybattlecraft.listener.BlockListener;
+import br.com.battlebits.ybattlecraft.listener.CombatLogListener;
+import br.com.battlebits.ybattlecraft.listener.DamageListener;
+import br.com.battlebits.ybattlecraft.listener.DamagerFixer;
+import br.com.battlebits.ybattlecraft.listener.EventListener;
+import br.com.battlebits.ybattlecraft.listener.InteractListener;
+import br.com.battlebits.ybattlecraft.listener.InventoryListener;
+import br.com.battlebits.ybattlecraft.listener.ItemFrameListener;
+import br.com.battlebits.ybattlecraft.listener.JoinListener;
+import br.com.battlebits.ybattlecraft.listener.LauncherListener;
 import br.com.battlebits.ybattlecraft.listener.MoveListener;
-import br.com.battlebits.ybattlecraft.listeners.BlockListener;
-import br.com.battlebits.ybattlecraft.listeners.CombatLogListener;
-import br.com.battlebits.ybattlecraft.listeners.DamageListener;
-import br.com.battlebits.ybattlecraft.listeners.DamagerFixer;
-import br.com.battlebits.ybattlecraft.listeners.EventListener;
-import br.com.battlebits.ybattlecraft.listeners.InteractListener;
-import br.com.battlebits.ybattlecraft.listeners.InventoryListener;
-import br.com.battlebits.ybattlecraft.listeners.ItemFrameListener;
-import br.com.battlebits.ybattlecraft.listeners.JoinListener;
-import br.com.battlebits.ybattlecraft.listeners.LauncherListener;
-import br.com.battlebits.ybattlecraft.listeners.PlayerListener;
-import br.com.battlebits.ybattlecraft.listeners.QuitListener;
-import br.com.battlebits.ybattlecraft.listeners.StartgameListener;
-import br.com.battlebits.ybattlecraft.listeners.TabListListener;
-import br.com.battlebits.ybattlecraft.listeners.WarpScoreboardListener;
+import br.com.battlebits.ybattlecraft.listener.PlayerListener;
+import br.com.battlebits.ybattlecraft.listener.QuitListener;
+import br.com.battlebits.ybattlecraft.listener.StartgameListener;
+import br.com.battlebits.ybattlecraft.listener.TabListListener;
+import br.com.battlebits.ybattlecraft.listener.WarpScoreboardListener;
 import br.com.battlebits.ybattlecraft.loader.AbilityLoader;
-import br.com.battlebits.ybattlecraft.loader.CommandLoader;
 import br.com.battlebits.ybattlecraft.loader.ListenerLoader;
 import br.com.battlebits.ybattlecraft.loader.WarpLoader;
 import br.com.battlebits.ybattlecraft.manager.AbilityManager;
 import br.com.battlebits.ybattlecraft.manager.BlockResetManager;
+import br.com.battlebits.ybattlecraft.manager.CombatLogManager;
 import br.com.battlebits.ybattlecraft.manager.CooldownManager;
+import br.com.battlebits.ybattlecraft.manager.ItemManager;
 import br.com.battlebits.ybattlecraft.manager.KitManager;
 import br.com.battlebits.ybattlecraft.manager.PlayerHideManager;
+import br.com.battlebits.ybattlecraft.manager.ProtectionManager;
+import br.com.battlebits.ybattlecraft.manager.ReflectionManager;
+import br.com.battlebits.ybattlecraft.manager.StatusManager;
 import br.com.battlebits.ybattlecraft.manager.TeleportManager;
 import br.com.battlebits.ybattlecraft.manager.WarpManager;
-import br.com.battlebits.ybattlecraft.managers.CombatLogManager;
-import br.com.battlebits.ybattlecraft.managers.ItemManager;
-import br.com.battlebits.ybattlecraft.managers.ProtectionManager;
-import br.com.battlebits.ybattlecraft.managers.ReflectionManager;
-import br.com.battlebits.ybattlecraft.managers.StatusManager;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
 import net.md_5.bungee.api.ChatColor;
 
-public class yBattleCraft extends JavaPlugin {
+public class Battlecraft extends JavaPlugin {
 
 	public static String site = "battlebits.com.br";
 	public static String servername = "Battlecraft";
@@ -99,10 +99,15 @@ public class yBattleCraft extends JavaPlugin {
 	private String username = "root";
 	private String password = "";
 
-	private static yBattleCraft instance;
+	private static Battlecraft instance;
 
 	{
 		instance = this;
+	}
+
+	@Override
+	public void onLoad() {
+		new AutoUpdater(this, "`'kfHE?F2Qd7_~5`").run();
 	}
 
 	@Override
@@ -121,7 +126,6 @@ public class yBattleCraft extends JavaPlugin {
 		loadListeners();
 		startUpdaters();
 		gladiatorFightController = new GladiatorFightController();
-		new CommandLoader(this).loadCommandsAndRegister();
 		getLogger().info(new br.com.battlebits.commons.core.command.CommandLoader(new BukkitCommandFramework(this))
 				.loadCommandsFromPackage("br.com.battlebits.ybattlecraft.command")
 				+ " classes de comandos foram carregadas");
@@ -310,7 +314,7 @@ public class yBattleCraft extends JavaPlugin {
 		p.kickPlayer(ChatColor.RED + "O servidor está se preparando para reiniciar e você foi kickado do servidor.");
 	}
 
-	public static yBattleCraft getInstance() {
+	public static Battlecraft getInstance() {
 		return instance;
 	}
 

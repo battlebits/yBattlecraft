@@ -18,7 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class KangarooAbility extends BaseAbility {
@@ -26,8 +26,8 @@ public class KangarooAbility extends BaseAbility {
 	private ArrayList<UUID> doubleJump;
 	private ItemStack abilityItem;
 
-	public KangarooAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public KangarooAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		doubleJump = new ArrayList<>();
 		abilityItem = new ItemBuilder().amount(1).type(Material.FIREWORK).glow().lore("§7Utilize seu foguete para ser lancado para onde voce desejar").name("§6§lKangaroo Boost").build();
 		getItens().add(abilityItem);

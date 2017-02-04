@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Damageable;
@@ -12,16 +12,16 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.commons.api.admin.AdminMode;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.selectors.KitSelector;
 import br.com.battlebits.ybattlecraft.selectors.WarpSelector;
 
 public class InteractListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 	private WarpSelector warpSelector;
 
-	public InteractListener(yBattleCraft m) {
+	public InteractListener(Battlecraft m) {
 		this.m = m;
 		warpSelector = new WarpSelector(this.m.getWarpManager());
 	}

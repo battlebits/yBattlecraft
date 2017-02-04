@@ -8,13 +8,13 @@ import java.io.OutputStream;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class Config {
-	private static yBattleCraft m;
+	private static Battlecraft m;
 
-	public Config(yBattleCraft yBattleCraft) {
-		m = yBattleCraft;
+	public Config(Battlecraft Battlecraft) {
+		m = Battlecraft;
 	}
 
 	public void loadConfig() {

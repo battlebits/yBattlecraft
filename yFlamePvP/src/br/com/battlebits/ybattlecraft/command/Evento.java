@@ -12,15 +12,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.config.ConfigEnum;
 import br.com.battlebits.ybattlecraft.evento.enums.EventType;
 
 public class Evento implements CommandExecutor {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 
-	public Evento(yBattleCraft m) {
+	public Evento(Battlecraft m) {
 		this.m = m;
 	}
 
@@ -35,20 +35,20 @@ public class Evento implements CommandExecutor {
 			if (args.length == 1) {
 				String arg1 = args[0];
 				if (arg1.equalsIgnoreCase("entrar")) {
-					if (yBattleCraft.currentEvento == null) {
+					if (Battlecraft.currentEvento == null) {
 						p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 						return true;
 					}
-					yBattleCraft.currentEvento.addPlayer(p);
+					Battlecraft.currentEvento.addPlayer(p);
 					return true;
 				}
 				if (arg1.equalsIgnoreCase("stop")) {
 					if (p.hasPermission("flame.evento")) {
-						if (yBattleCraft.currentEvento == null) {
+						if (Battlecraft.currentEvento == null) {
 							p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 							return true;
 						}
-						yBattleCraft.currentEvento.stopEvento();
+						Battlecraft.currentEvento.stopEvento();
 						return true;
 					}
 				}
@@ -69,17 +69,17 @@ public class Evento implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("iniciar")) {
 						String evento = args[1];
 						if (evento.equalsIgnoreCase("rdm")) {
-							yBattleCraft.currentEvento = new br.com.battlebits.ybattlecraft.evento.Evento(m, p, EventType.RDM);
+							Battlecraft.currentEvento = new br.com.battlebits.ybattlecraft.evento.Evento(m, p, EventType.RDM);
 							return true;
 						} else if (evento.equalsIgnoreCase("mdr")) {
-							yBattleCraft.currentEvento = new br.com.battlebits.ybattlecraft.evento.Evento(m, p, EventType.MDR);
+							Battlecraft.currentEvento = new br.com.battlebits.ybattlecraft.evento.Evento(m, p, EventType.MDR);
 							return true;
 						}
 						p.sendMessage(ChatColor.RED + "Eventos: [RDM] ou [MDR]");
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("vencedor")) {
-						if (yBattleCraft.currentEvento == null) {
+						if (Battlecraft.currentEvento == null) {
 							p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 							return true;
 						}
@@ -89,10 +89,10 @@ public class Evento implements CommandExecutor {
 							p.sendMessage(ChatColor.RED + "Player nao existe");
 							return true;
 						}
-						yBattleCraft.currentEvento.win(target);
+						Battlecraft.currentEvento.win(target);
 					}
 					if (args[0].equalsIgnoreCase("adicionar")) {
-						if (yBattleCraft.currentEvento == null) {
+						if (Battlecraft.currentEvento == null) {
 							p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 							return true;
 						}
@@ -102,7 +102,7 @@ public class Evento implements CommandExecutor {
 							p.sendMessage(ChatColor.RED + "Player nao existe");
 							return true;
 						}
-						yBattleCraft.currentEvento.addAdm(target);
+						Battlecraft.currentEvento.addAdm(target);
 					}
 					if (args[0].equalsIgnoreCase("rdm")) {
 						if (args[1].equalsIgnoreCase("setspawn")) {
@@ -123,21 +123,21 @@ public class Evento implements CommandExecutor {
 							setMDRSpawn(p);
 						}
 						if (args[1].equalsIgnoreCase("aplicarkit")) {
-							if (yBattleCraft.currentEvento == null) {
+							if (Battlecraft.currentEvento == null) {
 								p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 								return true;
 							}
-							yBattleCraft.currentEvento.aplicarMDR(p);
+							Battlecraft.currentEvento.aplicarMDR(p);
 						}
 					}
 					return true;
 				}
 			}
-			if (yBattleCraft.currentEvento == null) {
+			if (Battlecraft.currentEvento == null) {
 				p.sendMessage(ChatColor.RED + "Nenhum evento esta rodando no momento!");
 				return true;
 			}
-			yBattleCraft.currentEvento.addPlayer(p);
+			Battlecraft.currentEvento.addPlayer(p);
 			return true;
 		}
 		return false;

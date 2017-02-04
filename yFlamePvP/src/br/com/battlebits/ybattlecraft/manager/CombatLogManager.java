@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.managers;
+package br.com.battlebits.ybattlecraft.manager;
 
 import java.util.HashMap;
 import java.util.UUID;

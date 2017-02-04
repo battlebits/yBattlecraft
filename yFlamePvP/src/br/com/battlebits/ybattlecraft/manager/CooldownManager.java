@@ -12,16 +12,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
 
 public class CooldownManager {
 
 	private Table<UUID, String, Long> cooldowns;
 	private TimeFormater time;
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public CooldownManager(yBattleCraft plugin) {
+	public CooldownManager(Battlecraft plugin) {
 		cooldowns = HashBasedTable.create();
 		time = plugin.getTimeUtils();
 		battleCraft = plugin;

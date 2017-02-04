@@ -10,14 +10,14 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 
 public class DeshzinAbility extends BaseAbility {
 
-	public DeshzinAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public DeshzinAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler

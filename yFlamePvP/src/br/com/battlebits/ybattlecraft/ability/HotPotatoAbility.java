@@ -22,7 +22,7 @@ import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.commons.api.title.TitleAPI;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 
@@ -33,8 +33,8 @@ public class HotPotatoAbility extends BaseAbility {
 	private ItemStack abilityItem;
 	private ItemStack tntItem;
 
-	public HotPotatoAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public HotPotatoAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		playersWithHotPotato = new HashMap<>();
 		playerHelmet = new HashMap<>();
 		abilityItem = new ItemBuilder().type(Material.BAKED_POTATO).amount(1).glow().name("§c§lHot Potato")

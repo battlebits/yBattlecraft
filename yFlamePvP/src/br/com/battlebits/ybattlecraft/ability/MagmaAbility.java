@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 
@@ -21,8 +21,8 @@ public class MagmaAbility extends BaseAbility {
 
 	private Random random;
 
-	public MagmaAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public MagmaAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		random = new Random();
 	}
 

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.config.ConfigEnum;
 import br.com.battlebits.ybattlecraft.evento.constructors.Cabine;
 import br.com.battlebits.ybattlecraft.evento.enums.EventState;
@@ -22,7 +22,7 @@ import br.com.battlebits.ybattlecraft.utils.API;
 public class Evento {
 	private EventType type;
 	private EventState state;
-	private static yBattleCraft m;
+	private static Battlecraft m;
 	private int totalPlayers = 0;
 	private int tempo;
 	private Integer runnable = null;
@@ -38,7 +38,7 @@ public class Evento {
 	// public Location loc2;
 	private List<Cabine> locations = new ArrayList<>();
 
-	public Evento(final yBattleCraft battle, Player organizador, final EventType type) {
+	public Evento(final Battlecraft battle, Player organizador, final EventType type) {
 		this.type = type;
 		this.state = EventState.WAITING;
 		m = battle;
@@ -46,7 +46,7 @@ public class Evento {
 		if (type == EventType.RDM) {
 			if (m.getConfiguration().getConfig(ConfigEnum.EVENTOS).getConfigurationSection("eventos.rdm") == null) {
 				organizador.sendMessage(ChatColor.RED + "Nao ha spawns setados para o evento!");
-				yBattleCraft.currentEvento = null;
+				Battlecraft.currentEvento = null;
 				return;
 			}
 			for (String loc : m.getConfiguration().getConfig(ConfigEnum.EVENTOS).getConfigurationSection("eventos.rdm.locations.").getKeys(false)) {
@@ -68,7 +68,7 @@ public class Evento {
 			String locString = m.getConfiguration().getConfig(ConfigEnum.EVENTOS).getString("eventos.rdm.spawn");
 			if (locString.isEmpty()) {
 				organizador.sendMessage(ChatColor.RED + "Nao ha spawn setado!");
-				yBattleCraft.currentEvento = null;
+				Battlecraft.currentEvento = null;
 				return;
 			}
 			String[] coords = locString.split(",");
@@ -86,7 +86,7 @@ public class Evento {
 			String locString = m.getConfiguration().getConfig(ConfigEnum.EVENTOS).getString("eventos.mdr.spawn");
 			if (locString == null) {
 				organizador.sendMessage(ChatColor.RED + "Nao ha spawn setado!");
-				yBattleCraft.currentEvento = null;
+				Battlecraft.currentEvento = null;
 				return;
 			}
 			String[] coords = locString.split(",");
@@ -320,7 +320,7 @@ public class Evento {
 		Bukkit.broadcastMessage(ChatColor.DARK_RED + "O evento acabou!");
 		organizadores.clear();
 		participantes.clear();
-		yBattleCraft.currentEvento = null;
+		Battlecraft.currentEvento = null;
 	}
 
 	public void broadcastMessage(String message) {

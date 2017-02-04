@@ -17,14 +17,14 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
 public class GladiatorFight {
 
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 	private Player gladiator;
 	private Player target;
 	private Location tpLocGladiator;
@@ -35,7 +35,7 @@ public class GladiatorFight {
 	private Listener listener;
 	private boolean ended;
 
-	public GladiatorFight(final Player gladiator, final Player target, yBattleCraft bc) {
+	public GladiatorFight(final Player gladiator, final Player target, Battlecraft bc) {
 		battleCraft = bc;
 		this.gladiator = gladiator;
 		this.target = target;

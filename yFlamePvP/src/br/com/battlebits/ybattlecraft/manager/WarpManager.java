@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import br.com.battlebits.commons.api.title.TitleAPI;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 import br.com.battlebits.ybattlecraft.event.WarpTeleportEvent;
@@ -24,9 +24,9 @@ public class WarpManager {
 
 	private HashMap<UUID, String> playerWarp;
 	private HashMap<String, Warp> nameWarp;
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public WarpManager(yBattleCraft plugin) {
+	public WarpManager(Battlecraft plugin) {
 		this.battleCraft = plugin;
 		this.playerWarp = new HashMap<>();
 		this.nameWarp = new HashMap<>();

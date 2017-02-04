@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.managers;
+package br.com.battlebits.ybattlecraft.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.SimpleCommandMap;

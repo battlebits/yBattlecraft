@@ -20,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.util.NovaDirection;
 
@@ -30,7 +30,7 @@ public class SupernovaAbility extends BaseAbility {
 	private HashMap<Arrow, Vector> arrows;
 	private ItemStack superNova;
 
-	public SupernovaAbility(yBattleCraft bc) {
+	public SupernovaAbility(Battlecraft bc) {
 		super(bc);
 		directions = new ArrayList<>();
 		ArrayList<Double> pitchs = new ArrayList<>();

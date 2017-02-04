@@ -11,20 +11,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 import br.com.battlebits.ybattlecraft.manager.WarpManager;
 
 public class MoveListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 	private WarpManager manager;
 	private HashMap<UUID, Location> locations;
 
-	public MoveListener(yBattleCraft yBattleCraft) {
-		m = yBattleCraft;
-		manager = yBattleCraft.getWarpManager();
+	public MoveListener(Battlecraft Battlecraft) {
+		m = Battlecraft;
+		manager = Battlecraft.getWarpManager();
 		locations = new HashMap<>();
 		startUpdater();
 	}

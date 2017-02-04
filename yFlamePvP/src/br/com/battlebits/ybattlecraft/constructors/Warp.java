@@ -8,8 +8,8 @@ import java.util.HashMap;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.battlebits.commons.util.string.StringScroller;
 import br.com.battlebits.ybattlecraft.kit.Kit;
-import br.com.battlebits.ybattlecraft.util.StringScroller;
 
 public class Warp {
 

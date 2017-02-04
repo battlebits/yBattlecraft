@@ -6,15 +6,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 
 public class WarpScoreboardUpdater {
 
 	private BukkitRunnable runnable;
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public WarpScoreboardUpdater(yBattleCraft plugin) {
+	public WarpScoreboardUpdater(Battlecraft plugin) {
 		battleCraft = plugin;
 		runnable = new BukkitRunnable() {
 			@Override

@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,13 +8,13 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class InventoryListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 
-	public InventoryListener(yBattleCraft m) {
+	public InventoryListener(Battlecraft m) {
 		this.m = m;
 	}
 

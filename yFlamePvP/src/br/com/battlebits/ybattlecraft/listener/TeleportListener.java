@@ -2,14 +2,14 @@ package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.event.EventHandler;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 
 public class TeleportListener extends BaseListener {
 
-	public TeleportListener(yBattleCraft plugin) {
+	public TeleportListener(Battlecraft plugin) {
 		super(plugin);
 	}
 

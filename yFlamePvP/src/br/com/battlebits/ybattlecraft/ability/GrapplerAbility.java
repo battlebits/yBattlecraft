@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.constructors.GrapplingHook;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
@@ -29,7 +29,7 @@ public class GrapplerAbility extends BaseAbility {
 	private Map<UUID, GrapplingHook> grapplerHooks;
 	private ItemStack grapplerItem;
 
-	public GrapplerAbility(yBattleCraft plugin) {
+	public GrapplerAbility(Battlecraft plugin) {
 		super(plugin);
 		grapplerHooks = new HashMap<>();
 		grapplerItem = new ItemBuilder().amount(1).type(Material.LEASH).name("§6§lGrappler Leash").glow().build();

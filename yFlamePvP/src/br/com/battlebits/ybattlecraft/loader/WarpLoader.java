@@ -4,16 +4,16 @@ import java.util.HashMap;
 
 import org.bukkit.event.Listener;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.utils.ClassGetter;
 
 public class WarpLoader {
 
 	private HashMap<String, BaseWarp> warps = new HashMap<String, BaseWarp>();
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public WarpLoader(yBattleCraft bc) {
+	public WarpLoader(Battlecraft bc) {
 		this.battleCraft = bc;
 	}
 
@@ -24,7 +24,7 @@ public class WarpLoader {
 				try {
 					BaseWarp warp;
 					try {
-						warp = (BaseWarp) warpClass.getConstructor(yBattleCraft.class).newInstance(battleCraft);
+						warp = (BaseWarp) warpClass.getConstructor(Battlecraft.class).newInstance(battleCraft);
 					} catch (Exception e) {
 						warp = (BaseWarp) warpClass.newInstance();
 					}

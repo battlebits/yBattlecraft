@@ -21,7 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.enums.KitCategory;
 import br.com.battlebits.ybattlecraft.kit.Kit;
 import br.com.battlebits.ybattlecraft.manager.KitManager;
@@ -36,11 +36,11 @@ public class KitSelector {
 	private Listener listener;
 	private int pagina;
 	private int paginaNumbers;
-	private yBattleCraft m;
+	private Battlecraft m;
 
 	private Map<KitCategory, List<Kit>> kits;
 
-	public KitSelector(Player player, yBattleCraft m) {
+	public KitSelector(Player player, Battlecraft m) {
 		this.player = player;
 		this.manager = m.getKitManager();
 		this.m = m;

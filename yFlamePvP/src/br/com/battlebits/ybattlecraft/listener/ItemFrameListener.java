@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,10 +23,10 @@ import br.com.battlebits.commons.BattlebitsAPI;
 
 public class ItemFrameListener implements Listener {
 
-	private br.com.battlebits.ybattlecraft.yBattleCraft m;
+	private br.com.battlebits.ybattlecraft.Battlecraft m;
 
-	public ItemFrameListener(br.com.battlebits.ybattlecraft.yBattleCraft yBattleCraft) {
-		this.m = yBattleCraft;
+	public ItemFrameListener(br.com.battlebits.ybattlecraft.Battlecraft Battlecraft) {
+		this.m = Battlecraft;
 	}
 
 	@EventHandler

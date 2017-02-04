@@ -10,15 +10,15 @@ import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class FishermanAbility extends BaseAbility {
 
 	private ItemStack item;
 
-	public FishermanAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public FishermanAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		item = new ItemBuilder().amount(1).type(Material.FISHING_ROD).name("§bFisherman").glow().build();
 		getItens().add(item);
 	}

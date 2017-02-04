@@ -10,14 +10,14 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import br.com.battlebits.commons.api.admin.AdminMode;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 
 public class StomperAbility extends BaseAbility {
 
-	public StomperAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public StomperAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 
@@ -16,8 +16,8 @@ public class SnailAbility extends BaseAbility {
 	private Random random;
 	private PotionEffect potionEffect;
 
-	public SnailAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public SnailAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		potionEffect = new PotionEffect(PotionEffectType.SLOW, 5 * 20, 0);
 		random = new Random();
 	}

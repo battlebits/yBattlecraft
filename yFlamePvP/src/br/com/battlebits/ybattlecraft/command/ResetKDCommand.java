@@ -19,7 +19,7 @@ import br.com.battlebits.commons.core.data.DataPlayer;
 import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.commons.core.translate.Language;
 import br.com.battlebits.commons.core.translate.Translate;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.event.PlayerResetKDEvent;
 import net.md_5.bungee.api.ChatColor;
@@ -70,7 +70,7 @@ public class ResetKDCommand implements CommandClass {
 
 		Status playerStatus = null;
 		if (Bukkit.getPlayer(uuid) != null)
-			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
+			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
 			playerStatus = null;// TODO GetPlayerStatus
 		if (playerStatus == null)
@@ -109,7 +109,7 @@ public class ResetKDCommand implements CommandClass {
 					TitleAPI.setTitle(target, Translate.getTranslation(lang, "command-resetkd-request-title"),
 							Translate.getTranslation(lang, "command-resetkd-request-subtitle"));
 				}
-			}.runTaskLater(yBattleCraft.getInstance(), 20);
+			}.runTaskLater(Battlecraft.getInstance(), 20);
 		}
 	}
 
@@ -138,7 +138,7 @@ public class ResetKDCommand implements CommandClass {
 
 		Status playerStatus = null;
 		if (Bukkit.getPlayer(uuid) != null)
-			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
+			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
 			playerStatus = null;// TODO Load Status
 		if (playerStatus == null)

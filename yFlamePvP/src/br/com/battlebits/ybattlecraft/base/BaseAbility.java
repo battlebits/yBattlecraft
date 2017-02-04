@@ -7,16 +7,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public abstract class BaseAbility implements Listener {
 
-	public yBattleCraft battlecraft;
+	public Battlecraft battlecraft;
 	private ArrayList<ItemStack> itens;
 	private String name;
 
-	public BaseAbility(yBattleCraft yBattleCraft) {
-		this.battlecraft = yBattleCraft;
+	public BaseAbility(Battlecraft Battlecraft) {
+		this.battlecraft = Battlecraft;
 		this.itens = new ArrayList<>();
 		if (this.getClass().getSimpleName().toLowerCase().endsWith("ability")) {
 			this.name = this.getClass().getSimpleName().substring(0, this.getClass().getSimpleName().length() - 7);

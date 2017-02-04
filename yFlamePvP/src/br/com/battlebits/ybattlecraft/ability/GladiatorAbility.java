@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.fight.gladiator.GladiatorFight;
 
@@ -23,7 +23,7 @@ public class GladiatorAbility extends BaseAbility {
 
 	private ItemStack startBattle;
 
-	public GladiatorAbility(yBattleCraft bc) {
+	public GladiatorAbility(Battlecraft bc) {
 		super(bc);
 		startBattle = new ItemBuilder().amount(1).type(Material.IRON_FENCE).name("§c§lIniciar Batalha").glow().build();
 		getItens().add(startBattle);

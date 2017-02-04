@@ -10,17 +10,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.commons.api.admin.AdminMode;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 
 public class TeleportManager {
 
 	private HashMap<UUID, String> playerWarpDelay;
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public TeleportManager(yBattleCraft yBattleCraft) {
-		battleCraft = yBattleCraft;
+	public TeleportManager(Battlecraft Battlecraft) {
+		battleCraft = Battlecraft;
 		playerWarpDelay = new HashMap<>();
 		startTeleportChecker();
 	}

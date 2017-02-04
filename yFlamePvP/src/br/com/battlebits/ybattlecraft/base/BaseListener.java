@@ -2,13 +2,13 @@ package br.com.battlebits.ybattlecraft.base;
 
 import org.bukkit.event.Listener;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class BaseListener implements Listener {
 
-	public yBattleCraft battleCraft;
+	public Battlecraft battleCraft;
 
-	public BaseListener(yBattleCraft plugin) {
+	public BaseListener(Battlecraft plugin) {
 		this.battleCraft = plugin;
 	}
 

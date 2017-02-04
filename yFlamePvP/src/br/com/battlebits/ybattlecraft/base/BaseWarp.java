@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerWarpJoinEvent;
 
@@ -19,13 +19,13 @@ public abstract class BaseWarp implements Listener {
 	
 	private List<UUID> playersInWarp;
 	private Warp warp;
-	public yBattleCraft yBattleCraft;
+	public Battlecraft Battlecraft;
 
-	public BaseWarp(yBattleCraft yBattleCraft) {
+	public BaseWarp(Battlecraft Battlecraft) {
 		playersInWarp = new ArrayList<>();
-		warp = getWarp(yBattleCraft);
-		this.yBattleCraft = yBattleCraft;
-		yBattleCraft.getWarpManager().addWarp(warp);
+		warp = getWarp(Battlecraft);
+		this.Battlecraft = Battlecraft;
+		Battlecraft.getWarpManager().addWarp(warp);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -52,8 +52,8 @@ public abstract class BaseWarp implements Listener {
 		return playersInWarp.contains(p.getUniqueId());
 	}
 
-	public yBattleCraft getMain() {
-		return yBattleCraft;
+	public Battlecraft getMain() {
+		return Battlecraft;
 	}
 
 	protected List<Player> getPlayersInWarp() {
@@ -72,6 +72,6 @@ public abstract class BaseWarp implements Listener {
 		return players;
 	}
 
-	protected abstract Warp getWarp(yBattleCraft pl);
+	protected abstract Warp getWarp(Battlecraft pl);
 
 }

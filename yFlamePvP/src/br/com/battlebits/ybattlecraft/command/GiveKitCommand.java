@@ -15,7 +15,7 @@ import br.com.battlebits.commons.core.data.DataPlayer;
 import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.commons.core.translate.Language;
 import br.com.battlebits.commons.core.translate.Translate;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 
 public class GiveKitCommand implements CommandClass {
@@ -56,7 +56,7 @@ public class GiveKitCommand implements CommandClass {
 		}
 		Status playerStatus = null;
 		if (Bukkit.getPlayer(uuid) != null)
-			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
+			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
 			playerStatus = null;// TODO GetPlayerStatus
 		if (playerStatus == null) {
@@ -108,7 +108,7 @@ public class GiveKitCommand implements CommandClass {
 		}
 		Status playerStatus = null;
 		if (Bukkit.getPlayer(uuid) != null)
-			playerStatus = yBattleCraft.getInstance().getStatusManager().getStatusByUuid(uuid);
+			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
 			playerStatus = null;// TODO GetPlayerStatus
 		if (playerStatus == null)

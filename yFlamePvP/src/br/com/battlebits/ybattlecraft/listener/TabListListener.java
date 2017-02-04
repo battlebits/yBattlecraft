@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ import br.com.battlebits.commons.api.tablist.TabListAPI;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.commons.core.account.BattlePlayer;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.enums.LoadStatus;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
@@ -27,9 +27,9 @@ import br.com.battlebits.ybattlecraft.utils.Formatter;
 
 public class TabListListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 
-	public TabListListener(yBattleCraft m) {
+	public TabListListener(Battlecraft m) {
 		this.m = m;
 
 	}

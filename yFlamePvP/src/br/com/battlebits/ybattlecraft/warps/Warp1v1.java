@@ -35,7 +35,7 @@ import org.bukkit.potion.PotionEffectType;
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.api.vanish.VanishAPI;
 import br.com.battlebits.commons.core.account.BattlePlayer;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Desafio;
 import br.com.battlebits.ybattlecraft.constructors.Status;
@@ -55,8 +55,8 @@ public class Warp1v1 extends BaseWarp {
 	private Location secondLoction;
 	private WarpScoreboard scoreboard;
 
-	public Warp1v1(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public Warp1v1(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		playersIn1v1 = new ArrayList<>();
 		playerDesafios = new HashMap<>();
 		playersInQueue = new ArrayList<>();
@@ -361,8 +361,8 @@ public class Warp1v1 extends BaseWarp {
 		playersIn1v1.add(desafiado);
 		getMain().getProtectionManager().removeProtection(p.getUniqueId());
 		getMain().getProtectionManager().removeProtection(desafiado.getUniqueId());
-		yBattleCraft.getPlayerHideManager().hideAllPlayers(p);
-		yBattleCraft.getPlayerHideManager().hideAllPlayers(desafiado);
+		Battlecraft.getPlayerHideManager().hideAllPlayers(p);
+		Battlecraft.getPlayerHideManager().hideAllPlayers(desafiado);
 		p.showPlayer(desafiado);
 		desafiado.showPlayer(p);
 		if (firstLoction == null)
@@ -768,9 +768,9 @@ public class Warp1v1 extends BaseWarp {
 					killer.sendMessage(ChatColor.RED + "Voce venceu o 1v1 contra " + p.getName() + " com "
 							+ dm.format(((Damageable) killer).getHealth() / 2) + " coracoes e " + i
 							+ " sopas restantes");
-					yBattleCraft.getPlayerHideManager().showAllPlayers(killer, false);
+					Battlecraft.getPlayerHideManager().showAllPlayers(killer, false);
 					VanishAPI.getInstance().updateVanishToPlayer(killer);
-					yBattleCraft.getPlayerHideManager().showAllPlayers(p, false);
+					Battlecraft.getPlayerHideManager().showAllPlayers(p, false);
 					VanishAPI.getInstance().updateVanishToPlayer(p);
 					l.teleport1v1(killer);
 					killer.setHealth(20D);
@@ -820,9 +820,9 @@ public class Warp1v1 extends BaseWarp {
 					killer.updateInventory();
 					playersIn1v1.remove(p);
 					playersIn1v1.remove(killer);
-					yBattleCraft.getPlayerHideManager().showAllPlayers(killer);
-					yBattleCraft.getPlayerHideManager().showAllPlayers(p);
-					yBattleCraft.getStatusManager().updateStatus(killer, p);
+					Battlecraft.getPlayerHideManager().showAllPlayers(killer);
+					Battlecraft.getPlayerHideManager().showAllPlayers(p);
+					Battlecraft.getStatusManager().updateStatus(killer, p);
 					destroy();
 				}
 
@@ -839,7 +839,7 @@ public class Warp1v1 extends BaseWarp {
 	}
 
 	@Override
-	protected Warp getWarp(yBattleCraft battleCraft) {
+	protected Warp getWarp(Battlecraft battleCraft) {
 		scoreboard = new WarpScoreboard("1v1") {
 
 			@Override

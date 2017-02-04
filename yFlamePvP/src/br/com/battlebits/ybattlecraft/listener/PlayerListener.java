@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,15 +22,15 @@ import org.bukkit.inventory.ItemStack;
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.core.permission.Group;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.evento.enums.EventState;
 import br.com.battlebits.ybattlecraft.warps.Warp1v1;
 
 public class PlayerListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 
-	public PlayerListener(yBattleCraft m) {
+	public PlayerListener(Battlecraft m) {
 		this.m = m;
 	}
 
@@ -111,15 +111,15 @@ public class PlayerListener implements Listener {
 	// TODO Refazer mensagem no Inicio
 	@EventHandler
 	public void onPing(ServerListPingEvent event) {
-		if (yBattleCraft.currentEvento != null && yBattleCraft.currentEvento.getState() == EventState.WAITING) {
+		if (Battlecraft.currentEvento != null && Battlecraft.currentEvento.getState() == EventState.WAITING) {
 			String motd = ChatColor.GOLD + "BattleCraft";
-			if (!yBattleCraft.motd.isEmpty())
-				motd = motd + " - " + yBattleCraft.motd;
-			event.setMotd(motd + "\n" + ChatColor.DARK_PURPLE + "ENTRE! EVENTO " + yBattleCraft.currentEvento.getType().toString().toUpperCase() + " COMECA EM " + yBattleCraft.currentEvento.getTime() + "s");
+			if (!Battlecraft.motd.isEmpty())
+				motd = motd + " - " + Battlecraft.motd;
+			event.setMotd(motd + "\n" + ChatColor.DARK_PURPLE + "ENTRE! EVENTO " + Battlecraft.currentEvento.getType().toString().toUpperCase() + " COMECA EM " + Battlecraft.currentEvento.getTime() + "s");
 		} else {
 			String motd = ChatColor.GOLD + "BattleCraft";
-			if (!yBattleCraft.motd.isEmpty())
-				motd = motd + " - " + yBattleCraft.motd;
+			if (!Battlecraft.motd.isEmpty())
+				motd = motd + " - " + Battlecraft.motd;
 			motd = motd + "\n" + ChatColor.BOLD + ChatColor.AQUA + "Entre para treinar seu PvP";
 			event.setMotd(motd);
 		}

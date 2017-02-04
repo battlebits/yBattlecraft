@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.enums.KitType;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -25,7 +25,7 @@ public class Kit {
 	private TextComponent clickToSelectMessage;
 	private TextComponent clickToBuyMessage;
 
-	public Kit(yBattleCraft battleCraft, String kitName, String kitInfo, List<ItemStack> kitItens, ItemStack icon, int price, KitType kitType,
+	public Kit(Battlecraft battleCraft, String kitName, String kitInfo, List<ItemStack> kitItens, ItemStack icon, int price, KitType kitType,
 			List<String> kitAbilities) {
 		this.name = kitName;
 		this.info = kitInfo;

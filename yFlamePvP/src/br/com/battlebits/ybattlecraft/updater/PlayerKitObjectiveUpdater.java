@@ -5,13 +5,13 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 
 public class PlayerKitObjectiveUpdater {
 
-	private yBattleCraft battleCraft;
+	private Battlecraft battleCraft;
 
-	public PlayerKitObjectiveUpdater(yBattleCraft plugin) {
+	public PlayerKitObjectiveUpdater(Battlecraft plugin) {
 		battleCraft = plugin;
 	}
 

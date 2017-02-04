@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.commons.api.item.ItemBuilder;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 
 public class JackHammerAbility extends BaseAbility {
@@ -21,7 +21,7 @@ public class JackHammerAbility extends BaseAbility {
 	private HashMap<UUID, Integer> uses;
 	private ItemStack axe;
 
-	public JackHammerAbility(yBattleCraft bc) {
+	public JackHammerAbility(Battlecraft bc) {
 		super(bc);
 		uses = new HashMap<>();
 		axe = new ItemBuilder().amount(1).type(Material.STONE_AXE).glow().name("§7JackHammer").build();

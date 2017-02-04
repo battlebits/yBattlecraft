@@ -19,7 +19,7 @@ import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.commons.core.account.BattlePlayer;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseWarp;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.constructors.WarpScoreboard;
@@ -32,8 +32,8 @@ public class WarpVoidChallenge extends BaseWarp {
 	private WarpScoreboard scoreboard;
 	private HashMap<UUID, Long> time;
 
-	public WarpVoidChallenge(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public WarpVoidChallenge(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		time = new HashMap<>();
 	}
 
@@ -60,7 +60,7 @@ public class WarpVoidChallenge extends BaseWarp {
 				public void run() {
 					for (Player p : getPlayersInWarp()) {
 						if (time.containsKey(p.getUniqueId())) {
-							String tempo = yBattleCraft.getTimeUtils().formatToMinutesAndSeconds(
+							String tempo = Battlecraft.getTimeUtils().formatToMinutesAndSeconds(
 									(int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000));
 							String p1 = tempo;
 							String p2 = "";
@@ -74,7 +74,7 @@ public class WarpVoidChallenge extends BaseWarp {
 					}
 
 				}
-			}.runTaskAsynchronously(yBattleCraft);
+			}.runTaskAsynchronously(Battlecraft);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class WarpVoidChallenge extends BaseWarp {
 				}
 			}
 			if (time.containsKey(p.getUniqueId())) {
-				p.sendMessage("§5§lVOID CHALLENGE §fVocê sobreviveu por §9§l" + yBattleCraft.getTimeUtils()
+				p.sendMessage("§5§lVOID CHALLENGE §fVocê sobreviveu por §9§l" + Battlecraft.getTimeUtils()
 						.formatToMinutesAndSeconds(
 								(int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000))
 						.toUpperCase() + "§f!");
@@ -129,7 +129,7 @@ public class WarpVoidChallenge extends BaseWarp {
 	}
 
 	@Override
-	protected Warp getWarp(yBattleCraft battleCraft) {
+	protected Warp getWarp(Battlecraft battleCraft) {
 		scoreboard = new WarpScoreboard("void") {
 			@Override
 			public void createScores(Player p) {

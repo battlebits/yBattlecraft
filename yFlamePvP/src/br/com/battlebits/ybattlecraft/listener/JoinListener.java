@@ -1,4 +1,4 @@
-package br.com.battlebits.ybattlecraft.listeners;
+package br.com.battlebits.ybattlecraft.listener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.api.admin.AdminMode;
 import br.com.battlebits.commons.api.title.TitleAPI;
 import br.com.battlebits.commons.core.permission.Group;
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.enums.LoadStatus;
 import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
@@ -30,10 +30,10 @@ import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener {
 
-	private yBattleCraft m;
+	private Battlecraft m;
 	private List<String> novidades;
 
-	public JoinListener(yBattleCraft m) {
+	public JoinListener(Battlecraft m) {
 		this.m = m;
 		novidades = new ArrayList<>();
 		novidades.add("Grande atualização");
@@ -48,7 +48,7 @@ public class JoinListener implements Listener {
 		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.LIGHT) && Bukkit
 				.getOnlinePlayers().size() >= Bukkit.getMaxPlayers() + AdminMode.getInstance().playersInAdmin()) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL,
-					"Lotado! Compre VIP em " + yBattleCraft.site + " e tenha sempre um Slot reservado");
+					"Lotado! Compre VIP em " + Battlecraft.site + " e tenha sempre um Slot reservado");
 		} else if (!Bukkit.hasWhitelist() || Bukkit.getWhitelistedPlayers().contains(p)) {
 			event.allow();
 		} else {

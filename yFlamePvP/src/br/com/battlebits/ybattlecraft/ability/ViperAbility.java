@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
 import br.com.battlebits.ybattlecraft.event.PlayerDamagePlayerEvent;
 
@@ -16,8 +16,8 @@ public class ViperAbility extends BaseAbility {
 	private Random random;
 	private PotionEffect potionEffect;
 
-	public ViperAbility(yBattleCraft yBattleCraft) {
-		super(yBattleCraft);
+	public ViperAbility(Battlecraft Battlecraft) {
+		super(Battlecraft);
 		random = new Random();
 		potionEffect = new PotionEffect(PotionEffectType.POISON, 100, 0);
 	}

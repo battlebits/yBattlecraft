@@ -16,14 +16,14 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
 
-import br.com.battlebits.ybattlecraft.yBattleCraft;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseListener;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.PlayerDeathInWarpEvent;
 
 public class PlayerDeathListener extends BaseListener {
 
-	public PlayerDeathListener(yBattleCraft plugin) {
+	public PlayerDeathListener(Battlecraft plugin) {
 		super(plugin);
 	}
 
