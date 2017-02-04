@@ -1,30 +1,32 @@
 package br.com.battlebits.ybattlecraft.constructors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
+import br.com.battlebits.ybattlecraft.data.DataStatus;
+
 public class Status {
-	private transient UUID uuid;
+	private UUID uniqueId;
 	private int kills = 0;
 	private int deaths = 0;
 	private int killstreak = 0;
-	private List<String> kits = new ArrayList<>();
-	private List<String> kitsFavoritos = new ArrayList<>();
-	private boolean scoreboardEnabled = true;
+	private Set<String> kits = new HashSet<>();
+	private Set<String> kitsFavoritos = new HashSet<>();
+	private transient boolean scoreboardEnabled = true;
 	private transient Map<UUID, Double> damageTaken = new HashMap<>();
 	private transient Map<UUID, Integer> killedPlayers = new HashMap<>();
 	private boolean canResetKD = false;
 
 	public Status(UUID uuid) {
-		this(uuid, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), true);
+		this(uuid, 0, 0, 0, new HashSet<>(), new HashSet<>(), true);
 	}
 
-	public Status(UUID uuid, int kills, int deaths, int killstreak, List<String> kits, List<String> kitsFavoritos,
+	public Status(UUID uuid, int kills, int deaths, int killstreak, Set<String> kits, Set<String> kitsFavoritos,
 			boolean scoreboard) {
-		this.uuid = uuid;
+		this.uniqueId = uuid;
 		this.kills = kills;
 		this.deaths = deaths;
 		this.killstreak = killstreak;
@@ -37,8 +39,8 @@ public class Status {
 		return kills;
 	}
 
-	public UUID getUUID() {
-		return uuid;
+	public UUID getUniqueId() {
+		return uniqueId;
 	}
 
 	public int getDeaths() {
@@ -49,38 +51,34 @@ public class Status {
 		return killstreak;
 	}
 
-	public List<String> getKits() {
+	public Set<String> getKits() {
 		return kits;
 	}
 
-	public List<String> getKitsFavoritos() {
+	public Set<String> getKitsFavoritos() {
 		return kitsFavoritos;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
 	}
 
 	public void setKills(int kills) {
 		this.kills = kills;
-		save();
+		DataStatus.saveStatusField(this, "kills");
 	}
 
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
-		save();
+		DataStatus.saveStatusField(this, "deaths");
 	}
 
 	public void setKillstreak(int killstreak) {
 		this.killstreak = killstreak;
-		save();
+		DataStatus.saveStatusField(this, "killstreak");
 	}
 
 	public boolean addKit(String kitName) {
 		if (hasKit(kitName))
 			return false;
 		kits.add(kitName.toLowerCase());
-		save();
+		DataStatus.saveStatusField(this, "kits");
 		return true;
 	}
 
@@ -88,17 +86,17 @@ public class Status {
 		if (!hasKit(kitName))
 			return false;
 		kits.remove(kitName);
-		save();
+		DataStatus.saveStatusField(this, "kits");
 		return true;
 	}
 
 	public boolean hasKit(String kitName) {
 		if (kits == null)
-			kits = new ArrayList<>();
+			kits = new HashSet<>();
 		if (kits.isEmpty())
 			return false;
 		if (kitName.isEmpty()) {
-			System.out.println("Jogador " + uuid.toString() + " não pode adicionar o kit " + kitName);
+			System.out.println("Jogador " + uniqueId.toString() + " não pode adicionar o kit " + kitName);
 			return true;
 		}
 		return kits.contains(kitName.toLowerCase());
@@ -107,13 +105,13 @@ public class Status {
 	public void addFavoriteKit(String kitName) {
 		if (!kitsFavoritos.contains(kitName)) {
 			kitsFavoritos.add(kitName);
+			DataStatus.saveStatusField(this, "kitsFavoritos");
 		}
-		save();
 	}
 
 	public void removeFavoriteKit(String kitName) {
 		kitsFavoritos.remove(kitName);
-		save();
+		DataStatus.saveStatusField(this, "kitsFavoritos");
 	}
 
 	public void addKills() {
@@ -213,12 +211,6 @@ public class Status {
 			ret += d;
 		}
 		return ret;
-	}
-
-	public void save() {
-		// BattlePlayer player =
-		// BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
-		// TODO SaveEach
 	}
 
 }

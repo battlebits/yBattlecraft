@@ -1,5 +1,9 @@
 package br.com.battlebits.ybattlecraft;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -12,10 +16,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import com.mongodb.MongoCredential;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.bukkit.BukkitMain;
 import br.com.battlebits.commons.bukkit.command.BukkitCommandFramework;
+import br.com.battlebits.commons.core.backend.mongodb.MongoBackend;
+import br.com.battlebits.commons.core.translate.Language;
+import br.com.battlebits.commons.core.translate.Translate;
 import br.com.battlebits.commons.util.updater.AutoUpdater;
 import br.com.battlebits.ybattlecraft.config.Config;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
@@ -54,6 +65,7 @@ import br.com.battlebits.ybattlecraft.manager.TeleportManager;
 import br.com.battlebits.ybattlecraft.manager.WarpManager;
 import br.com.battlebits.ybattlecraft.updater.WarpScoreboardUpdater;
 import br.com.battlebits.ybattlecraft.util.TimeFormater;
+import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 
 public class Battlecraft extends JavaPlugin {
@@ -93,10 +105,10 @@ public class Battlecraft extends JavaPlugin {
 	private TimeFormater timeFormater;
 
 	// Mongo
-	private String hostname = "localhost";
-	private int port = 3306;
-	private String database = "ybattlecraft";
-	private String username = "root";
+	@Getter
+	private MongoBackend mongo;
+	private String database = "battlecraft";
+	private String username = "battlecraft";
 	private String password = "";
 
 	private static Battlecraft instance;
@@ -114,7 +126,13 @@ public class Battlecraft extends JavaPlugin {
 	public void onEnable() {
 		saveDefaultConfig();
 		loadConfiguration();
-		loadTranslations();
+
+		BattlebitsAPI.getMongo().getClient().getCredentialsList()
+				.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
+
+		for (Language lang : Language.values()) {
+			Translate.loadTranslations("Battlecraft", lang, loadTranslation(lang));
+		}
 		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
 		loadAbilities();
 		loadWorlds();
@@ -197,17 +215,22 @@ public class Battlecraft extends JavaPlugin {
 		}
 	}
 
-	private void loadTranslations() {
-		BattlebitsAPI.debug("TRANSLATIONS > LOADING");
-
+	private void loadConfiguration() {
+		database = getConfig().getString("mongo.database");
+		username = getConfig().getString("mongo.username");
+		password = getConfig().getString("mongo.password");
 	}
 
-	private void loadConfiguration() {
-		hostname = getConfig().getString("database.hostname");
-		port = getConfig().getInt("database.port");
-		database = getConfig().getString("database.database");
-		username = getConfig().getString("database.username");
-		password = getConfig().getString("database.password");
+	@SuppressWarnings("unchecked")
+	private Map<String, String> loadTranslation(Language language) {
+		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
+		MongoCollection<Document> collection = database.getCollection("translation");
+		Document found = collection.find(Filters.eq("language", language.toString())).first();
+		if (found != null) {
+			return (Map<String, String>) found.get("map");
+		}
+		collection.insertOne(new Document("language", language.toString()).append("map", new HashMap<>()));
+		return new HashMap<>();
 	}
 
 	private void loadAbilities() {

@@ -2,7 +2,6 @@ package br.com.battlebits.ybattlecraft.listener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -10,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
@@ -22,6 +22,7 @@ import br.com.battlebits.commons.api.title.TitleAPI;
 import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
+import br.com.battlebits.ybattlecraft.data.DataStatus;
 import br.com.battlebits.ybattlecraft.enums.LoadStatus;
 import br.com.battlebits.ybattlecraft.event.StatusLoadEvent;
 import br.com.battlebits.ybattlecraft.hotbar.Hotbar;
@@ -86,11 +87,15 @@ public class JoinListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onAsync(PlayerLoginEvent event) {
-		if (event.getResult() != Result.ALLOWED) {
-			return;
-		}
-		loadStatus(event.getPlayer());
+	public void onAsync(AsyncPlayerPreLoginEvent event) {
+		Status status = DataStatus.createIfNotExistMongo(event.getUniqueId());
+		m.getStatusManager().addPlayer(event.getUniqueId(), status);
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onLogin(PlayerLoginEvent event) {
+		if(event.getResult() != Result.ALLOWED)
+			m.getStatusManager().removePlayer(event.getPlayer());
 	}
 
 	@EventHandler
@@ -102,7 +107,6 @@ public class JoinListener implements Listener {
 			m.getProtectionManager().addProtection(p.getUniqueId());
 			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
 				AdminMode.getInstance().setAdmin(p);
-			loadStatus(p.getUniqueId());
 		}
 	}
 
@@ -114,18 +118,4 @@ public class JoinListener implements Listener {
 		m.getServer().getPluginManager().callEvent(evente);
 	}
 
-	private void loadStatus(Player p) {
-		loadStatus(p.getUniqueId());
-	}
-
-	private void loadStatus(UUID uuid) {
-		// BattlePlayer player =
-		// BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
-		Status status = null;// player.getGameStatus().getMinigame(GameType.BATTLECRAFT_PVP_STATUS,
-								// Status.class);
-		if (status == null)
-			status = new Status(uuid);
-		status.setUuid(uuid);
-		m.getStatusManager().addPlayer(uuid, status);
-	}
 }

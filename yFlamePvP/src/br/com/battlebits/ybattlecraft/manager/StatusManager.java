@@ -1,7 +1,7 @@
 package br.com.battlebits.ybattlecraft.manager;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -29,8 +29,8 @@ public class StatusManager {
 		statusList.put(uuid, status);
 	}
 
-	public void addPlayer(UUID uuid, int kills, int deaths, int killstreak, List<String> kitList,
-			List<String> kitsFavoritos) {
+	public void addPlayer(UUID uuid, int kills, int deaths, int killstreak, Set<String> kitList,
+			Set<String> kitsFavoritos) {
 		statusList.put(uuid, new Status(uuid, kills, deaths, killstreak, kitList, kitsFavoritos, true));
 	}
 

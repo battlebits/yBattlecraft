@@ -17,6 +17,7 @@ import br.com.battlebits.commons.core.translate.Language;
 import br.com.battlebits.commons.core.translate.Translate;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
+import br.com.battlebits.ybattlecraft.data.DataStatus;
 
 public class GiveKitCommand implements CommandClass {
 
@@ -58,12 +59,7 @@ public class GiveKitCommand implements CommandClass {
 		if (Bukkit.getPlayer(uuid) != null)
 			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
-			playerStatus = null;// TODO GetPlayerStatus
-		if (playerStatus == null) {
-			System.out.println("NEW STATUS");
-			playerStatus = new Status(player.getUniqueId());
-		}
-		playerStatus.setUuid(player.getUniqueId());
+			playerStatus = DataStatus.createIfNotExistMongo(uuid);
 		if (playerStatus.addKit(kitName))
 			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "command-givekit-success")
 					.replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getName()));

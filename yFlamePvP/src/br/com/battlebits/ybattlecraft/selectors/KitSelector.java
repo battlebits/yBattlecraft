@@ -283,7 +283,7 @@ public class KitSelector {
 		if (list == null) {
 			list = new ArrayList<Kit>();
 		}
-		List<String> kitsFavoritos = m.getStatusManager().getStatusByUuid(player.getUniqueId()).getKitsFavoritos();
+		List<String> kitsFavoritos = new ArrayList<>(m.getStatusManager().getStatusByUuid(player.getUniqueId()).getKitsFavoritos());
 		if (kitsFavoritos != null && !kitsFavoritos.isEmpty()) {
 			Collections.sort(kitsFavoritos);
 			for (String name : kitsFavoritos) {

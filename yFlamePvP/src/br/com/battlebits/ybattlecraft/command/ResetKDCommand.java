@@ -21,6 +21,7 @@ import br.com.battlebits.commons.core.translate.Language;
 import br.com.battlebits.commons.core.translate.Translate;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
+import br.com.battlebits.ybattlecraft.data.DataStatus;
 import br.com.battlebits.ybattlecraft.event.PlayerResetKDEvent;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -72,9 +73,7 @@ public class ResetKDCommand implements CommandClass {
 		if (Bukkit.getPlayer(uuid) != null)
 			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
-			playerStatus = null;// TODO GetPlayerStatus
-		if (playerStatus == null)
-			playerStatus = new Status(player.getUniqueId());
+			playerStatus = DataStatus.createIfNotExistMongo(uuid);
 		playerStatus.setCanResetKD();
 		final Language lang = language;
 		final String userName = player.getName();
@@ -140,10 +139,7 @@ public class ResetKDCommand implements CommandClass {
 		if (Bukkit.getPlayer(uuid) != null)
 			playerStatus = Battlecraft.getInstance().getStatusManager().getStatusByUuid(uuid);
 		else
-			playerStatus = null;// TODO Load Status
-		if (playerStatus == null)
-			playerStatus = new Status(player.getUniqueId());
-		playerStatus.setUuid(player.getUniqueId());
+			playerStatus = DataStatus.createIfNotExistMongo(uuid);
 		String resetKDPrefix = Translate.getTranslation(player.getLanguage(), "command-resetkd-prefix") + " ";
 		switch (cmdArgs.getArgs()[0].toLowerCase()) {
 		case "accept":
