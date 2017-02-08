@@ -2,6 +2,7 @@ package br.com.battlebits.ybattlecraft.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -20,6 +21,8 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.battlebits.commons.BattlebitsAPI;
+import br.com.battlebits.commons.bukkit.event.admin.PlayerAdminModeEvent;
+import br.com.battlebits.commons.bukkit.event.admin.PlayerAdminModeEvent.AdminMode;
 import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
 import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.ybattlecraft.Battlecraft;
@@ -48,6 +51,13 @@ public class PlayerListener implements Listener {
 	}
 
 	@EventHandler
+	public void onAdminMonde(PlayerAdminModeEvent event) {
+		if (event.getAdminMode() == AdminMode.PLAYER) {
+			event.setGameMode(GameMode.ADVENTURE);
+		}
+	}
+
+	@EventHandler
 	public void onLeaves(LeavesDecayEvent event) {
 		event.setCancelled(true);
 	}
@@ -60,7 +70,10 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
-		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL) && (event.getMessage().toLowerCase().contains("hack") || event.getMessage().toLowerCase().contains("autosoup") || event.getMessage().toLowerCase().contains("forcefield"))) {
+		if (!BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL)
+				&& (event.getMessage().toLowerCase().contains("hack")
+						|| event.getMessage().toLowerCase().contains("autosoup")
+						|| event.getMessage().toLowerCase().contains("forcefield"))) {
 			/*
 			 * BarAPI.setMessage(event.getPlayer(), ChatColor.RED +
 			 * "Use /report para reportar um player!", 5);
@@ -89,7 +102,8 @@ public class PlayerListener implements Listener {
 			event.setCancelled(true);
 			return;
 		}
-		if (item.getType().toString().contains("HELMET") || item.getType().toString().contains("CHESTPLATE") || item.getType().toString().contains("LEGGING") || item.getType().toString().contains("BOOTS")) {
+		if (item.getType().toString().contains("HELMET") || item.getType().toString().contains("CHESTPLATE")
+				|| item.getType().toString().contains("LEGGING") || item.getType().toString().contains("BOOTS")) {
 			event.setCancelled(true);
 			return;
 		}
@@ -115,7 +129,9 @@ public class PlayerListener implements Listener {
 			String motd = ChatColor.GOLD + "BattleCraft";
 			if (!Battlecraft.motd.isEmpty())
 				motd = motd + " - " + Battlecraft.motd;
-			event.setMotd(motd + "\n" + ChatColor.DARK_PURPLE + "ENTRE! EVENTO " + Battlecraft.currentEvento.getType().toString().toUpperCase() + " COMECA EM " + Battlecraft.currentEvento.getTime() + "s");
+			event.setMotd(motd + "\n" + ChatColor.DARK_PURPLE + "ENTRE! EVENTO "
+					+ Battlecraft.currentEvento.getType().toString().toUpperCase() + " COMECA EM "
+					+ Battlecraft.currentEvento.getTime() + "s");
 		} else {
 			String motd = ChatColor.GOLD + "BattleCraft";
 			if (!Battlecraft.motd.isEmpty())

@@ -29,7 +29,8 @@ public class PlayerHideListener extends BaseListener {
 	public void onVanish(PlayerShowToPlayerEvent event) {
 		if (battleCraft.getPlayerHideManager().isHidingAllPlayers(event.getToPlayer())) {
 			event.setCancelled(true);
-		} else if (battleCraft.getPlayerHideManager().isHiding(event.getPlayer())) {
+		}
+		if (battleCraft.getPlayerHideManager().isHiding(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}

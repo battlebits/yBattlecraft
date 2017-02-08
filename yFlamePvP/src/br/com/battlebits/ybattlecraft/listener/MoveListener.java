@@ -9,8 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent;
+import br.com.battlebits.commons.bukkit.event.update.UpdateEvent.UpdateType;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Warp;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
@@ -26,30 +27,27 @@ public class MoveListener implements Listener {
 		m = Battlecraft;
 		manager = Battlecraft.getWarpManager();
 		locations = new HashMap<>();
-		startUpdater();
-	}
-
-	public void startUpdater() {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					if (locations.containsKey(p.getUniqueId())) {
-						Location from = locations.get(p.getUniqueId());
-						if (from.getX() == p.getLocation().getX() && from.getZ() == p.getLocation().getZ() && from.getY() == p.getLocation().getY()
-								&& from.distance(p.getLocation()) < 1)
-							continue;
-						m.getServer().getPluginManager().callEvent(new RealMoveEvent(p, from, p.getLocation()));
-					}
-					locations.put(p.getUniqueId(), p.getLocation());
-				}
-			}
-		}.runTaskTimerAsynchronously(m, 0, 0);
 	}
 
 	@EventHandler
 	public void onLeave(PlayerQuitEvent event) {
 		locations.remove(event.getPlayer().getUniqueId());
+	}
+
+	@EventHandler
+	public void onUpdate(UpdateEvent event) {
+		if (event.getType() != UpdateType.TICK)
+			return;
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (locations.containsKey(p.getUniqueId())) {
+				Location from = locations.get(p.getUniqueId());
+				if (from.getX() == p.getLocation().getX() && from.getZ() == p.getLocation().getZ()
+						&& from.getY() == p.getLocation().getY() && from.distance(p.getLocation()) < 1)
+					continue;
+				m.getServer().getPluginManager().callEvent(new RealMoveEvent(p, from, p.getLocation()));
+			}
+			locations.put(p.getUniqueId(), p.getLocation());
+		}
 	}
 
 	@EventHandler

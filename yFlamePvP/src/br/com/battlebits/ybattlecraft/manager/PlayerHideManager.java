@@ -36,7 +36,7 @@ public class PlayerHideManager {
 
 	public void hidePlayer(Player p) {
 		hidePlayers.add(p.getUniqueId());
-		VanishAPI.getInstance().showPlayer(p);
+		VanishAPI.getInstance().updateVanish(p);
 	}
 
 	public boolean isHiding(Player p) {
@@ -47,7 +47,7 @@ public class PlayerHideManager {
 		if (hidePlayers.contains(p.getUniqueId())) {
 			hidePlayers.remove(p.getUniqueId());
 		}
-		VanishAPI.getInstance().showPlayer(p);
+		VanishAPI.getInstance().updateVanish(p);
 	}
 
 	public void tryToRemoveFromLists(UUID id) {

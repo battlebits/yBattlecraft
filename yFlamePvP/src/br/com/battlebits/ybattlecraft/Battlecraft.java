@@ -127,8 +127,10 @@ public class Battlecraft extends JavaPlugin {
 		saveDefaultConfig();
 		loadConfiguration();
 
-		BattlebitsAPI.getMongo().getClient().getCredentialsList()
-				.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
+		if (username != null && !username.isEmpty() && database != null && !database.isEmpty() && password != null
+				&& !password.isEmpty())
+			BattlebitsAPI.getMongo().getClient().getCredentialsList()
+					.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
 
 		for (Language lang : Language.values()) {
 			Translate.loadTranslations("Battlecraft", lang, loadTranslation(lang));

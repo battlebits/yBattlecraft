@@ -1,5 +1,5 @@
-name: yBattleCraft
+name: BattleCraft
 authors: [GustavoInacio, vitorrdgs]
-main: br.com.battlebits.ybattlecraft.yBattleCraft
+main: br.com.battlebits.ybattlecraft.Battlecraft
 version: 0.3 BETA
-depend: [Commons]
+depend: [Commons, BattleAnticheat]
