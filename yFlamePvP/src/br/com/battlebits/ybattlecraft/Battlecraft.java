@@ -331,7 +331,7 @@ public class Battlecraft extends JavaPlugin {
 		String command = IS_FULLIRON_MODE ? "PVPFulliron" : "PVPSimulator";
 		ByteArrayDataOutput outp = ByteStreams.newDataOutput();
 		outp.writeUTF(command);
-		p.sendPluginMessage(BukkitMain.getPlugin(), "BungeeCord", outp.toByteArray());
+		p.sendPluginMessage(BukkitMain.getInstance(), "BungeeCord", outp.toByteArray());
 		p.kickPlayer(ChatColor.RED + "O servidor está se preparando para reiniciar e você foi kickado do servidor.");
 	}
 
