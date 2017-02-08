@@ -139,7 +139,6 @@ public class PlayerListener implements Listener {
 			motd = motd + "\n" + ChatColor.BOLD + ChatColor.AQUA + "Entre para treinar seu PvP";
 			event.setMotd(motd);
 		}
-		event.setMaxPlayers(150);
 	}
 
 	@EventHandler
