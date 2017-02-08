@@ -81,7 +81,7 @@ public class Hotbar {
 		nomekits.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "1v1 Normal");
 		nomekits.setLore(Arrays.asList(ChatColor.GRAY + "Clique em alguem", ChatColor.GRAY + "para desafiar em 1v1 normal"));
 		bastao.setItemMeta(nomekits);
-		ItemStack grade = new ItemStack(Material.IRON_FENCE);
+		ItemStack grade = new ItemStack(Material.ITEM_FRAME);
 		ItemMeta nomevips = grade.getItemMeta();
 		nomevips.setDisplayName(ChatColor.AQUA.toString() + ChatColor.BOLD + "1v1 Customizado");
 		nomevips.setLore(Arrays.asList(ChatColor.GRAY + "Clique em alguem", ChatColor.GRAY + "para desafiar em 1v1 customizado"));

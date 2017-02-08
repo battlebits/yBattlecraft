@@ -13,7 +13,6 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.battlebits.commons.BattlebitsAPI;
@@ -95,18 +94,6 @@ public class JoinListener implements Listener {
 	public void onLogin(PlayerLoginEvent event) {
 		if(event.getResult() != Result.ALLOWED)
 			m.getStatusManager().removePlayer(event.getPlayer());
-	}
-
-	@EventHandler
-	public void onPluginReload(PluginEnableEvent event) {
-		for (Player p : m.getServer().getOnlinePlayers()) {
-			m.getWarpManager().teleportWarp(p, "spawn", false);
-			p.setHealth(20.0);
-			Hotbar.setItems(p);
-			m.getProtectionManager().addProtection(p.getUniqueId());
-			if (BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).hasGroupPermission(Group.TRIAL))
-				AdminMode.getInstance().setAdmin(p);
-		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)

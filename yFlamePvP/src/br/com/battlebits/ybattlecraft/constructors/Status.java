@@ -15,7 +15,7 @@ public class Status {
 	private int killstreak = 0;
 	private Set<String> kits = new HashSet<>();
 	private Set<String> kitsFavoritos = new HashSet<>();
-	private transient boolean scoreboardEnabled = true;
+	private boolean scoreboardEnabled = true;
 	private transient Map<UUID, Double> damageTaken = new HashMap<>();
 	private transient Map<UUID, Integer> killedPlayers = new HashMap<>();
 	private boolean canResetKD = false;
@@ -130,6 +130,7 @@ public class Status {
 
 	public void setScoreboardEnabled(boolean scoreboardEnabled) {
 		this.scoreboardEnabled = scoreboardEnabled;
+		DataStatus.saveStatusField(this, "scoreboardEnabled");
 	}
 
 	public void addKill(UUID uuid) {
@@ -144,6 +145,7 @@ public class Status {
 
 	public void setCanResetKD() {
 		this.canResetKD = true;
+		DataStatus.saveStatusField(this, "canResetKD");
 	}
 
 	public boolean resetKD() {

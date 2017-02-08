@@ -133,7 +133,7 @@ public class Warp1v1 extends BaseWarp {
 			return;
 		if (item == null)
 			return;
-		if (item.getType() != Material.BLAZE_ROD && item.getType() != Material.IRON_FENCE)
+		if (item.getType() != Material.BLAZE_ROD && item.getType() != Material.ITEM_FRAME)
 			return;
 		ChanllengeType type;
 		Player clicado = (Player) e;
@@ -142,7 +142,7 @@ public class Warp1v1 extends BaseWarp {
 			return;
 		}
 		switch (item.getType()) {
-		case IRON_FENCE:
+		case ITEM_FRAME:
 			type = ChanllengeType.CUSTOM;
 			break;
 		default:
