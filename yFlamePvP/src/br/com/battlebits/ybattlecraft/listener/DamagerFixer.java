@@ -59,7 +59,7 @@ public class DamagerFixer implements Listener {
 			damage += 1;
 		}
 		if (isMore)
-			damage -= 2;
+			damage -= 1;
 		if(p.getItemInHand().getType().name().endsWith("SWORD")){
 			p.getItemInHand().setDurability((short) 0);
 			p.updateInventory();

@@ -805,7 +805,7 @@ public class Warp1v1 extends BaseWarp {
 
 				@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGHEST)
 				public void onPlayerShow(PlayerShowToPlayerEvent event) {
-					if (event.isCancelled() && isIn1v1(event.getToPlayer()) && isIn1v1(event.getPlayer()))
+					if (event.isCancelled() && isInPvP(event.getToPlayer()) && isInPvP(event.getPlayer()))
 						event.setCancelled(false);
 				}
 

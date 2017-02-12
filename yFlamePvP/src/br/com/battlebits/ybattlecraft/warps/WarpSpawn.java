@@ -279,12 +279,12 @@ public class WarpSpawn extends BaseWarp {
 		warp.addKit(new Kit(battleCraft, "Magma", "Voce tem 10% de chance de deixar seu inimigo",
 				new ArrayList<ItemStack>(), new ItemStack(Material.LAVA_BUCKET), 1000, KitType.FORCA,
 				Arrays.asList("magma")));
-		warp.addKit(
-				new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
-						Arrays.asList(builder.type(Material.BOW).amount(1).name("§b§lArcher Bow")
-								.enchantment(Enchantment.ARROW_DAMAGE).enchantment(Enchantment.ARROW_INFINITE).build(),
-								builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()),
-						new ItemStack(Material.BOW), 1, KitType.NEUTRO, new ArrayList<>()));
+		warp.addKit(new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
+				Arrays.asList(
+						builder.type(Material.BOW).amount(1).name("§b§lArcher Bow")
+								.enchantment(Enchantment.ARROW_INFINITE).build(),
+						builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()),
+				new ItemStack(Material.BOW), 1, KitType.ESTRATEGIA, new ArrayList<>()));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.STONE_AXE), 1000, KitType.ESTRATEGIA,

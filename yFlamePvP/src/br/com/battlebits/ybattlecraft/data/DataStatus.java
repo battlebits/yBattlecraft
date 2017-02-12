@@ -49,11 +49,44 @@ public class DataStatus extends Data {
 		if (!jsonObject.has(fieldName))
 			return;
 		JsonElement element = jsonObject.get(fieldName);
-
+		Object value = null;
+		if (!element.isJsonPrimitive()) {
+			value = Document.parse(element.toString());
+		} else {
+			if (element.getAsJsonPrimitive().isBoolean()) {
+				value = element.getAsBoolean();
+			} else if (element.getAsJsonPrimitive().isNumber()) {
+				try {
+					value = Long.parseLong(element.getAsString());
+				} catch (Exception e2) {
+					try {
+						value = Byte.parseByte(element.getAsString());
+					} catch (Exception e3) {
+						try {
+							value = Short.parseShort(element.getAsString());
+						} catch (Exception e4) {
+							try {
+								value = Integer.parseInt(element.getAsString());
+							} catch (Exception e5) {
+								try {
+									value = Double.parseDouble(element.getAsString());
+								} catch (Exception e) {
+									try {
+										value = Float.parseFloat(element.getAsString());
+									} catch (Exception e1) {
+									}
+								}
+							}
+						}
+					}
+				}
+			} else {
+				value = element.getAsString();
+			}
+		}
 		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
 		MongoCollection<Document> collection = database.getCollection("status");
 		collection.updateOne(Filters.eq("uniqueId", status.getUniqueId().toString()),
-				new Document("$set", new Document(fieldName, (element.isJsonObject()
-						? Document.parse(element.getAsJsonObject().toString()) : element.getAsString()))));
+				new Document("$set", new Document(fieldName, value)));
 	}
 }
