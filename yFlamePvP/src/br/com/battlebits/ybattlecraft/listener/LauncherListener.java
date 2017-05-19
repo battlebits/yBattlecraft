@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.util.Vector;
 
-import br.com.battlebits.anticheat.BattleAnticheat;
+// import br.com.battlebits.anticheat.BattleAnticheat;
 import br.com.battlebits.ybattlecraft.event.RealMoveEvent;
 
 public class LauncherListener implements Listener {
@@ -40,7 +40,7 @@ public class LauncherListener implements Listener {
 			p.setVelocity(new Vector(xvel, yvel, zvel));
 			p.playSound(p.getLocation(), Sound.HORSE_JUMP, 10.0f, 1.0f);
 			noFallDamage.add(p.getUniqueId());
-			BattleAnticheat.disableNoFall(p);
+			// BattleAnticheat.disableNoFall(p);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class LauncherListener implements Listener {
 		if (noFallDamage.contains(p.getUniqueId())) {
 			event.setCancelled(true);
 			noFallDamage.remove(p.getUniqueId());
-			BattleAnticheat.enableNoFall(p);
+			// BattleAnticheat.enableNoFall(p);
 		}
 	}
 }

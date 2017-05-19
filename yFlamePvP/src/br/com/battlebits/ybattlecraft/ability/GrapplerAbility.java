@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import br.com.battlebits.anticheat.BattleAnticheat;
+//import br.com.battlebits.anticheat.BattleAnticheat;
 import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
@@ -61,7 +61,7 @@ public class GrapplerAbility extends BaseAbility {
 							v.setY(v_y);
 							v.setZ(v_z);
 							e.getPlayer().setVelocity(v);
-							BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
+							// BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
 							if (playerLoc.getY() < hook.getBukkitEntity().getLocation().getY()) {
 								e.getPlayer().setFallDistance(0);
 							}
@@ -125,7 +125,7 @@ public class GrapplerAbility extends BaseAbility {
 								v.setY(v_y);
 								v.setZ(v_z);
 								e.getPlayer().setVelocity(v);
-								BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
+								//BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
 								if (e.getPlayer().getLocation().getY() < hook.getBukkitEntity().getLocation().getY()) {
 									e.getPlayer().setFallDistance(0);
 								}

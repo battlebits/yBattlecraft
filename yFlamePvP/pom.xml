@@ -43,11 +43,6 @@
 		</repository>
 	</repositories>
 	<dependencies>
-	<dependency>
-			<groupId>br.com.battlebits</groupId>
-			<artifactId>BattleAnticheat</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>br.com.battlebits</groupId>
 			<artifactId>Commons</artifactId>

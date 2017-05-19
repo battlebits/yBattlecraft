@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import br.com.battlebits.anticheat.BattleAnticheat;
+//import br.com.battlebits.anticheat.BattleAnticheat;
 import br.com.battlebits.commons.api.item.ItemBuilder;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.base.BaseAbility;
@@ -30,7 +30,7 @@ public class KangarooAbility extends BaseAbility {
 		super(Battlecraft);
 		doubleJump = new ArrayList<>();
 		abilityItem = new ItemBuilder().amount(1).type(Material.FIREWORK).glow()
-				.lore("§7Utilize seu foguete para ser lancado para onde voce desejar").name("§6§lKangaroo Boost")
+				.lore("ï¿½7Utilize seu foguete para ser lancado para onde voce desejar").name("ï¿½6ï¿½lKangaroo Boost")
 				.build();
 		getItens().add(abilityItem);
 	}
@@ -52,7 +52,7 @@ public class KangarooAbility extends BaseAbility {
 								vector.setY(0.65F);
 							}
 							e.getPlayer().setVelocity(vector);
-							BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
+							//BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
 							if (doubleJump.contains(e.getPlayer().getUniqueId())) {
 								doubleJump.remove(e.getPlayer().getUniqueId());
 							}
@@ -63,13 +63,13 @@ public class KangarooAbility extends BaseAbility {
 									vector.multiply(0.3F);
 									vector.setY(0.85F);
 									e.getPlayer().setVelocity(vector);
-									BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
+									//BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
 									doubleJump.add(e.getPlayer().getUniqueId());
 								} else {
 									vector.multiply(1F);
 									vector.setY(0.65F);
 									e.getPlayer().setVelocity(vector);
-									BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
+									//BattleAnticheat.disableFlyCheck(e.getPlayer(), 300);
 									doubleJump.add(e.getPlayer().getUniqueId());
 								}
 							}
