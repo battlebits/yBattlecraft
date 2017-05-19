@@ -53,66 +53,66 @@ public class ItemFrameListener implements Listener {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.DAMAGE_ALL, 1);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("afiada ii")) {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.DAMAGE_ALL, 2);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("afiada iii")) {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.DAMAGE_ALL, 3);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("repulsao i")) {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.KNOCKBACK, 1);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("repulsao ii")) {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.KNOCKBACK, 2);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("repulsao iii")) {
 				if (p.getItemInHand().getType().toString().contains("_SWORD")) {
 					p.getItemInHand().addEnchantment(Enchantment.KNOCKBACK, 3);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voco so pode encantar espadas");
 				}
 				return;
-			} else if (line.toLowerCase().contains("inquebrável i")) {
+			} else if (line.toLowerCase().contains("inquebravel i")) {
 				String s = p.getItemInHand().getType().toString();
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 1);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas ou armaduras");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas ou armaduras");
 				}
 				return;
-			} else if (line.toLowerCase().contains("inquebrável ii")) {
+			} else if (line.toLowerCase().contains("inquebravel ii")) {
 				String s = p.getItemInHand().getType().toString();
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 2);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
-			} else if (line.toLowerCase().contains("inquebrável iii")) {
+			} else if (line.toLowerCase().contains("inquebravel iii")) {
 				String s = p.getItemInHand().getType().toString();
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS") || s.contains("_SWORD") || s.contains("_AXE")) {
 					p.getItemInHand().addEnchantment(Enchantment.DURABILITY, 3);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar espadas");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar espadas");
 				}
 				return;
 			} else if (line.toLowerCase().contains("protecao i")) {
@@ -120,7 +120,7 @@ public class ItemFrameListener implements Listener {
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS")) {
 					p.getItemInHand().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar armaduras");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar armaduras");
 				}
 				return;
 			} else if (line.toLowerCase().contains("protecao ii")) {
@@ -128,7 +128,7 @@ public class ItemFrameListener implements Listener {
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS")) {
 					p.getItemInHand().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar armaduras");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar armaduras");
 				}
 				return;
 			} else if (line.toLowerCase().contains("protecao iii")) {
@@ -136,7 +136,7 @@ public class ItemFrameListener implements Listener {
 				if (s.contains("_CHESTPLATE") || s.contains("_HELMET") || s.contains("_LEGGINGS") || s.contains("_BOOTS")) {
 					p.getItemInHand().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
 				} else {
-					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas você só pode encantar armaduras");
+					p.sendMessage(ChatColor.DARK_RED + "Desculpe, mas voce so pode encantar armaduras");
 				}
 				return;
 			} else if (line.toLowerCase().contains("marrons")) {
@@ -161,46 +161,46 @@ public class ItemFrameListener implements Listener {
 
 			} else if (line.toLowerCase().contains("facil")) {
 				if (p.getFireTicks() > 0) {
-					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
+					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto esta em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel fácil do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(1) + "  por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel facil do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(1) + "  por completar o Lava Challenge");
 				return;
-			} else if (line.toLowerCase().contains("médio")) {
+			} else if (line.toLowerCase().contains("medio")) {
 				if (p.getFireTicks() > 0) {
-					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
+					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto esta em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel médio do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(3) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel medio do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(3) + " por completar o Lava Challenge");
 				return;
-			} else if (line.toLowerCase().contains("difícil")) {
+			} else if (line.toLowerCase().contains("dificil")) {
 				if (p.getFireTicks() > 0) {
-					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
+					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto esta em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
-				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel difícil do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(5) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce completou o nivel dificil do Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(5) + " por completar o Lava Challenge");
 			} else if (line.toLowerCase().contains("extreme")) {
 				if (p.getFireTicks() > 0) {
-					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
+					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto esta em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
 				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + p.getName() + " completou o nivel extreme do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(10) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(10) + " por completar o Lava Challenge");
 			} else if (line.toLowerCase().contains("impossible")) {
 				if (p.getFireTicks() > 0) {
-					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto está em chamas!");
+					p.sendMessage(ChatColor.RED + "Voce nao pode se teleportar enquanto esta em chamas!");
 					return;
 				}
 				m.getWarpManager().teleportWarp(p, "Lava Challenge".toLowerCase().trim(), false);
 				Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "LavaChallenge" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + p.getName() + " completou o nivel impossible do Lava Challenge");
-				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Você recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(15) + " por completar o Lava Challenge");
+				p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Money" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " >> " + ChatColor.GRAY + "Voce recebeu " + BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId()).addMoney(15) + " por completar o Lava Challenge");
 			}
 			return;
 		}
@@ -255,16 +255,16 @@ public class ItemFrameListener implements Listener {
 			} else if (item.getType() == Material.BEDROCK) {
 				item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
 				if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
-					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Inquebrável I");
+					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Inquebravel I");
 					return;
 				}
 				String line = item.getItemMeta().getDisplayName();
 				if (line.equalsIgnoreCase("inquebravel ii")) {
-					setMessage(frame, item, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Inquebrável II");
+					setMessage(frame, item, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Inquebravel II");
 				} else if (line.equalsIgnoreCase("inquebravel iii")) {
-					setMessage(frame, item, ChatColor.RED.toString() + ChatColor.BOLD + "Inquebrável III");
+					setMessage(frame, item, ChatColor.RED.toString() + ChatColor.BOLD + "Inquebravel III");
 				} else {
-					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Inquebrável I");
+					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Inquebravel I");
 				}
 			} else if (item.getType() == Material.RED_MUSHROOM) {
 				setMessage(frame, item, ChatColor.RED.toString() + ChatColor.BOLD + "Cogumelos Vermelhos");
@@ -279,15 +279,15 @@ public class ItemFrameListener implements Listener {
 					return;
 				String line = item.getItemMeta().getDisplayName();
 				if (line.equalsIgnoreCase("facil")) {
-					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Nível Facil Completado");
+					setMessage(frame, item, ChatColor.GREEN.toString() + ChatColor.BOLD + "Nivel Facil Completado");
 				} else if (line.equalsIgnoreCase("medio")) {
-					setMessage(frame, item, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Nível Médio Completado");
+					setMessage(frame, item, ChatColor.YELLOW.toString() + ChatColor.BOLD + "Nivel Medio Completado");
 				} else if (line.equalsIgnoreCase("dificil")) {
-					setMessage(frame, item, ChatColor.RED.toString() + ChatColor.BOLD + "Nível Difícil Completado");
+					setMessage(frame, item, ChatColor.RED.toString() + ChatColor.BOLD + "Nivel Dificil Completado");
 				} else if (line.equalsIgnoreCase("extreme")) {
-					setMessage(frame, item, ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Nível Extreme Completado");
+					setMessage(frame, item, ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Nivel Extreme Completado");
 				} else if (line.equalsIgnoreCase("impossible")) {
-					setMessage(frame, item, ChatColor.GOLD.toString() + ChatColor.BOLD + "Nível Impossible Completado");
+					setMessage(frame, item, ChatColor.GOLD.toString() + ChatColor.BOLD + "Nivel Impossible Completado");
 				}
 			}
 		}

@@ -19,7 +19,7 @@ public class PlayerKitObjectiveUpdater {
 		Scoreboard sb = player.getScoreboard();
 		Objective ob = sb.getObjective("kills");
 		if (ob != null) {
-			if (ob.getDisplayName().replace("KS §e| Kit ", "").equalsIgnoreCase(battleCraft.getKitManager().getCurrentKit(target.getUniqueId()))) {
+			if (ob.getDisplayName().replace("KS Â§e| Kit ", "").equalsIgnoreCase(battleCraft.getKitManager().getCurrentKit(target.getUniqueId()))) {
 				return;
 			} else {
 				ob.unregister();
@@ -27,7 +27,7 @@ public class PlayerKitObjectiveUpdater {
 		}
 		ob = sb.registerNewObjective("kills", "dummy");
 		ob.setDisplaySlot(DisplaySlot.BELOW_NAME);
-		String kitName = "KS §e| Kit " + battleCraft.getKitManager().getCurrentKit(target.getUniqueId());
+		String kitName = "KS Â§e| Kit " + battleCraft.getKitManager().getCurrentKit(target.getUniqueId());
 		if (kitName.length() > 32) {
 			kitName = kitName.substring(0, 32);
 		}

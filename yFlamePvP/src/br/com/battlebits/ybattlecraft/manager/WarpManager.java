@@ -47,7 +47,7 @@ public class WarpManager {
 			return;
 		}
 		if (warp.getWarpLocation() == null) {
-			p.sendMessage("§9§lTELEPORTE §fEsta warp esta em §3§lMANUTENÇãO");
+			p.sendMessage("Â§9Â§lTELEPORTE Â§fEsta warp esta em Â§3Â§lMANUTENCAO");
 			return;
 		}
 		WarpTeleportEvent event = new WarpTeleportEvent(p, warp, aviso);
@@ -61,9 +61,9 @@ public class WarpManager {
 			p.removePotionEffect(potion.getType());
 		}
 		if (event.hasAviso()) {
-			p.sendMessage("§9§lTELEPORTE §fVocê foi teleportado para §3§l" + warp.getWarpName());
+			p.sendMessage("Â§9Â§lTELEPORTE Â§fVoce foi teleportado para Â§3Â§l" + warp.getWarpName());
 			TitleAPI.setTitle(p, ChatColor.YELLOW + "Warp " + Formatter.getFormattedName(warp.getWarpName()),
-					"Você foi teleportado");
+					"Voce foi teleportado");
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 		}
 		p.teleport(warp.getWarpLocation());

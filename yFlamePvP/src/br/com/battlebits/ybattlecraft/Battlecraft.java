@@ -273,7 +273,7 @@ public class Battlecraft extends JavaPlugin {
 		warpLoader.initializeAllWarps();
 		warpLoader.registerWarpsListeners();
 		Warp simulator = new Warp("Simulator",
-				"Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e v� para a luta",
+				"Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e va para a luta",
 				new ItemStack(Material.RED_MUSHROOM), null);
 		getWarpManager().addWarp(simulator);
 		Warp startgame = new Warp("StartGame", "Utilize esta Warp para treinar o pvp sem armadura e espadas de madeira",
@@ -320,7 +320,7 @@ public class Battlecraft extends JavaPlugin {
 		ByteArrayDataOutput outp = ByteStreams.newDataOutput();
 		outp.writeUTF(command);
 		p.sendPluginMessage(BukkitMain.getInstance(), "BungeeCord", outp.toByteArray());
-		p.kickPlayer(ChatColor.RED + "O servidor est� se preparando para reiniciar e voc� foi kickado do servidor.");
+		p.kickPlayer(ChatColor.RED + "O servidor est§ se preparando para reiniciar e voc§ foi kickado do servidor.");
 	}
 
 	public static Battlecraft getInstance() {

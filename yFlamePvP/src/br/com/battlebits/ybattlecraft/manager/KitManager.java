@@ -143,7 +143,7 @@ public class KitManager {
 				inv.addItem(new ItemStack(Material.MUSHROOM_SOUP));
 		}
 		if (sendMessage) {
-			p.sendMessage("§b§lKITS §fVocê selecionou o kit §3§l" + kit.getName());
+			p.sendMessage("Â§bÂ§lKITS Â§fVoce selecionou o kit Â§3Â§l" + kit.getName());
 		}
 		playerKit.put(p.getUniqueId(), kit.getName());
 

@@ -42,10 +42,10 @@ public abstract class WarpScoreboard {
 	public Team createScore(Player p, String id, String name, String value, int score) {
 		String prefix = score + "";
 		if (prefix.length() < 2) {
-			prefix = "ง" + prefix;
+			prefix = "ยง" + prefix;
 		} else {
-			String part1 = "ง" + prefix.substring(0, 1);
-			String part2 = "ง" + prefix.substring(1, 2);
+			String part1 = "ยง" + prefix.substring(0, 1);
+			String part2 = "ยง" + prefix.substring(1, 2);
 			prefix = part1 + part2;
 		}
 		Team t = p.getScoreboard().getTeam(objId + id);
@@ -86,9 +86,9 @@ public abstract class WarpScoreboard {
 
 	public void setSidebar(Player p) {
 		createScores(p);
-		getObjective(p).getScore("ง1").setScore(1);
+		getObjective(p).getScore("ยง1").setScore(1);
 		getObjective(p).setDisplaySlot(DisplaySlot.SIDEBAR);
-		getObjective(p).getScore("ง1").setScore(1);
+		getObjective(p).getScore("ยง1").setScore(1);
 	}
 
 	public abstract void createScores(Player p);

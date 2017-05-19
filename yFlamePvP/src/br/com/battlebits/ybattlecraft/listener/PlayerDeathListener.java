@@ -207,7 +207,7 @@ public class PlayerDeathListener extends BaseListener {
 		} else if (w != null) {
 			battleCraft.getWarpManager().teleportWarp(e.getPlayer(), w.getWarpName().toLowerCase().trim(), false);
 			if (!w.getWarpName().equalsIgnoreCase("spawn")) {
-				e.getPlayer().sendMessage("§6§lRESPAWN §fVocê morreu e renasceu na Warp §e" + w.getWarpName() + "§f.");
+				e.getPlayer().sendMessage("Â§6Â§lRESPAWN Â§fVoce morreu e renasceu na Warp Â§e" + w.getWarpName() + "Â§f.");
 			}
 		}
 		e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 0.5F, 1.0F);

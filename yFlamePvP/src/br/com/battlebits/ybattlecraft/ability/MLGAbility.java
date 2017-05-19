@@ -26,11 +26,11 @@ public class MLGAbility extends BaseAbility {
 			return;
 		if (battlecraft.getCooldownManager().isOnCooldown(p.getUniqueId(), getAbilityName() + "ability")) {
 			p.playSound(p.getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-			p.sendMessage(ChatColor.AQUA + "§lMLG §fAguarde §9§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(p.getUniqueId(), getAbilityName() + "ability").toUpperCase() + "§f para utilizar sua habilidade!");
+			p.sendMessage(ChatColor.AQUA + "Â§lMLG Â§fAguarde Â§9Â§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(p.getUniqueId(), getAbilityName() + "ability").toUpperCase() + "Â§f para utilizar sua habilidade!");
 			return;
 		}
 		if (battlecraft.getProtectionManager().removeProtection(p.getUniqueId())) {
-			p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
+			p.sendMessage("Â§8Â§lPROTECAO Â§FVoce Â§7Â§lPERDEUÂ§f sua protecao de spawn");
 		}
 		// TODO COISAS
 		

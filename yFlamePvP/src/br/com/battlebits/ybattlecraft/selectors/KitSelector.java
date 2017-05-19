@@ -94,7 +94,7 @@ public class KitSelector {
 					ItemStack item = new ItemStack(kit.getIcon());
 					ItemMeta meta = item.getItemMeta();
 					meta.setDisplayName(ChatColor.YELLOW.toString() + ChatColor.BOLD + Formatter.getFormattedName(kit.getName()));
-					String description = ChatColor.GRAY + "Kit Grátis. ";
+					String description = ChatColor.GRAY + "Kit Gratis. ";
 					meta.setLore(wrap(description + kit.getInfo()));
 					item.setItemMeta(meta);
 					inventory.setItem(i, item);
@@ -112,7 +112,7 @@ public class KitSelector {
 					ItemStack item = new ItemStack(kit.getIcon());
 					ItemMeta meta = item.getItemMeta();
 					meta.setDisplayName(ChatColor.YELLOW.toString() + ChatColor.BOLD + Formatter.getFormattedName(kit.getName()));
-					String description = ChatColor.GREEN + "Rotação Vip Light. ";
+					String description = ChatColor.GREEN + "Rotacao Vip Light. ";
 					meta.setLore(wrap(description + kit.getInfo()));
 					item.setItemMeta(meta);
 					inventory.setItem(i, item);
@@ -130,7 +130,7 @@ public class KitSelector {
 					ItemStack item = new ItemStack(kit.getIcon());
 					ItemMeta meta = item.getItemMeta();
 					meta.setDisplayName(ChatColor.YELLOW.toString() + ChatColor.BOLD + Formatter.getFormattedName(kit.getName()));
-					String description = ChatColor.GOLD + "Rotação Vip Premium. ";
+					String description = ChatColor.GOLD + "Rotacao Vip Premium. ";
 					meta.setLore(wrap(description + kit.getInfo()));
 					item.setItemMeta(meta);
 					inventory.setItem(i, item);
@@ -397,11 +397,11 @@ public class KitSelector {
 						if (event.getRawSlot() >= 18) {
 							String kitName = ChatColor.stripColor(item.getItemMeta().getDisplayName());
 							if (m.getStatusManager().getStatusByUuid(player.getUniqueId()).getKitsFavoritos().contains(kitName.toLowerCase())) {
-								player.sendMessage(ChatColor.RED + "Você ja possui o kit " + kitName + " como seus favoritos");
+								player.sendMessage(ChatColor.RED + "Voce ja possui o kit " + kitName + " como seus favoritos");
 								return;
 							}
 							m.getStatusManager().getStatusByUuid(player.getUniqueId()).addFavoriteKit(kitName.toLowerCase());
-							player.sendMessage(ChatColor.YELLOW + "Você adicionou o kit " + kitName + " aos seus kits favoritos");
+							player.sendMessage(ChatColor.YELLOW + "Voce adicionou o kit " + kitName + " aos seus kits favoritos");
 							List<Kit> list = kits.get(KitCategory.FAVORITE);
 							list.add(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(kitName.toLowerCase()));
 						}
@@ -411,7 +411,7 @@ public class KitSelector {
 						if (event.getRawSlot() >= 18) {
 							String kitName = ChatColor.stripColor(item.getItemMeta().getDisplayName());
 							m.getStatusManager().getStatusByUuid(player.getUniqueId()).removeFavoriteKit(kitName.toLowerCase());
-							player.sendMessage(ChatColor.RED + "Você removeu o kit " + kitName + " dos seus kits favoritos");
+							player.sendMessage(ChatColor.RED + "Voce removeu o kit " + kitName + " dos seus kits favoritos");
 							List<Kit> list = kits.get(KitCategory.FAVORITE);
 							list.remove(m.getWarpManager().getWarpByName(m.getWarpManager().getPlayerWarp(player.getUniqueId())).getKit(kitName.toLowerCase()));
 							updatePage();

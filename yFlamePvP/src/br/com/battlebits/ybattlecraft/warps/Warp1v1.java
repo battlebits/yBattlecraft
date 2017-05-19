@@ -110,12 +110,12 @@ public class Warp1v1 extends BaseWarp {
 			playersInQueue.add(p);
 		} else {
 			if (!playersInQueue.contains(p)) {
-				p.sendMessage(ChatColor.YELLOW + "Voce não está na lista de espera");
+				p.sendMessage(ChatColor.YELLOW + "Voce nÂ§o estÂ§ na lista de espera");
 				item.setDurability((byte) 8);
 				return;
 			}
 			item.setDurability((byte) 8);
-			p.sendMessage(ChatColor.RED + "Você saiu da lista de espera para o 1v1 rápido");
+			p.sendMessage(ChatColor.RED + "VocÂ§ saiu da lista de espera para o 1v1 rÂ§pido");
 			playersInQueue.remove(p);
 		}
 	}
@@ -382,10 +382,10 @@ public class Warp1v1 extends BaseWarp {
 			pname1 = p.getName().substring(0, 14);
 			pname2 = p.getName().substring(14, p.getName().length());
 		}
-		scoreboard.updateScoreName(p, "battleplayer", "§3" + dname1);
-		scoreboard.updateScoreValue(p, "battleplayer", "§3" + dname2);
-		scoreboard.updateScoreName(desafiado, "battleplayer", "§3" + pname1);
-		scoreboard.updateScoreValue(desafiado, "battleplayer", "§3" + pname2);
+		scoreboard.updateScoreName(p, "battleplayer", "Â§3" + dname1);
+		scoreboard.updateScoreValue(p, "battleplayer", "Â§3" + dname2);
+		scoreboard.updateScoreName(desafiado, "battleplayer", "Â§3" + pname1);
+		scoreboard.updateScoreValue(desafiado, "battleplayer", "Â§3" + pname2);
 		new Fight(this, p, desafiado);
 	}
 
@@ -730,16 +730,16 @@ public class Warp1v1 extends BaseWarp {
 					Player p = e.getPlayer();
 					if (!isInPvP(p))
 						return;
-					// scoreboard.updateScoreValue(e.getPlayer(), "deaths", "§b"
+					// scoreboard.updateScoreValue(e.getPlayer(), "deaths", "Â§b"
 					// +
 					// getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
-					// scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
+					// scoreboard.updateScoreValue(e.getPlayer(), "ks", "Â§b0");
 					// if (e.hasKiller()) {
 					// scoreboard.updateScoreValue(e.getKiller(), "kills",
-					// "§b" +
+					// "Â§b" +
 					// getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
 					// scoreboard.updateScoreValue(e.getKiller(), "ks",
-					// "§b" +
+					// "Â§b" +
 					// getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
 					// }
 					Player killer = null;
@@ -854,16 +854,16 @@ public class Warp1v1 extends BaseWarp {
 				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
 				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b3", "", "", 11);
-				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 10);
-				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 9);
-				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 8);
-				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
+				createScore(p, "kills", "Â§7Kills: ", "Â§b" + s.getKills(), 10);
+				createScore(p, "deaths", "Â§7Deaths: ", "Â§b" + s.getDeaths(), 9);
+				createScore(p, "ks", "Â§7KillStreak: ", "Â§b" + s.getKillstreak(), 8);
+				createScore(p, "xp", "Â§7XP: ", "Â§b" + a.getXp(), 7);
+				createScore(p, "liga", "Â§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
-				createScore(p, "battlewith", "§7Batalhando", "§7 contra:", 4);
-				createScore(p, "battleplayer", "§3Ninguem", "", 3);
+				createScore(p, "battlewith", "Â§7Batalhando", "Â§7 contra:", 4);
+				createScore(p, "battleplayer", "Â§3Ninguem", "", 3);
 				createScore(p, "b1", "", "", 2);
-				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
+				createScore(p, "site", "Â§6www.battle", "Â§6bits.com.br", 1);
 			}
 		};
 		Warp onevsone = new Warp("1v1", "Entre em uma luta justa com alguem", new ItemStack(Material.BLAZE_ROD),

@@ -67,11 +67,11 @@ public class WarpLavaChallenge extends BaseWarp {
 					public void createScores(Player p) {
 						BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 						createScore(p, "b2", "", "", 5);
-						createScore(p, "xp", "ง7XP: ", "งb" + a.getXp(), 4);
-						createScore(p, "liga", "ง7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(),
+						createScore(p, "xp", "ยง7XP: ", "ยงb" + a.getXp(), 4);
+						createScore(p, "liga", "ยง7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(),
 								3);
 						createScore(p, "b1", "", "", 2);
-						createScore(p, "site", "ง6www.battle", "ง6bits.com.br", 1);
+						createScore(p, "site", "ยง6www.battle", "ยง6bits.com.br", 1);
 					}
 				}, false, false);
 		return lavachallenge;

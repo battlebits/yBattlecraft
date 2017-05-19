@@ -36,7 +36,7 @@ public class JoinListener implements Listener {
 	public JoinListener(Battlecraft m) {
 		this.m = m;
 		novidades = new ArrayList<>();
-		novidades.add("Grande atualização");
+		novidades.add("Grande atualizacao");
 		novidades.add("Novos plugins");
 		novidades.add("Novo mapa");
 		novidades.add("Seja bem-vindo");
@@ -69,7 +69,7 @@ public class JoinListener implements Listener {
 		p.setFoodLevel(20);
 		p.setGameMode(GameMode.ADVENTURE);
 		Hotbar.setItems(p);
-		TitleAPI.setTitle(p, ChatColor.GOLD + "BATTLECRAFT", "Versão 2.0", 30, 20, 0, true);
+		TitleAPI.setTitle(p, ChatColor.GOLD + "BATTLECRAFT", "Versao 2.0", 30, 20, 0, true);
 		m.getProtectionManager().addProtection(p.getUniqueId());
 		for (int i = 0; i < novidades.size(); i++) {
 			String message = novidades.get(i);

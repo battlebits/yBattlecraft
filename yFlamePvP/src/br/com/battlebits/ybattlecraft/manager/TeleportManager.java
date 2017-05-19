@@ -87,16 +87,16 @@ public class TeleportManager {
 						playerWarpDelay.put(p.getUniqueId(),
 								warp.getWarpName().toLowerCase().trim() + "-" + (System.currentTimeMillis() + 5000));
 						p.playSound(p.getLocation(), Sound.IRONGOLEM_WALK, 1.0F, 1.0F);
-						p.sendMessage("§9§lTELEPORTE §fVoce sera teleportado em §3§l5 SEGUNDOS§f. Não se mexa!");
+						p.sendMessage("Â§9Â§lTELEPORTE Â§fVoce sera teleportado em Â§3Â§l5 SEGUNDOSÂ§f. Nao se mexa!");
 					}
 				} else {
-					p.sendMessage("§9§lTELEPORTE §fAcabe sua batalha antes de teleportar!");
+					p.sendMessage("Â§9Â§lTELEPORTE Â§fAcabe sua batalha antes de teleportar!");
 				}
 			} else {
-				p.sendMessage("§9§lTELEPORTE §fVoce precisa estar no chao para teleportar.");
+				p.sendMessage("Â§9Â§lTELEPORTE Â§fVoce precisa estar no chao para teleportar.");
 			}
 		} else {
-			p.sendMessage("§9§lTELEPORTE §fVoce ja esta em processo de teleporte.");
+			p.sendMessage("Â§9Â§lTELEPORTE Â§fVoce ja esta em processo de teleporte.");
 		}
 	}
 

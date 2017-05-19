@@ -13,7 +13,7 @@ public class SpawnCommand implements CommandClass {
 			Battlecraft.getInstance().getTeleportManager().tryToTeleport(args.getPlayer(),
 					Battlecraft.getInstance().getWarpManager().getWarpByName("spawn"));
 		} else {
-			args.getSender().sendMessage("§9§lSPAWN §fComando §3§lAPENAS §fpara jogadores.");
+			args.getSender().sendMessage("Â§9Â§lSPAWN Â§fComando Â§3Â§lAPENAS Â§fpara jogadores.");
 		}
 	}
 

@@ -16,11 +16,11 @@ public class TeleportListener extends BaseListener {
 	@EventHandler
 	public void onPlayerDamagePlayerListener(PlayerDamagePlayerEvent e) {
 		if (battleCraft.getTeleportManager().isTeleporting(e.getDamager().getUniqueId())) {
-			e.getDamager().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce entrou em combate!");
+			e.getDamager().sendMessage("Â§9Â§LTELEPORTE Â§fSeu teleporte foi Â§3Â§lCANCELADOÂ§f pois voce entrou em combate!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getDamager().getUniqueId());
 		}
 		if (battleCraft.getTeleportManager().isTeleporting(e.getDamaged().getUniqueId())) {
-			e.getDamaged().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce entrou em combate!");
+			e.getDamaged().sendMessage("Â§9Â§LTELEPORTE Â§fSeu teleporte foi Â§3Â§lCANCELADOÂ§f pois voce entrou em combate!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getDamaged().getUniqueId());
 		}
 	}
@@ -28,7 +28,7 @@ public class TeleportListener extends BaseListener {
 	@EventHandler
 	public void onPlayerRealMoveListener(RealMoveEvent e) {
 		if (battleCraft.getTeleportManager().isTeleporting(e.getPlayerUUID())) {
-			e.getPlayer().sendMessage("§9§LTELEPORTE §fSeu teleporte foi §3§lCANCELADO§f pois voce se mexeu!");
+			e.getPlayer().sendMessage("Â§9Â§LTELEPORTE Â§fSeu teleporte foi Â§3Â§lCANCELADOÂ§f pois voce se mexeu!");
 			battleCraft.getTeleportManager().stopAllTeleports(e.getPlayerUUID());
 		}
 	}

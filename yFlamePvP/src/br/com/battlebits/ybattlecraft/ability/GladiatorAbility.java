@@ -25,7 +25,7 @@ public class GladiatorAbility extends BaseAbility {
 
 	public GladiatorAbility(Battlecraft bc) {
 		super(bc);
-		startBattle = new ItemBuilder().amount(1).type(Material.IRON_FENCE).name("§c§lIniciar Batalha").glow().build();
+		startBattle = new ItemBuilder().amount(1).type(Material.IRON_FENCE).name("Â§cÂ§lIniciar Batalha").glow().build();
 		getItens().add(startBattle);
 	}
 
@@ -41,13 +41,13 @@ public class GladiatorAbility extends BaseAbility {
 								if(!battlecraft.getGladiatorFightController().isInFight(t)){
 									new GladiatorFight(e.getPlayer(), t, battlecraft);
 								} else {
-									e.getPlayer().sendMessage("§5§lGLADIATOR §fEste jogador já está em §9§lBATALHA.");
+									e.getPlayer().sendMessage("Â§5Â§lGLADIATOR Â§fEste jogador ja esta em Â§9Â§lBATALHA.");
 								}
 							} else {
-								e.getPlayer().sendMessage("§5§lGLADIATOR §fVocê já esta em §9§lBATALHA.");
+								e.getPlayer().sendMessage("Â§5Â§lGLADIATOR Â§fVoce ja esta em Â§9Â§lBATALHA.");
 							}
 						} else {
-							e.getPlayer().sendMessage("§5§lGLADIATOR §fEste jogador está com proteção de §9§lSPAWN§f.");
+							e.getPlayer().sendMessage("Â§5Â§lGLADIATOR Â§fEste jogador esta com protecao de Â§9Â§lSPAWNÂ§f.");
 						}
 					}
 				}

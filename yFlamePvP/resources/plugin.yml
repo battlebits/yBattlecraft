@@ -2,4 +2,4 @@ name: Battlecraft
 authors: [GustavoInacio, vitorrdgs]
 main: br.com.battlebits.ybattlecraft.Battlecraft
 version: 0.3 BETA
-depend: [Commons, BattleAnticheat]
+depend: [Commons]

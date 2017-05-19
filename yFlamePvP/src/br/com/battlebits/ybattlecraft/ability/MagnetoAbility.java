@@ -34,7 +34,7 @@ public class MagnetoAbility extends BaseAbility {
 		super(Battlecraft);
 		uses = new HashMap<>();
 		invencible = new ArrayList<>();
-		magnetoItem = new ItemBuilder().amount(1).type(Material.IRON_INGOT).name("§7Magneto").glow().build();
+		magnetoItem = new ItemBuilder().amount(1).type(Material.IRON_INGOT).name("Â§7Magneto").glow().build();
 		getItens().add(magnetoItem);
 	}
 
@@ -88,7 +88,7 @@ public class MagnetoAbility extends BaseAbility {
 							}
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§LMAGNETO §fAguarde §9§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability").toUpperCase() + "§f para utilizar sua habilidade!");
+							e.getPlayer().sendMessage("Â§5Â§LMAGNETO Â§fAguarde Â§9Â§l" + battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "magnetoability").toUpperCase() + "Â§f para utilizar sua habilidade!");
 						}
 					}
 				}

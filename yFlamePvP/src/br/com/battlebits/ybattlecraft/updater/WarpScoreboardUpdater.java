@@ -21,7 +21,7 @@ public class WarpScoreboardUpdater {
 			public void run() {
 				for (Warp w : battleCraft.getWarpManager().getWarps()) {
 					if (w.hasScoreboard()) {
-						String title = "ง8งl>> ง6งl" + w.getScroller().next() + " ง8งl<<";
+						String title = "ยง8ยงl>> ยง6ยงl" + w.getScroller().next() + " ยง8ยงl<<";
 						for (UUID id : battleCraft.getWarpManager().getPlayersInWarp(w.getWarpName().trim())) {
 							Player p = Bukkit.getPlayer(id);
 							if (p != null && p.isOnline()) {

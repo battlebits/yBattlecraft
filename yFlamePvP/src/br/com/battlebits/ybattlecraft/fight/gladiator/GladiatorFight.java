@@ -104,7 +104,7 @@ public class GladiatorFight {
 					ended = true;
 					if (p == gladiator) {
 						// target winner
-						target.sendMessage("§5§LGLADIATOR §f" + gladiator.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+						target.sendMessage("Â§5Â§LGLADIATOR Â§f" + gladiator.getName() + " deslogou! Voce Â§9Â§lGANHOUÂ§f a batalha!");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
 						battleCraft.getItemManager().dropItems(p, tpLocGladiator);
 						battleCraft.getStatusManager().updateStatus(target, gladiator);
@@ -113,7 +113,7 @@ public class GladiatorFight {
 					}
 					// gladiator winner
 					battleCraft.getStatusManager().updateStatus(gladiator, target);
-					gladiator.sendMessage("§5§LGLADIATOR §f" + target.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+					gladiator.sendMessage("Â§5Â§LGLADIATOR Â§f" + target.getName() + " deslogou! Voce Â§9Â§lGANHOUÂ§f a batalha!");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
 					battleCraft.getItemManager().dropItems(p, tpLocTarget);
 					teleportBack(gladiator, target);
@@ -131,7 +131,7 @@ public class GladiatorFight {
 					ended = true;
 					if (p == gladiator) {
 						// target winner
-						target.sendMessage("§5§LGLADIATOR §f" + gladiator.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+						target.sendMessage("Â§5Â§LGLADIATOR Â§f" + gladiator.getName() + " deslogou! Voce Â§9Â§lGANHOUÂ§f a batalha!");
 						target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
 						battleCraft.getItemManager().dropItems(p, tpLocGladiator);
 						teleportBack(target, gladiator);
@@ -140,7 +140,7 @@ public class GladiatorFight {
 					}
 					// gladiator winner
 					battleCraft.getStatusManager().updateStatus(gladiator, target);
-					gladiator.sendMessage("§5§LGLADIATOR §f" + target.getName() + " deslogou! Você §9§lGANHOU§f a batalha!");
+					gladiator.sendMessage("Â§5Â§LGLADIATOR Â§f" + target.getName() + " deslogou! Voce Â§9Â§lGANHOUÂ§f a batalha!");
 					gladiator.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 100000));
 					battleCraft.getItemManager().dropItems(p, tpLocTarget);
 					teleportBack(gladiator, target);
@@ -187,10 +187,10 @@ public class GladiatorFight {
 		generateBlocks(mainBlock);
 		tpLocGladiator = gladiator.getLocation().clone();
 		tpLocTarget = target.getLocation().clone();
-		gladiator.sendMessage("§5§lGLADIATOR §fVocê desafiou §9§l" + target.getName() + " §fpara para uma batalha!");
-		gladiator.sendMessage("§5§lGLADIATOR §fVocê tem  §9§l5 SEGUNDOS §fde invencibilidade.");
-		target.sendMessage("§5§lGLADIATOR §fVocê foi desafiado por §9§l" + gladiator.getName() + " §fpara uma batalha!");
-		target.sendMessage("§5§lGLADIATOR §fVocê tem  §9§l5 SEGUNDOS §fde invencibilidade.");
+		gladiator.sendMessage("Â§5Â§lGLADIATOR Â§fVoce desafiou Â§9Â§l" + target.getName() + " Â§fpara para uma batalha!");
+		gladiator.sendMessage("Â§5Â§lGLADIATOR Â§fVoce tem  Â§9Â§l5 SEGUNDOS Â§fde invencibilidade.");
+		target.sendMessage("Â§5Â§lGLADIATOR Â§fVoce foi desafiado por Â§9Â§l" + gladiator.getName() + " Â§fpara uma batalha!");
+		target.sendMessage("Â§5Â§lGLADIATOR Â§fVoce tem  Â§9Â§l5 SEGUNDOS Â§fde invencibilidade.");
 		Location l1 = new Location(mainBlock.getWorld(), mainBlock.getX() + 6.5, 121, mainBlock.getZ() + 6.5);
 		l1.setYaw((float) (90.0 * 1.5));
 		Location l2 = new Location(mainBlock.getWorld(), mainBlock.getX() - 5.5, 121, mainBlock.getZ() - 5.5);

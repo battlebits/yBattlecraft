@@ -30,7 +30,7 @@ public class KangarooAbility extends BaseAbility {
 		super(Battlecraft);
 		doubleJump = new ArrayList<>();
 		abilityItem = new ItemBuilder().amount(1).type(Material.FIREWORK).glow()
-				.lore("�7Utilize seu foguete para ser lancado para onde voce desejar").name("�6�lKangaroo Boost")
+				.lore("§7Utilize seu foguete para ser lancado para onde voce desejar").name("§6§lKangaroo Boost")
 				.build();
 		getItens().add(abilityItem);
 	}

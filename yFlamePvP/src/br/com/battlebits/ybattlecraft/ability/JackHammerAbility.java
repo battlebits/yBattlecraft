@@ -24,7 +24,7 @@ public class JackHammerAbility extends BaseAbility {
 	public JackHammerAbility(Battlecraft bc) {
 		super(bc);
 		uses = new HashMap<>();
-		axe = new ItemBuilder().amount(1).type(Material.STONE_AXE).glow().name("§7JackHammer").build();
+		axe = new ItemBuilder().amount(1).type(Material.STONE_AXE).glow().name("Â§7JackHammer").build();
 		getItens().add(axe);
 	}
 
@@ -121,14 +121,14 @@ public class JackHammerAbility extends BaseAbility {
 
 						} else {
 							e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-							e.getPlayer().sendMessage("§5§lJackHammer §8§l>> §7Aguarde mais "
+							e.getPlayer().sendMessage("Â§5Â§lJackHammer Â§8Â§l>> Â§7Aguarde mais "
 									+ battlecraft.getCooldownManager().getCooldownTimeFormated(e.getPlayer().getUniqueId(), "jackhammerability")
 									+ " para utilizar sua habilidade!");
 							e.setCancelled(true);
 						}
 					} else {
 						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-						e.getPlayer().sendMessage("§5§lJackHammer §8§l>> §7Esta area está protegida!");
+						e.getPlayer().sendMessage("Â§5Â§lJackHammer Â§8Â§l>> Â§7Esta area esta protegida!");
 						e.setCancelled(true);
 					}
 				}

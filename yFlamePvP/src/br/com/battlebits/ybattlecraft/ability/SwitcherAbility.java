@@ -19,7 +19,7 @@ public class SwitcherAbility extends BaseAbility {
 
 	public SwitcherAbility(Battlecraft Battlecraft) {
 		super(Battlecraft);
-		balls = new ItemBuilder().type(Material.SNOW_BALL).amount(16).name("§b§lSwitcher Balls").glow().build();
+		balls = new ItemBuilder().type(Material.SNOW_BALL).amount(16).name("Â§bÂ§lSwitcher Balls").glow().build();
 		getItens().add(balls);
 	}
 
@@ -34,12 +34,12 @@ public class SwitcherAbility extends BaseAbility {
 						Player hit = (Player) e.getEntity();
 						if (!battlecraft.getGladiatorFightController().isInFight(shooter)) {
 							if (battlecraft.getProtectionManager().removeProtection(shooter.getUniqueId())) {
-								shooter.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
+								shooter.sendMessage("Â§8Â§lPROTECAO Â§FVoce Â§7Â§lPERDEUÂ§f sua protecao de spawn");
 							}
 							Location loc = shooter.getLocation();
 							shooter.teleport(hit.getLocation());
 							hit.teleport(loc);
-							shooter.sendMessage("§5§LSWITCHER §fVoce trocou de lugar com §9§l" + hit.getName());
+							shooter.sendMessage("Â§5Â§LSWITCHER Â§fVoce trocou de lugar com Â§9Â§l" + hit.getName());
 						}
 					}
 				}

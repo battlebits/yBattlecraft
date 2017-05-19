@@ -17,10 +17,10 @@ public class OneVsOne implements CommandClass {
 				Battlecraft.getInstance().getTeleportManager().tryToTeleport(p,
 						Battlecraft.getInstance().getWarpManager().getWarpByName("1v1"));
 			} else {
-				p.sendMessage("§9§LTELEPORTE §fVoce ja esta na 1v1!");
+				p.sendMessage("Â§9Â§LTELEPORTE Â§fVoce ja esta na 1v1!");
 			}
 		} else {
-			args.getSender().sendMessage("§6§l1V1 §fComando §e§lAPENAS§f para jogadores.");
+			args.getSender().sendMessage("Â§6Â§l1V1 Â§fComando Â§eÂ§lAPENASÂ§f para jogadores.");
 		}
 
 	}

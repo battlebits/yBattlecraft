@@ -73,7 +73,7 @@ public class DamageListener implements Listener {
 						if (m.getKitManager().hasCurrentKit(damager.getUniqueId())) {
 							manager.removeProtection(damager.getUniqueId());
 							m.getPlayerHideManager().showPlayer(damager);
-							damager.sendMessage("§7§lPROTEÇÃO §FVocê §8§lPERDEU§f sua proteção de spawn");
+							damager.sendMessage("Â§7Â§lPROTECAO Â§FVoce Â§8Â§lPERDEUÂ§f sua protecao de spawn");
 						} else {
 							e.setCancelled(true);
 						}

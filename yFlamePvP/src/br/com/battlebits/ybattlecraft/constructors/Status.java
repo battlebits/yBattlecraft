@@ -96,7 +96,7 @@ public class Status {
 		if (kits.isEmpty())
 			return false;
 		if (kitName.isEmpty()) {
-			System.out.println("Jogador " + uniqueId.toString() + " não pode adicionar o kit " + kitName);
+			System.out.println("Jogador " + uniqueId.toString() + " nao pode adicionar o kit " + kitName);
 			return true;
 		}
 		return kits.contains(kitName.toLowerCase());

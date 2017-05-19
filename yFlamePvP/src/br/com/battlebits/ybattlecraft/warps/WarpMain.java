@@ -31,7 +31,7 @@ public class WarpMain extends BaseWarp {
 
 	@Override
 	protected Warp getWarp(Battlecraft battleCraft) {
-		Warp main = new Warp("Main", "Treine seu PvP com poções de força e velocidade", new ItemStack(Material.POTION), null, 10.5);
+		Warp main = new Warp("Main", "Treine seu PvP com poÂ§Â§es de forÂ§a e velocidade", new ItemStack(Material.POTION), null, 10.5);
 		return main;
 	}
 

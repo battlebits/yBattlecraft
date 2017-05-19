@@ -85,7 +85,7 @@ public class SupernovaAbility extends BaseAbility {
 				}
 			}
 		}.runTaskTimerAsynchronously(battlecraft, 1L, 1L);
-		superNova = new ItemBuilder().amount(1).type(Material.NETHER_STAR).name("§5§lSupernova Explosion").build();
+		superNova = new ItemBuilder().amount(1).type(Material.NETHER_STAR).name("Â§5Â§lSupernova Explosion").build();
 		getItens().add(superNova);
 	}
 
@@ -96,7 +96,7 @@ public class SupernovaAbility extends BaseAbility {
 				if (isUsing(e.getPlayer())) {
 					if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(), getAbilityName() + "ability")) {
 						if (battlecraft.getProtectionManager().removeProtection(e.getPlayer().getUniqueId())) {
-							e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
+							e.getPlayer().sendMessage("Â§8Â§lPROTECAO Â§FVoce Â§7Â§lPERDEUÂ§f sua protecao de spawn");
 						}
 						Location loc = e.getPlayer().getLocation();
 						for (NovaDirection d : directions) {
@@ -117,10 +117,10 @@ public class SupernovaAbility extends BaseAbility {
 					} else {
 						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
 						e.getPlayer()
-								.sendMessage("§5§lSUPERNOVA §fAguarde §9§l"
+								.sendMessage("Â§5Â§lSUPERNOVA Â§fAguarde Â§9Â§l"
 										+ battlecraft.getCooldownManager()
 												.getCooldownTimeFormated(e.getPlayer().getUniqueId(), getAbilityName() + "ability").toUpperCase()
-										+ "§f para utilizar sua habilidade!");
+										+ "Â§f para utilizar sua habilidade!");
 					}
 				}
 			}

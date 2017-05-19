@@ -56,41 +56,41 @@ public class NinjaAbility extends BaseAbility {
 														if (!battlecraft.getCooldownManager().isOnCooldown(e.getPlayer().getUniqueId(),
 																"ninjaability")) {
 															e.getPlayer().teleport(hit.getTarget().getLocation());
-															e.getPlayer().sendMessage("§5§lNINJA §fTeleportado!");
+															e.getPlayer().sendMessage("Â§5Â§lNINJA Â§fTeleportado!");
 															e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1.0F);
 															battlecraft.getCooldownManager().setCooldown(e.getPlayer().getUniqueId(), "ninjaability",
 																	7);
 														} else {
 															e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
 															e.getPlayer()
-																	.sendMessage("§5§lNINJA §fAguarde §9§l"
+																	.sendMessage("Â§5Â§lNINJA Â§fAguarde Â§9Â§l"
 																			+ battlecraft.getCooldownManager()
 																					.getCooldownTimeFormated(e.getPlayer().getUniqueId(),
 																							"ninjaability")
 																					.toUpperCase()
-																			+ "§f para utilizar sua habilidade!");
+																			+ "Â§f para utilizar sua habilidade!");
 														}
 													} else {
 														e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.IRONGOLEM_HIT, 0.5F, 1.0F);
-														e.getPlayer().sendMessage("§5§lNINJA §fFinalize sua §9§lBATALHA§f primeiro!");
+														e.getPlayer().sendMessage("Â§5Â§lNINJA Â§fFinalize sua Â§9Â§lBATALHAÂ§f primeiro!");
 													}
 												} else {
-													e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
+													e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fVoce esta Â§9Â§lDISTANTEÂ§f do jogador.");
 												}
 											} else {
-												e.getPlayer().sendMessage("§5§LNINJA §fVoce esta §9§lDISTANTE§f do jogador.");
+												e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fVoce esta Â§9Â§lDISTANTEÂ§f do jogador.");
 											}
 										} else {
-											e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
+											e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fJogador Â§9Â§lINVALIDOÂ§f.");
 										}
 									} else {
-										e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
+										e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fJogador Â§9Â§lINVALIDOÂ§f.");
 									}
 								} else {
-									e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
+									e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fJogador Â§9Â§lINVALIDOÂ§f.");
 								}
 							} else {
-								e.getPlayer().sendMessage("§5§LNINJA §fJogador §9§lINVALIDO§f.");
+								e.getPlayer().sendMessage("Â§5Â§LNINJA Â§fJogador Â§9Â§lINVALIDOÂ§f.");
 							}
 						}
 					}

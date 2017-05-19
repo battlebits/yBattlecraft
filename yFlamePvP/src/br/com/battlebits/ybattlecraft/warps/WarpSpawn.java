@@ -56,7 +56,7 @@ public class WarpSpawn extends BaseWarp {
 			Block above = p.getLocation().subtract(0, 0.1, 0).getBlock();
 			if (above.getType() == Material.GRASS) {
 				if (getMain().getProtectionManager().removeProtection(p.getUniqueId())) {
-					p.sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
+					p.sendMessage("Â§8Â§lPROTEÂ§Â§O Â§FVocÂ§ Â§7Â§lPERDEUÂ§f sua proteÂ§Â§o de spawn");
 					Battlecraft.getPlayerHideManager().showPlayer(p);
 				}
 			}
@@ -83,7 +83,7 @@ public class WarpSpawn extends BaseWarp {
 				e.getPlayer().removePotionEffect(potion.getType());
 			}
 			if (Battlecraft.getProtectionManager().addProtection(e.getPlayer().getUniqueId())) {
-				e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lRECEBEU§f proteção de spawn");
+				e.getPlayer().sendMessage("Â§8Â§lPROTEÂ§Â§O Â§FVocÂ§ Â§7Â§lRECEBEUÂ§f proteÂ§Â§o de spawn");
 			}
 		}
 	}
@@ -101,11 +101,11 @@ public class WarpSpawn extends BaseWarp {
 	public void onResetKD(PlayerResetKDEvent e) {
 		if (isOnWarp(e.getPlayer())) {
 			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
-					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
+					"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
 			scoreboard.updateScoreValue(e.getPlayer(), "kills",
-					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
+					"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
 			scoreboard.updateScoreValue(e.getPlayer(), "ks",
-					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
+					"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
 			updateTopKS();
 		}
 	}
@@ -127,14 +127,14 @@ public class WarpSpawn extends BaseWarp {
 	@EventHandler
 	public void onPlayerSelectKitListener(PlayerSelectKitEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "kit", "§e" + warp.getKit(e.getKitName()).getName());
+			scoreboard.updateScoreValue(e.getPlayer(), "kit", "Â§e" + warp.getKit(e.getKitName()).getName());
 		}
 	}
 
 	@EventHandler
 	public void onPlayerRemoveKitListener(PlayerRemoveKitEvent e) {
 		if (isOnWarp(e.getPlayer())) {
-			scoreboard.updateScoreValue(e.getPlayer(), "kit", "§eNenhum");
+			scoreboard.updateScoreValue(e.getPlayer(), "kit", "Â§eNenhum");
 		}
 	}
 
@@ -142,13 +142,13 @@ public class WarpSpawn extends BaseWarp {
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		if (isOnWarp(e.getPlayer())) {
 			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
-					"§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
-			scoreboard.updateScoreValue(e.getPlayer(), "ks", "§b0");
+					"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "ks", "Â§b0");
 			if (e.hasKiller()) {
 				scoreboard.updateScoreValue(e.getKiller(), "kills",
-						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+						"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
 				scoreboard.updateScoreValue(e.getKiller(), "ks",
-						"§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+						"Â§b" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
 			}
 			updateTopKS();
 		}
@@ -195,16 +195,16 @@ public class WarpSpawn extends BaseWarp {
 							name2 = t.getName().substring(14, t.getName().length());
 						}
 						if (p != null && p.isOnline()) {
-							scoreboard.updateScoreName(p, "topksplayer", "§3" + name1);
-							scoreboard.updateScoreValue(p, "topksplayer", "§3" + name2 + " - "
+							scoreboard.updateScoreName(p, "topksplayer", "Â§3" + name1);
+							scoreboard.updateScoreValue(p, "topksplayer", "Â§3" + name2 + " - "
 									+ Battlecraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
 				}
 				if (p != null && p.isOnline()) {
-					scoreboard.updateScoreName(p, "topksplayer", "§3Ninguem");
-					scoreboard.updateScoreValue(p, "topksplayer", "§3 - 0");
+					scoreboard.updateScoreName(p, "topksplayer", "Â§3Ninguem");
+					scoreboard.updateScoreValue(p, "topksplayer", "Â§3 - 0");
 				}
 			}
 		}.runTaskAsynchronously(Battlecraft);
@@ -218,23 +218,23 @@ public class WarpSpawn extends BaseWarp {
 				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
 				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b4", "", "", 13);
-				createScore(p, "kills", "§7Kills: ", "§b" + s.getKills(), 12);
-				createScore(p, "deaths", "§7Deaths: ", "§b" + s.getDeaths(), 11);
-				createScore(p, "ks", "§7KillStreak: ", "§b" + s.getKillstreak(), 10);
-				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 9);
-				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 8);
+				createScore(p, "kills", "Â§7Kills: ", "Â§b" + s.getKills(), 12);
+				createScore(p, "deaths", "Â§7Deaths: ", "Â§b" + s.getDeaths(), 11);
+				createScore(p, "ks", "Â§7KillStreak: ", "Â§b" + s.getKillstreak(), 10);
+				createScore(p, "xp", "Â§7XP: ", "Â§b" + a.getXp(), 9);
+				createScore(p, "liga", "Â§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 8);
 				createScore(p, "b3", "", "", 7);
-				createScore(p, "topks", "§7Top Kill", "§7Streak:", 6);
-				createScore(p, "topksplayer", "§3Ninguem", "§3 - 0", 5);
+				createScore(p, "topks", "Â§7Top Kill", "Â§7Streak:", 6);
+				createScore(p, "topksplayer", "Â§3Ninguem", "Â§3 - 0", 5);
 				createScore(p, "b2", "", "", 4);
-				createScore(p, "kit", "§7Kit: ", "§e" + getMain().getKitManager().getCurrentKit(p.getUniqueId()), 3);
+				createScore(p, "kit", "Â§7Kit: ", "Â§e" + getMain().getKitManager().getCurrentKit(p.getUniqueId()), 3);
 				createScore(p, "b1", "", "", 2);
-				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
+				createScore(p, "site", "Â§6www.battle", "Â§6bits.com.br", 1);
 			}
 		};
 		warp = new Warp("Spawn", "Spawn do Servidor", new ItemStack(Material.NETHER_STAR),
-				new Location(Bukkit.getWorld("spawnWarp"), 0.5, 87.5, 0.5, 180f, 0), 25.5, scoreboard, true, true);
-		// warp.addKit(new Kit(battleCraft, "Deshzin", "Aperte espaço para dar
+				new Location(Bukkit.getWorld("spawnWarp"), 0.5, 58.5, 0.5, 180f, 0), 25.5, scoreboard, true, true);
+		// warp.addKit(new Kit(battleCraft, "Deshzin", "Aperte espaÂ§o para dar
 		// um double jump.", new ArrayList<ItemStack>(),
 		// new ItemStack(Material.FIREWORK), 1000, KitType.MOBILIDADE,
 		// Arrays.asList("deshzin")));
@@ -254,13 +254,13 @@ public class WarpSpawn extends BaseWarp {
 				new ItemStack(Material.SPIDER_EYE), 1000, KitType.FORCA, Arrays.asList("viper")));
 		warp.addKit(new Kit(battleCraft, "Switcher", "Troque de lugar com suas snowballs.", new ArrayList<ItemStack>(),
 				new ItemStack(Material.SNOW_BALL), 1000, KitType.ESTRATEGIA, Arrays.asList("switcher")));
-		warp.addKit(new Kit(battleCraft, "HotPotato", "Coloque uma TNT na cabeça de seus inimigos e exploda eles todos",
+		warp.addKit(new Kit(battleCraft, "HotPotato", "Coloque uma TNT na cabeÂ§a de seus inimigos e exploda eles todos",
 				new ArrayList<ItemStack>(), new ItemStack(Material.TNT), 1000, KitType.ESTRATEGIA,
 				Arrays.asList("hotpotato")));
-		warp.addKit(new Kit(battleCraft, "Kangaroo", "Utilize seu foguete para ser lançado para onde você desejar",
+		warp.addKit(new Kit(battleCraft, "Kangaroo", "Utilize seu foguete para ser lanÂ§ado para onde vocÂ§ desejar",
 				new ArrayList<ItemStack>(), new ItemStack(Material.FIREWORK), 0, KitType.MOBILIDADE,
 				Arrays.asList("kangaroo")));
-		warp.addKit(new Kit(battleCraft, "Lifesteal", "Ao atacar um jogador tem chances de aumentar meio coração.",
+		warp.addKit(new Kit(battleCraft, "Lifesteal", "Ao atacar um jogador tem chances de aumentar meio coraÂ§Â§o.",
 				new ArrayList<ItemStack>(), new ItemStack(Material.TORCH), 1000, KitType.FORCA,
 				Arrays.asList("lifesteal")));
 		warp.addKit(new Kit(battleCraft, "Magneto", "Sugue seus inimigos por 5 segundos", new ArrayList<ItemStack>(),
@@ -281,9 +281,9 @@ public class WarpSpawn extends BaseWarp {
 				Arrays.asList("magma")));
 		warp.addKit(new Kit(battleCraft, "Archer", "Utilize esse kit para treinar sua mira",
 				Arrays.asList(
-						builder.type(Material.BOW).amount(1).name("§b§lArcher Bow")
+						builder.type(Material.BOW).amount(1).name("Â§bÂ§lArcher Bow")
 								.enchantment(Enchantment.ARROW_INFINITE).build(),
-						builder.type(Material.ARROW).amount(1).name("§b§lArcher Arrow").build()),
+						builder.type(Material.ARROW).amount(1).name("Â§bÂ§lArcher Arrow").build()),
 				new ItemStack(Material.BOW), 1, KitType.ESTRATEGIA, new ArrayList<>()));
 		// warp.addKit(new Kit(battleCraft, "JackHammer", "Quebre um bloco que
 		// todos serao quebrados.", new ArrayList<ItemStack>(),

@@ -71,13 +71,13 @@ public class WarpFps extends BaseWarp {
 	public void onPlayerDeathInWarpListener(PlayerDeathInWarpEvent e) {
 		if (isOnWarp(e.getPlayer())) {
 			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
-					"งb" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
-			scoreboard.updateScoreValue(e.getPlayer(), "ks", "งb0");
+					"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getPlayerUUID()).getDeaths());
+			scoreboard.updateScoreValue(e.getPlayer(), "ks", "ยงb0");
 			if (e.hasKiller()) {
 				scoreboard.updateScoreValue(e.getKiller(), "kills",
-						"งb" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
+						"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKills());
 				scoreboard.updateScoreValue(e.getKiller(), "ks",
-						"งb" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
+						"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getKillerUUID()).getKillstreak());
 			}
 			updateTopKS();
 		}
@@ -87,11 +87,11 @@ public class WarpFps extends BaseWarp {
 	public void onResetKD(PlayerResetKDEvent e) {
 		if (isOnWarp(e.getPlayer())) {
 			scoreboard.updateScoreValue(e.getPlayer(), "deaths",
-					"งb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
+					"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getDeaths());
 			scoreboard.updateScoreValue(e.getPlayer(), "kills",
-					"งb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
+					"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKills());
 			scoreboard.updateScoreValue(e.getPlayer(), "ks",
-					"งb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
+					"ยงb" + getMain().getStatusManager().getStatusByUuid(e.getPlayer().getUniqueId()).getKillstreak());
 			updateTopKS();
 		}
 	}
@@ -137,16 +137,16 @@ public class WarpFps extends BaseWarp {
 							name2 = t.getName().substring(14, t.getName().length());
 						}
 						if (p != null && p.isOnline()) {
-							scoreboard.updateScoreName(p, "topksplayer", "ง3" + name1);
-							scoreboard.updateScoreValue(p, "topksplayer", "ง3" + name2 + " - "
+							scoreboard.updateScoreName(p, "topksplayer", "ยง3" + name1);
+							scoreboard.updateScoreValue(p, "topksplayer", "ยง3" + name2 + " - "
 									+ Battlecraft.getStatusManager().getStatusByUuid(topKsUUID).getKillstreak());
 						}
 						return;
 					}
 				}
 				if (p != null && p.isOnline()) {
-					scoreboard.updateScoreName(p, "topksplayer", "ง3Ninguem");
-					scoreboard.updateScoreValue(p, "topksplayer", "ง3 - 0");
+					scoreboard.updateScoreName(p, "topksplayer", "ยง3Ninguem");
+					scoreboard.updateScoreValue(p, "topksplayer", "ยง3 - 0");
 				}
 			}
 		}.runTaskAsynchronously(Battlecraft);
@@ -160,16 +160,16 @@ public class WarpFps extends BaseWarp {
 				Status s = battleCraft.getStatusManager().getStatusByUuid(p.getUniqueId());
 				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b3", "", "", 11);
-				createScore(p, "kills", "ง7Kills: ", "งb" + s.getKills(), 10);
-				createScore(p, "deaths", "ง7Deaths: ", "งb" + s.getDeaths(), 9);
-				createScore(p, "ks", "ง7KillStreak: ", "งb" + s.getKillstreak(), 8);
-				createScore(p, "xp", "ง7XP: ", "งb" + a.getXp(), 7);
-				createScore(p, "liga", "ง7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
+				createScore(p, "kills", "ยง7Kills: ", "ยงb" + s.getKills(), 10);
+				createScore(p, "deaths", "ยง7Deaths: ", "ยงb" + s.getDeaths(), 9);
+				createScore(p, "ks", "ยง7KillStreak: ", "ยงb" + s.getKillstreak(), 8);
+				createScore(p, "xp", "ยง7XP: ", "ยงb" + a.getXp(), 7);
+				createScore(p, "liga", "ยง7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
-				createScore(p, "topks", "ง7Top Kill", "ง7Streak:", 4);
-				createScore(p, "topksplayer", "ง3Ninguem", "ง3 - 0", 3);
+				createScore(p, "topks", "ยง7Top Kill", "ยง7Streak:", 4);
+				createScore(p, "topksplayer", "ยง3Ninguem", "ยง3 - 0", 3);
 				createScore(p, "b1", "", "", 2);
-				createScore(p, "site", "ง6www.battle", "ง6bits.com.br", 1);
+				createScore(p, "site", "ยง6www.battle", "ยง6bits.com.br", 1);
 			}
 		};
 		warp = new Warp("FPS", "Utilize esta Warp feita com um mapa mais leve para aumentar seus FPSs",

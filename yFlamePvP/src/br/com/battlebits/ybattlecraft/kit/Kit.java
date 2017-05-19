@@ -43,13 +43,13 @@ public class Kit {
 				}
 			}
 		}
-		clickToSelectMessage = new TextComponent("§F" + kitName);
+		clickToSelectMessage = new TextComponent("Â§F" + kitName);
 		clickToSelectMessage
-				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("§bClique aqui para selecionar esse Kit") }));
+				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("Â§bClique aqui para selecionar esse Kit") }));
 		clickToSelectMessage.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/kit " + kitName.toLowerCase()));
-		clickToBuyMessage = new TextComponent("§F" + kitName);
+		clickToBuyMessage = new TextComponent("Â§F" + kitName);
 		clickToBuyMessage
-				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("§eClique para obter mais informacoes") }));
+				.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { new TextComponent("Â§eClique para obter mais informacoes") }));
 		clickToBuyMessage.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/kit " + kitName.toLowerCase()));
 	}
 

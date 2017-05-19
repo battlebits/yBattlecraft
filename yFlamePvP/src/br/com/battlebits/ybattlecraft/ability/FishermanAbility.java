@@ -19,7 +19,7 @@ public class FishermanAbility extends BaseAbility {
 
 	public FishermanAbility(Battlecraft Battlecraft) {
 		super(Battlecraft);
-		item = new ItemBuilder().amount(1).type(Material.FISHING_ROD).name("§bFisherman").glow().build();
+		item = new ItemBuilder().amount(1).type(Material.FISHING_ROD).name("Â§bFisherman").glow().build();
 		getItens().add(item);
 	}
 
@@ -28,7 +28,7 @@ public class FishermanAbility extends BaseAbility {
 		if (e.getState() == State.CAUGHT_ENTITY) {
 			if (isUsing(e.getPlayer())) {
 				if (battlecraft.getProtectionManager().removeProtection(e.getPlayer().getUniqueId())) {
-					e.getPlayer().sendMessage("§8§lPROTEÇÃO §FVocê §7§lPERDEU§f sua proteção de spawn");
+					e.getPlayer().sendMessage("Â§8Â§lPROTECAO Â§FVoce Â§7Â§lPERDEUÂ§f sua protecao de spawn");
 				}
 				if (e.getCaught() instanceof Player) {
 					Player c = (Player) e.getCaught();
@@ -39,7 +39,7 @@ public class FishermanAbility extends BaseAbility {
 					float yaw = c.getLocation().getYaw();
 					float pitch = c.getLocation().getPitch();
 					Location loc = new Location(w, x, y, z, yaw, pitch);
-					c.sendMessage("§5§lFISHERMAN §9§l" + e.getPlayer().getName() + "§f puxou você!");
+					c.sendMessage("Â§5Â§lFISHERMAN Â§9Â§l" + e.getPlayer().getName() + "Â§f puxou voce!");
 					c.teleport(loc);
 					e.getPlayer().getItemInHand().setDurability((short) -e.getPlayer().getItemInHand().getType().getMaxDurability());
 					e.getPlayer().updateInventory();

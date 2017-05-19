@@ -68,7 +68,7 @@ public class WarpVoidChallenge extends BaseWarp {
 								p2 = p1.substring(14, p1.length());
 								p1 = p1.substring(0, 14);
 							}
-							scoreboard.updateScore(p, "tempo", "§a" + p1, "§a" + p2);
+							scoreboard.updateScore(p, "tempo", "Â§a" + p1, "Â§a" + p2);
 							p.setLevel((int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000));
 						}
 					}
@@ -92,10 +92,10 @@ public class WarpVoidChallenge extends BaseWarp {
 				}
 			}
 			if (time.containsKey(p.getUniqueId())) {
-				p.sendMessage("§5§lVOID CHALLENGE §fVocê sobreviveu por §9§l" + Battlecraft.getTimeUtils()
+				p.sendMessage("Â§5Â§lVOID CHALLENGE Â§fVocÂ§ sobreviveu por Â§9Â§l" + Battlecraft.getTimeUtils()
 						.formatToMinutesAndSeconds(
 								(int) ((System.currentTimeMillis() - time.get(p.getUniqueId())) / 1000))
-						.toUpperCase() + "§f!");
+						.toUpperCase() + "Â§f!");
 				time.remove(p.getUniqueId());
 			}
 		}
@@ -109,7 +109,7 @@ public class WarpVoidChallenge extends BaseWarp {
 				if (isOnWarp(p)) {
 					e.setCancelled(true);
 					p.teleport(new Location(Bukkit.getWorld("voidchallengeWarp"), 0, 54, -18));
-					p.sendMessage("§5§lVOID CHALLENGE §fVocê deve pular no §9§lVOID §fpara iniciar o desafio.");
+					p.sendMessage("Â§5Â§lVOID CHALLENGE Â§fVocÂ§ deve pular no Â§9Â§lVOID Â§fpara iniciar o desafio.");
 				}
 			}
 		}
@@ -121,8 +121,8 @@ public class WarpVoidChallenge extends BaseWarp {
 			if (isOnWarp(e.getPlayer())) {
 				if (!time.containsKey(e.getPlayerUUID())) {
 					time.put(e.getPlayerUUID(), System.currentTimeMillis());
-					scoreboard.updateScore(e.getPlayer(), "sobreviveu", "§7Sobreviveu:", "");
-					scoreboard.updateScore(e.getPlayer(), "tempo", "§a1 segundo", "");
+					scoreboard.updateScore(e.getPlayer(), "sobreviveu", "Â§7Sobreviveu:", "");
+					scoreboard.updateScore(e.getPlayer(), "tempo", "Â§a1 segundo", "");
 				}
 			}
 		}
@@ -135,13 +135,13 @@ public class WarpVoidChallenge extends BaseWarp {
 			public void createScores(Player p) {
 				BattlePlayer a = BattlebitsAPI.getAccountCommon().getBattlePlayer(p.getUniqueId());
 				createScore(p, "b3", "", "", 8);
-				createScore(p, "xp", "§7XP: ", "§b" + a.getXp(), 7);
-				createScore(p, "liga", "§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
+				createScore(p, "xp", "Â§7XP: ", "Â§b" + a.getXp(), 7);
+				createScore(p, "liga", "Â§7Liga: ", a.getLeague().getSymbol() + " " + a.getLeague().toString(), 6);
 				createScore(p, "b2", "", "", 5);
-				createScore(p, "sobreviveu", "§7Para §ainiciar", "§7 o desafio", 4);
-				createScore(p, "tempo", "§7desafio pule", "§7 no §5void§7!", 3);
+				createScore(p, "sobreviveu", "Â§7Para Â§ainiciar", "Â§7 o desafio", 4);
+				createScore(p, "tempo", "Â§7desafio pule", "Â§7 no Â§5voidÂ§7!", 3);
 				createScore(p, "b1", "", "", 2);
-				createScore(p, "site", "§6www.battle", "§6bits.com.br", 1);
+				createScore(p, "site", "Â§6www.battle", "Â§6bits.com.br", 1);
 			}
 		};
 		Warp w = new Warp("Void Challenge", "Treine seus refils e seus recrafts com um dano maior",
