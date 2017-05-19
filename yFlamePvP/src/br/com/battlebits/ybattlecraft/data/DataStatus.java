@@ -12,12 +12,13 @@ import com.mongodb.client.model.Filters;
 
 import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.core.data.Data;
+import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 
 public class DataStatus extends Data {
 
 	public static Status getStatus(UUID uuid) {
-		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
+		MongoDatabase database = Battlecraft.getInstance().getMongoBackend().getClient().getDatabase("battlecraft");
 		MongoCollection<Document> collection = database.getCollection("status");
 
 		Document found = collection.find(Filters.eq("uniqueId", uuid.toString())).first();
@@ -28,7 +29,7 @@ public class DataStatus extends Data {
 	}
 
 	public static Status createIfNotExistMongo(UUID uuid) {
-		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
+		MongoDatabase database = Battlecraft.getInstance().getMongoBackend().getClient().getDatabase("battlecraft");
 		MongoCollection<Document> collection = database.getCollection("status");
 
 		Document found = collection.find(Filters.eq("uniqueId", uuid.toString())).first();
@@ -84,7 +85,7 @@ public class DataStatus extends Data {
 				value = element.getAsString();
 			}
 		}
-		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
+		MongoDatabase database = Battlecraft.getInstance().getMongoBackend().getClient().getDatabase("battlecraft");
 		MongoCollection<Document> collection = database.getCollection("status");
 		collection.updateOne(Filters.eq("uniqueId", status.getUniqueId().toString()),
 				new Document("$set", new Document(fieldName, value)));

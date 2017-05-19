@@ -14,7 +14,7 @@ import br.com.battlebits.commons.core.command.CommandFramework.Command;
 import br.com.battlebits.commons.core.data.DataPlayer;
 import br.com.battlebits.commons.core.permission.Group;
 import br.com.battlebits.commons.core.translate.Language;
-import br.com.battlebits.commons.core.translate.Translate;
+import br.com.battlebits.commons.core.translate.T;
 import br.com.battlebits.ybattlecraft.Battlecraft;
 import br.com.battlebits.ybattlecraft.constructors.Status;
 import br.com.battlebits.ybattlecraft.data.DataStatus;
@@ -26,19 +26,19 @@ public class GiveKitCommand implements CommandClass {
 		CommandSender sender = ((BukkitCommandSender) cmdArgs.getSender()).getSender();
 		Language language = BattlebitsAPI.getDefaultLanguage();
 		String[] args = cmdArgs.getArgs();
-		String giveKitPrefix = Translate.getTranslation(language, "command-givekit-prefix") + " ";
+		String giveKitPrefix = T.t(Battlecraft.getInstance(), language, "command-givekit-prefix") + " ";
 		if (cmdArgs.isPlayer())
 			language = BattlebitsAPI.getAccountCommon().getBattlePlayer(cmdArgs.getPlayer().getUniqueId())
 					.getLanguage();
 		if (args.length != 2) {
-			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "command-givekit-usage"));
+			sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "command-givekit-usage"));
 			return;
 		}
 		String kitName = args[1].toLowerCase();
 
 		UUID uuid = BattlebitsAPI.getUUIDOf(args[0]);
 		if (uuid == null) {
-			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "player-not-exist"));
+			sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "player-not-exist"));
 			return;
 		}
 		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
@@ -47,11 +47,11 @@ public class GiveKitCommand implements CommandClass {
 				player = DataPlayer.getPlayer(uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
-				sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "cant-request-offline"));
+				sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "cant-request-offline"));
 				return;
 			}
 			if (player == null) {
-				sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "player-never-joined"));
+				sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "player-never-joined"));
 				return;
 			}
 		}
@@ -61,10 +61,10 @@ public class GiveKitCommand implements CommandClass {
 		else
 			playerStatus = DataStatus.createIfNotExistMongo(uuid);
 		if (playerStatus.addKit(kitName))
-			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "command-givekit-success")
+			sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "command-givekit-success")
 					.replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getName()));
 		else
-			sender.sendMessage(giveKitPrefix + Translate.getTranslation(language, "command-givekit-player-owns-kit")
+			sender.sendMessage(giveKitPrefix + T.t(Battlecraft.getInstance(), language, "command-givekit-player-owns-kit")
 					.replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getName()));
 	}
 
@@ -73,19 +73,19 @@ public class GiveKitCommand implements CommandClass {
 		CommandSender sender = ((BukkitCommandSender) cmdArgs.getSender()).getSender();
 		Language language = BattlebitsAPI.getDefaultLanguage();
 		String[] args = cmdArgs.getArgs();
-		String removeKitPrefix = Translate.getTranslation(language, "command-removekit-prefix") + " ";
+		String removeKitPrefix = T.t(Battlecraft.getInstance(), language, "command-removekit-prefix") + " ";
 		if (cmdArgs.isPlayer())
 			language = BattlebitsAPI.getAccountCommon().getBattlePlayer(cmdArgs.getPlayer().getUniqueId())
 					.getLanguage();
 		if (args.length != 2) {
-			sender.sendMessage(removeKitPrefix + Translate.getTranslation(language, "command-removekit-usage"));
+			sender.sendMessage(removeKitPrefix + T.t(Battlecraft.getInstance(), language, "command-removekit-usage"));
 			return;
 		}
 		String kitName = args[1].toLowerCase();
 
 		UUID uuid = BattlebitsAPI.getUUIDOf(args[0]);
 		if (uuid == null) {
-			sender.sendMessage(removeKitPrefix + Translate.getTranslation(language, "player-not-exist"));
+			sender.sendMessage(removeKitPrefix + T.t(Battlecraft.getInstance(), language, "player-not-exist"));
 			return;
 		}
 		BattlePlayer player = BattlebitsAPI.getAccountCommon().getBattlePlayer(uuid);
@@ -94,11 +94,11 @@ public class GiveKitCommand implements CommandClass {
 				player = DataPlayer.getPlayer(uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
-				sender.sendMessage(removeKitPrefix + Translate.getTranslation(language, "cant-request-offline"));
+				sender.sendMessage(removeKitPrefix + T.t(Battlecraft.getInstance(), language, "cant-request-offline"));
 				return;
 			}
 			if (player == null) {
-				sender.sendMessage(removeKitPrefix + Translate.getTranslation(language, "player-never-joined"));
+				sender.sendMessage(removeKitPrefix + T.t(Battlecraft.getInstance(), language, "player-never-joined"));
 				return;
 			}
 		}
@@ -110,11 +110,11 @@ public class GiveKitCommand implements CommandClass {
 		if (playerStatus == null)
 			playerStatus = new Status(player.getUniqueId());
 		if (playerStatus.removeKit(kitName))
-			sender.sendMessage(removeKitPrefix + Translate.getTranslation(language, "command-removekit-success")
+			sender.sendMessage(removeKitPrefix + T.t(Battlecraft.getInstance(), language, "command-removekit-success")
 					.replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getName()));
 		else
 			sender.sendMessage(
-					removeKitPrefix + Translate.getTranslation(language, "command-removekit-not-player-owns-kit")
+					removeKitPrefix + T.t(Battlecraft.getInstance(), language, "command-removekit-not-player-owns-kit")
 							.replace("%kitName%", kitName.toUpperCase()).replace("%player%", player.getName()));
 	}
 }

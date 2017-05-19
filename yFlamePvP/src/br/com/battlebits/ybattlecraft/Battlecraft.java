@@ -1,9 +1,5 @@
 package br.com.battlebits.ybattlecraft;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -16,16 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import com.mongodb.MongoCredential;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 
-import br.com.battlebits.commons.BattlebitsAPI;
 import br.com.battlebits.commons.bukkit.BukkitMain;
 import br.com.battlebits.commons.bukkit.command.BukkitCommandFramework;
 import br.com.battlebits.commons.core.backend.mongodb.MongoBackend;
-import br.com.battlebits.commons.core.translate.Language;
+import br.com.battlebits.commons.core.translate.T;
 import br.com.battlebits.commons.core.translate.Translate;
 import br.com.battlebits.commons.util.updater.AutoUpdater;
 import br.com.battlebits.ybattlecraft.config.Config;
@@ -105,12 +96,15 @@ public class Battlecraft extends JavaPlugin {
 	private TimeFormater timeFormater;
 
 	// Mongo
-	@Getter
-	private MongoBackend mongo;
-	private String database = "battlecraft";
-	private String username = "battlecraft";
-	private String password = "";
 
+	@Getter
+	private MongoBackend mongoBackend;
+	private String mongoHostname = "127.0.0.1";
+	private String mongoDatabase = "battlecraft";
+	private String mongoUsername = "battlecraft";
+	private String mongoPassword = "";
+	private int mongoPort = 27017;
+	
 	private static Battlecraft instance;
 
 	{
@@ -127,14 +121,15 @@ public class Battlecraft extends JavaPlugin {
 		saveDefaultConfig();
 		loadConfiguration();
 
-		if (username != null && !username.isEmpty() && database != null && !database.isEmpty() && password != null
-				&& !password.isEmpty())
-			BattlebitsAPI.getMongo().getClient().getCredentialsList()
-					.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
-
-		for (Language lang : Language.values()) {
-			Translate.loadTranslations("Battlecraft", lang, loadTranslation(lang));
+		try {
+			mongoBackend = new MongoBackend(mongoHostname, mongoDatabase, mongoUsername, mongoPassword, mongoPort);
+			mongoBackend.startConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		Translate t = new Translate("battlecraft", mongoBackend);
+		t.loadTranslations();
+		T.loadTranslate(this, t);
 		IS_FULLIRON_MODE = getConfig().getBoolean("FullIron");
 		loadAbilities();
 		loadWorlds();
@@ -216,24 +211,17 @@ public class Battlecraft extends JavaPlugin {
 			world.setGameRuleValue("doMobSpawning", "false");
 		}
 	}
-
+	
 	private void loadConfiguration() {
-		database = getConfig().getString("mongo.database");
-		username = getConfig().getString("mongo.username");
-		password = getConfig().getString("mongo.password");
+		saveDefaultConfig();
+
+		mongoHostname = getConfig().getString("mongo.hostname", "localhost");
+		mongoPort = getConfig().getInt("mongo.port", 27017);
+		mongoDatabase = getConfig().getString("mongo.database", "");
+		mongoUsername = getConfig().getString("mongo.username", "");
+		mongoPassword = getConfig().getString("mongo.password", "");
 	}
 
-	@SuppressWarnings("unchecked")
-	private Map<String, String> loadTranslation(Language language) {
-		MongoDatabase database = BattlebitsAPI.getMongo().getClient().getDatabase("battlecraft");
-		MongoCollection<Document> collection = database.getCollection("translation");
-		Document found = collection.find(Filters.eq("language", language.toString())).first();
-		if (found != null) {
-			return (Map<String, String>) found.get("map");
-		}
-		collection.insertOne(new Document("language", language.toString()).append("map", new HashMap<>()));
-		return new HashMap<>();
-	}
 
 	private void loadAbilities() {
 		abilityManager = new AbilityManager();
@@ -285,7 +273,7 @@ public class Battlecraft extends JavaPlugin {
 		warpLoader.initializeAllWarps();
 		warpLoader.registerWarpsListeners();
 		Warp simulator = new Warp("Simulator",
-				"Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e vá para a luta",
+				"Utilize esta Warp para simular o HG. Pegue cogumelos, madeiras e vï¿½ para a luta",
 				new ItemStack(Material.RED_MUSHROOM), null);
 		getWarpManager().addWarp(simulator);
 		Warp startgame = new Warp("StartGame", "Utilize esta Warp para treinar o pvp sem armadura e espadas de madeira",
@@ -332,7 +320,7 @@ public class Battlecraft extends JavaPlugin {
 		ByteArrayDataOutput outp = ByteStreams.newDataOutput();
 		outp.writeUTF(command);
 		p.sendPluginMessage(BukkitMain.getInstance(), "BungeeCord", outp.toByteArray());
-		p.kickPlayer(ChatColor.RED + "O servidor está se preparando para reiniciar e você foi kickado do servidor.");
+		p.kickPlayer(ChatColor.RED + "O servidor estï¿½ se preparando para reiniciar e vocï¿½ foi kickado do servidor.");
 	}
 
 	public static Battlecraft getInstance() {
